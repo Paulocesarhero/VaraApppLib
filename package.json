@@ -1,0 +1,19 @@
+{
+  "name": "varaapplib",
+  "version": "1.0.0",
+  "description": "Aquí se guardan todos los componentes de react native que se compartiran entre proyectos estos al mismo tiempo seran subido a un repositorio de npm",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paulocesarhero/VaraApppLib.git"
+  },
+  "author": "Paulo Cesar Hernández Rosado",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/Paulocesarhero/VaraApppLib/issues"
+  },
+  "homepage": "https://github.com/Paulocesarhero/VaraApppLib#readme"
+}
