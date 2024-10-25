@@ -1,0 +1,70 @@
+.DS_Store
+.idea/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-error.log
+
+# Expo
+.expo/
+.expo-shared/
+
+# macOS
+.DS_Store
+
+# TypeScript
+*.tsbuildinfo
+
+# React Native
+android/
+ios/
+build/
+*.iml
+.idea/
+*.gradle
+*.log
+*.keystore
+*.jks
+*.hprof
+
+# Watchman
+.watchmanconfig
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+fastlane/readme.md
+
+# Package files
+*.tgz
+
+# Haste cache
+/react-native/[^/]*/.*build.*
+
+# Bundles
+.bundle/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.swp
+*.swo
+*.swn
+
+# Log files
+*.log
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Expo
+dist/
+
+# Misc
+.env
+.env.*.local
+*.lock
