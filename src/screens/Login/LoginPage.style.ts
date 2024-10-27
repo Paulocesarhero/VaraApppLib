@@ -18,6 +18,7 @@ export const LoginPageStyle = StyleSheet.create({
   image: {
     width: "60%",
     height: "30%",
+    // @ts-ignore
     contentFit: "contain",
   },
   containerForgotPassword: {

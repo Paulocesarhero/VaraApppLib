@@ -12,15 +12,35 @@ import { COLORS } from "../../Constants/Colors";
 import { Image } from "expo-image";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import { useRouter } from "expo-router";
+import {LoginPageProps} from "./types";
+/**
+ * Página de inicio de sesión de la aplicación.
+ *
+ * Este componente representa la interfaz de la página de inicio de sesión,
+ * incluye un formulario para ingresar credenciales, opción para recuperación de contraseña,
+ * y un enlace para registro.
+ *
+ * @component
+ * @param {function} handleRegistroCientifico - Función que se llama cuando el usuario presiona el enlace para crear una cuenta.
+ * @param {LoginFormProps} props - Propiedades adicionales que se pasan al componente `LoginForm`.
+ *
+ * @example
+ * ```tsx
+ * <LoginPage
+ *   handleRegistroCientifico={handleRegistro}
+ *   email={userEmail}
+ *   password={userPassword}
+ *   onEmailChange={setUserEmail}
+ *   onPasswordChange={setUserPassword}
+ *   onLoginPress={handleLogin}
+ * />
+ * ```
+ */
 
-const LoginPage: React.FC = () => {
-  const router = useRouter();
-  const HandleRegistroCientifico = () => {
-    router.push({
-      pathname: "src/screens/RegistroCientificoPage/RegistroCientificoPage",
-    });
-  };
+const LoginPage: React.FC<LoginPageProps> = ({
+    handleRegistroCientifico,
+    ...props
+}: LoginPageProps) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <SafeAreaProvider>
@@ -37,7 +57,9 @@ const LoginPage: React.FC = () => {
               source={require("../../assets/logo.imageset/logo.png")}
               style={LoginPageStyle.image}
             />
-            <LoginForm />
+            <LoginForm
+                {...props}
+            />
             <View style={LoginPageStyle.containerForgotPassword}>
               <Pressable>
                 <Text
@@ -56,7 +78,7 @@ const LoginPage: React.FC = () => {
                 ]}
               >
                 ¿No tienes una cuenta?
-                <Pressable onPress={HandleRegistroCientifico}>
+                <Pressable onPress={handleRegistroCientifico}>
                   <Text
                     style={[
                       LoginPageStyle.textForgotPassword,

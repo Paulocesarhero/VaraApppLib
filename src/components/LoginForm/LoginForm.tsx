@@ -1,63 +1,57 @@
-import { Alert, View, Text } from "react-native";
-import React, { useState } from "react";
-import { LoginFormStyle } from "./LoginForm.style";
+import {Text, View} from "react-native";
+import React from "react";
+import {LoginFormStyle} from "./LoginForm.style";
 import RoundedButton from "../RoundedButton/RoundedButton";
-import { COLORS } from "../../Constants/Colors";
+import {COLORS} from "../../Constants/Colors";
 import PasswordInput from "../PasswordInput/PasswordInput";
-import { Login } from "../../services/AuthService";
-import { LoginViewModel } from "../../services/AuthServiceInterfaces";
-import { router } from "expo-router";
-import useAuthStore from "../../hooks/useStore";
 import EmailInput from "../EmailInput/EmailInput";
+import {LoginFormProps} from "./types";
 
-const LoginForm: React.FC = () => {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const { setToken } = useAuthStore();
-  const handleLogin = async () => {
-    try {
-      const loginData: LoginViewModel = {
-        CorreoElectronico: email.toUpperCase(),
-        Contraseña: password,
-      };
-      console.log(loginData);
-
-      const response = await Login(loginData);
-      if (!response.error) {
-        router.navigate({
-          pathname: "src/screens/Recommendations/RecommendationsPage",
-        });
-        setToken(response.data.token);
-      } else {
-        Alert.alert(
-          "Credenciales incorrectas",
-          "Revise que esté bien su correo electrónico y contraseña",
-        );
-      }
-    } catch (error) {
-      Alert.alert(
-        "Credenciales incorrectas",
-        "Revise que esté bien su correo electrónico y contraseña",
-      );
-    }
-  };
-
+/**
+ * Componente de formulario de inicio de sesión.
+ *
+ * Este componente permite a los usuarios ingresar su correo electrónico y contraseña,
+ * y tiene un botón para enviar los datos de inicio de sesión.
+ *
+ * @param {LoginFormProps} props - Propiedades del componente.
+ *
+ * @example
+ * ```tsx
+ * <LoginForm
+ *   email={userEmail}
+ *   password={userPassword}
+ *   onEmailChange={setUserEmail}
+ *   onPasswordChange={setUserPassword}
+ *   onLoginPress={handleLogin}
+ * />
+ * ```
+ */
+const LoginForm: React.FC<LoginFormProps> = ({
+  email = "",
+  password = "",
+  onEmailChange,
+  onPasswordChange,
+  onLoginPress,
+  buttonText = "Log in",
+  loading = false,
+}: LoginFormProps) => {
   return (
     <View style={LoginFormStyle.container}>
       <Text style={LoginFormStyle.label}>Correo electrónico</Text>
-      <EmailInput onEmailTextChange={setEmail} />
+      <EmailInput value={email} onEmailTextChange={onEmailChange} />
       <Text style={LoginFormStyle.label}>Contraseña</Text>
       <PasswordInput
         placeholder={"Contraseña"}
         value={password}
-        onChangeText={setPassword}
+        onChangeText={onPasswordChange}
       />
       <RoundedButton
         style={{ marginVertical: 30 }}
         color={COLORS.primary}
-        text={"Log in"}
-        onPress={handleLogin}
-      ></RoundedButton>
+        text={loading ? "Loading..." : buttonText}
+        onPress={onLoginPress}
+        disabled={loading}
+      />
     </View>
   );
 };
