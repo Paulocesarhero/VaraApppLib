@@ -6,6 +6,21 @@ import React from "react";
 import { Carousel } from "react-native-basic-carousel";
 import CardCarousel from "../../components/CardCarousel/CardCarousel";
 import { COLORS } from "../../Constants/Colors";
+/**
+ * Componente `RecommendationsPage`.
+ *
+ * Esta página muestra recomendaciones a través de un carrusel de tarjetas
+ * que incluyen consejos visuales para el usuario. Además, contiene un menú
+ * inferior de navegación.
+ *
+ * @component
+ * @returns {JSX.Element} Página de recomendaciones con un carrusel y un menú inferior.
+ *
+ * @example
+ * ```tsx
+ * <RecommendationsPage />
+ * ```
+ */
 
 const RecommendationsPage: React.FC = () => {
   const items = [
