@@ -4,7 +4,37 @@
   "description": "Aquí se guardan todos los componentes de react native que se compartiran entre proyectos estos al mismo tiempo seran subido a un repositorio de npm",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "axios": "^1.7.4",
+    "expo": "~51.0.22",
+    "expo-image": "~1.12.13",
+    "expo-linear-gradient": "~13.0.2",
+    "expo-localization": "^15.0.3",
+    "expo-router": "^3.5.18",
+    "expo-status-bar": "~1.12.1",
+    "i18next": "^23.12.2",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-i18next": "^15.0.1",
+    "react-native": "0.74.3",
+    "react-native-basic-carousel": "^1.1.2",
+    "react-native-localization": "^2.3.2",
+    "react-native-paper": "^5.12.5",
+    "react-native-web": "~0.19.10",
+    "varaapplib": "^1.0.0",
+    "zustand": "^4.5.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0",
+    "@types/react": "~18.2.45",
+    "eslint": "^8.57.0",
+    "eslint-config-expo": "^7.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
+    "typescript": "^5.3.3"
   },
   "repository": {
     "type": "git",
