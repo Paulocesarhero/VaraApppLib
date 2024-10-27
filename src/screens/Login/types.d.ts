@@ -1,4 +1,4 @@
-import { LoginFormProps } from "../../components/LoginForm/types";
+import { LoginFormProps } from "../../../components/LoginForm/types";
 
 /**
  * Propiedades para el componente `LoginPage`.

@@ -10,7 +10,7 @@ import { LoginPageStyle } from "./LoginPage.style";
 import { LinearGradient } from "expo-linear-gradient";
 import { COLORS } from "../../Constants/Colors";
 import { Image } from "expo-image";
-import LoginForm from "../../components/LoginForm/LoginForm";
+import LoginForm from "../../../components/LoginForm/LoginForm";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import {LoginPageProps} from "./types";
 /**

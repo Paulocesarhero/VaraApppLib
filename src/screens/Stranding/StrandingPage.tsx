@@ -1,5 +1,5 @@
 import { Text } from "react-native";
-import BottomMenu from "../../components/BottomMenu/BottomMenu";
+import BottomMenu from "../../../components/BottomMenu/BottomMenu";
 import React from "react";
 import { COLORS } from "../../Constants/Colors";
 import { SafeAreaView } from "react-native-safe-area-context";

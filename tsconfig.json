@@ -2,12 +2,5 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true
-  },
-  "paths": {
-    "@/*": ["./*"],
-    "@components/*": ["src/components/*"],
-    "@screens/*": ["src/screens/*"],
-    "@assets/*": ["src/assets/*"]
-  },
-  "include": ["**/*.ts", "**/*.tsx"]
+  }
 }

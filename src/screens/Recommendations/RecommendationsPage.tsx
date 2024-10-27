@@ -1,10 +1,10 @@
-import BottomMenu from "../../components/BottomMenu/BottomMenu";
+import BottomMenu from "../../../components/BottomMenu/BottomMenu";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { RecommendationsPageStyle } from "./RecommendationsPage.style";
 import { View } from "react-native";
 import React from "react";
 import { Carousel } from "react-native-basic-carousel";
-import CardCarousel from "../../components/CardCarousel/CardCarousel";
+import CardCarousel from "../../../components/CardCarousel/CardCarousel";
 import { COLORS } from "../../Constants/Colors";
 /**
  * Componente `RecommendationsPage`.
