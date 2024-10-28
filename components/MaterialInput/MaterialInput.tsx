@@ -1,10 +1,27 @@
-import React, { FC, useState } from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import { MaterialInputStyle } from "./MaterialInput.style";
-import { MaterialInputProps } from "./MaterialInputProps";
+import React, {useState} from "react";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Entypo, Ionicons} from "@expo/vector-icons";
+import {MaterialInputStyle} from "./MaterialInput.style";
+import {MaterialInputProps} from "./types";
 
-const InputField: FC<MaterialInputProps> = ({
+/**
+ * Componente de campo de entrada que muestra un texto y un ícono.
+ * Permite al usuario ingresar texto y proporciona validación básica.
+ *
+ * @component
+ * @param {MaterialInputProps} props - Las propiedades del componente.
+ *@example
+ *       <InputField
+ *         label="Nombre"
+ *         placeholder="Ingrese su nombre"
+ *         isRequired={true}
+ *         iconName="user"
+ *         iconFamily="Entypo"
+ *         onTextChange={handleTextChange}
+ *       />
+ */
+
+const InputField: React.FC<MaterialInputProps> = ({
   isRequired = true,
   label,
   placeholder,
@@ -12,7 +29,7 @@ const InputField: FC<MaterialInputProps> = ({
   iconFamily = "Ionicons",
   onTextChange,
   ...props
-}) => {
+}: MaterialInputProps) => {
   const [text, setText] = useState<string>("");
   const [isFocused, setIsFocused] = useState<boolean>(false);
 

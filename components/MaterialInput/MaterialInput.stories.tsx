@@ -1,6 +1,6 @@
 import React from "react";
 import MaterialInput from "./MaterialInput";
-import { MaterialInputProps } from "./MaterialInputProps";
+import { MaterialInputProps } from "./types";
 import {action} from "@storybook/addon-actions";
 
 export default {
