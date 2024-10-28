@@ -1,21 +1,25 @@
 import React from "react";
-import {Pressable, Text, View} from "react-native";
+import {ActivityIndicator, Pressable, Text, View} from "react-native";
 import {RoundedButtonProps} from "./types";
-import {RoundedButtonStyle} from "./RoundedButton.style";
+import {Ionicons} from "@expo/vector-icons";
 
 /**
  * Un componente de botón redondeado personalizable para aplicaciones en React Native.
+ * Soporta estados de carga y deshabilitado, y permite agregar un icono opcional.
  *
  * @component
  * @param {RoundedButtonProps} props - Propiedades para configurar el RoundedButton.
  *
- *
  * @example
- * // Ejemplo de uso:
  * <RoundedButton
- *   color="#fff"
+ *   color="#ff6347"
  *   text="Aceptar"
- *   style={{ margin: 10 }}
+ *   loading={false}
+ *   disabled={false}
+ *   iconName="checkmark-circle"
+ *   iconColor="#fff"
+ *   textSize={18}
+ *   borderRadius={25}
  *   onPress={() => console.log("Botón presionado")}
  * />
  */
@@ -24,15 +28,49 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   color,
   text,
   style,
+  loading = false,
+  disabled = false,
+  iconName,
+  iconColor = "#fff",
+  textSize = 16,
+  borderRadius = 20,
+  onPress,
   ...restButtonProps
 }: RoundedButtonProps) => {
   return (
     <View style={style}>
       <Pressable
-        style={[RoundedButtonStyle.container, { backgroundColor: color }]}
+        style={({ pressed }) => [
+          {
+            backgroundColor: disabled ? "#ccc" : color,
+            opacity: pressed ? 0.8 : 1,
+            borderRadius: borderRadius,
+            padding: 10,
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "center",
+          },
+        ]}
+        onPress={onPress}
+        disabled={disabled || loading}
         {...restButtonProps}
       >
-        <Text style={RoundedButtonStyle.text}>{text}</Text>
+        {loading ? (
+          <ActivityIndicator color="#fff" />
+        ) : (
+          <>
+            {iconName && (
+              <Ionicons
+                // @ts-ignore
+                name={iconName}
+                size={textSize}
+                color={iconColor}
+                style={{ marginRight: 8 }}
+              />
+            )}
+            <Text style={{ fontSize: textSize, color: "#fff" }}>{text}</Text>
+          </>
+        )}
       </Pressable>
     </View>
   );
