@@ -1,166 +1,146 @@
-import React, { FC, useState, useEffect } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TextInputProps,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { Entypo, Ionicons } from "@expo/vector-icons";
-import { COLORS } from "../../src/Constants/Colors";
+import React, {useEffect, useState} from "react";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Entypo, Ionicons} from "@expo/vector-icons";
+import {useController} from "react-hook-form";
+import {MaterialPasswordStyle} from "./MaterialPassword.style";
+import {PasswordInputProps} from "./types";
 
-interface PasswordInputProps extends TextInputProps {
-  label: string;
-  placeholder: string;
-  IsRequired?: boolean;
-  onPasswordChange: (password: string, isValid: boolean) => void;
-  value?: string;
-}
+/**
+ * Componente de entrada de contraseña que permite mostrar/ocultar la contraseña,
+ * valida los requisitos de la contraseña y muestra mensajes de error si es necesario.
+ *
+ * @component
+ * @param {PasswordInputProps} props - Propiedades del componente PasswordInput.
+ * @param {string} props.label - La etiqueta que se mostrará para el campo de entrada de contraseña.
+ * @param {string} props.placeholder - El texto de marcador de posición que se mostrará en el campo de entrada cuando esté vacío.
+ * @param {boolean} [props.isRequired=true] - Indica si el campo de contraseña es obligatorio. Por defecto es true.
+ * @param {string} props.name - El nombre del campo de contraseña, utilizado para el manejo del formulario con react-hook-form.
+ * @param {Control<any>} props.control - El objeto de control de react-hook-form para gestionar el estado del formulario.
+ * @param {TextInputProps} props... otherProps - Cualquier otra propiedad adicional que se pueda pasar al componente TextInput.
+ *
+ */
 
-const MaterialPassword: FC<PasswordInputProps> = ({
-  IsRequired = true,
+const MaterialPassword: React.FC<PasswordInputProps> = ({
+  isRequired = true,
   label,
   placeholder,
-  onPasswordChange,
-  value,
+  name,
+  control,
   ...props
-}) => {
-  const [text, setText] = useState<string>(value || "");
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
-  const [isValid, setIsValid] = useState<boolean>(true);
+}: PasswordInputProps) => {
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [isErrorVisible, setIsErrorVisible] = useState(true);
+  const { field, fieldState } = useController({
+    name,
+    control,
+    defaultValue: "",
+    rules: {
+      required: "La contraseña es requerida",
+      maxLength: {
+        value: 50,
+        message: "La contraseña no puede tener más de 50 caracteres.",
+      },
+      validate: (value) => {
+        const minLength = 8;
+        const hasUpperCase = /[A-Z]/.test(value);
+        const hasLowerCase = /[a-z]/.test(value);
+        const hasNumbers = /\d/.test(value);
+        const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(value);
+
+        const errors = [];
+
+        if (value.length < minLength) {
+          errors.push(`\nDebe tener al menos ${minLength} caracteres.`);
+        }
+        if (value === "") {
+          return `${label} es requerido`; // Mensaje de error si el campo está vacío
+        }
+        if (!hasUpperCase) {
+          errors.push("\nIngrese al menos una letra mayúscula.");
+        }
+        if (!hasLowerCase) {
+          errors.push("\nIngrese al menos una letra minúscula.");
+        }
+        if (!hasNumbers) {
+          errors.push("\nIngrese al menos un número.");
+        }
+        if (!hasSpecialChars) {
+          errors.push("\nIngrese al menos un carácter especial.");
+        }
+
+        return errors.length > 0 ? errors.join(" ") : true; // Devuelve un mensaje de error o true si no hay errores
+      },
+    },
+  });
 
   useEffect(() => {
-    if (value !== undefined) {
-      setText(value);
-      validatePassword(value);
+    if (fieldState.invalid) {
+      setIsErrorVisible(true);
+    } else {
+      setIsErrorVisible(false);
     }
-  }, [value]);
-
-  const validatePassword = (password: string) => {
-    const minLength = 8;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumbers = /\d/.test(password);
-    const hasSpecialChars = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-    const valid =
-      password.length >= minLength &&
-      hasUpperCase &&
-      hasLowerCase &&
-      hasNumbers &&
-      hasSpecialChars;
-
-    setIsValid(valid);
-    return valid;
-  };
-
-  const handleChangeText = (value: string) => {
-    setText(value);
-    const valid = validatePassword(value);
-    onPasswordChange(value, valid);
-  };
+  }, [fieldState]);
 
   const getBorderColor = (): string => {
-    if (!IsRequired) return "#000"; // Normal (negro)
-    if (text === "") return "#8B0000"; // Rojo para error
-    return isValid ? "#008000" : "#8B0000"; // Verde para éxito, rojo si no es válido
-  };
-
-  const getBackgroundColor = (): string => {
-    if (!IsRequired) return "#FFF";
-    if (isFocused && text === "") return "#FADBD8"; // Fondo claro para error
-    return isValid && text !== "" ? "#D5F5E3" : "#FFF"; // Fondo claro para éxito
+    if (fieldState.error) {
+      return "#8B0000";
+    }
+    return "#000";
   };
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{label}</Text>
+    <View style={MaterialPasswordStyle.container}>
+      <Text style={MaterialPasswordStyle.label}>{label}</Text>
       <View
         style={[
-          styles.inputContainer,
+          MaterialPasswordStyle.inputContainer,
           {
             borderColor: getBorderColor(),
-            backgroundColor: getBackgroundColor(),
           },
         ]}
       >
         <TextInput
-          style={styles.input}
+          style={MaterialPasswordStyle.input}
           placeholder={placeholder}
-          value={text}
-          onChangeText={handleChangeText}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          value={field.value}
+          onChangeText={field.onChange}
+          onBlur={field.onBlur}
           secureTextEntry={!isPasswordVisible}
           {...props}
         />
+        {field.value !== "" && (
+          <TouchableOpacity onPress={() => field.onChange("")}>
+            <Entypo
+              name="erase"
+              style={{ marginRight: 2 }}
+              size={24}
+              color={
+                getBorderColor()
+              }
+            />
+          </TouchableOpacity>
+        )}
         <TouchableOpacity
           onPress={() => setIsPasswordVisible(!isPasswordVisible)}
         >
           <Ionicons
             name={isPasswordVisible ? "eye-off" : "eye"}
             size={24}
-            color={getBorderColor()}
+            color={
+             getBorderColor()
+            }
           />
         </TouchableOpacity>
-        {text !== "" && (
-          <TouchableOpacity onPress={() => handleChangeText("")}>
-            <Entypo name="erase" size={24} color="black" />
-          </TouchableOpacity>
-        )}
       </View>
-      {IsRequired && text === "" && (
-        <Text style={styles.helperText}>
-          Por favor ingrese {label.toLowerCase()}
-        </Text>
-      )}
-      {!isValid && text !== "" && (
-        <Text style={styles.errorText}>
-          La contraseña debe tener al menos 8 caracteres, incluir letras
-          mayúsculas y minúsculas, números y caracteres especiales.
+      {isErrorVisible && (
+        <Text style={MaterialPasswordStyle.errorText}>
+          {fieldState.error
+            ? fieldState.error.message
+            : `${label} es requerido`}
         </Text>
       )}
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 20,
-    paddingHorizontal: 10,
-  },
-  label: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: COLORS.black,
-    marginBottom: 5,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 2,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    marginLeft: 10,
-    color: "#4A0404",
-  },
-  helperText: {
-    fontSize: 14,
-    color: COLORS.black,
-    marginTop: 5,
-  },
-  errorText: {
-    fontSize: 14,
-    color: "#8B0000", // Rojo para el mensaje de error
-    marginTop: 5,
-  },
-});
 
 export default MaterialPassword;
