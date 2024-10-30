@@ -1,7 +1,7 @@
 import { Text, View } from "react-native";
 import CustomizableHeader from "../../../components/CustomizableHeader/CustomizableHeader";
 import { RegistroCientificoStyle } from "./RegistroCientifico.style";
-import InformacionPersonalForm from "../../../components/RegistroForms/InformacionPersonalForm/InformacionPersonalForm";
+import InformacionPersonalForm from "../../../components/InformacionPersonalForm/InformacionPersonalForm";
 import { useRouter } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 

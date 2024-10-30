@@ -3,6 +3,7 @@ import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import {Entypo, Ionicons} from "@expo/vector-icons";
 import {MaterialInputStyle} from "./MaterialInput.style";
 import {MaterialInputProps} from "./types";
+import {useController} from "react-hook-form";
 
 /**
  * Componente de campo de entrada que muestra un texto y un ícono.
@@ -10,15 +11,16 @@ import {MaterialInputProps} from "./types";
  *
  * @component
  * @param {MaterialInputProps} props - Las propiedades del componente.
- *@example
- *       <InputField
- *         label="Nombre"
- *         placeholder="Ingrese su nombre"
- *         isRequired={true}
- *         iconName="user"
- *         iconFamily="Entypo"
- *         onTextChange={handleTextChange}
- *       />
+ * @example
+ * <InputField
+ *   label="Nombre"
+ *   placeholder="Ingrese su nombre"
+ *   isRequired={true}
+ *   iconName="user"
+ *   iconFamily="Entypo"
+ *   control={control}
+ *   nameInput="nombre" // Asegúrate de que este sea el nombre correcto para el controlador
+ * />
  */
 
 const InputField: React.FC<MaterialInputProps> = ({
@@ -27,48 +29,37 @@ const InputField: React.FC<MaterialInputProps> = ({
   placeholder,
   iconName = "person",
   iconFamily = "Ionicons",
-  onTextChange,
+  control,
+  nameInput,
+  validateRules = {},
   ...props
 }: MaterialInputProps) => {
-  const [text, setText] = useState<string>("");
+  const { field, fieldState } = useController({
+    name: nameInput,
+    control,
+    rules: {
+      required: isRequired ? `${label} es requerido` : false,
+      ...validateRules,
+    },
+  });
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const getBorderColor = (): string => {
-    let borderColor = "#000";
-
-    if (!isRequired) {
-      borderColor = "#000";
-    } else if ("" === text) {
-      borderColor = "#8B0000";
-    } else {
-      borderColor = "#008000";
+    if (fieldState.error) {
+      return "#8B0000";
     }
-
-    return borderColor;
-  };
-
-  const getBackgroundColor = (): string => {
-    if (!isRequired) {
-      return "#FFF";
-    }
-    if (isFocused && text === "") {
-      return "#FADBD8";
-    }
-    if (text !== "") {
-      return "#D5F5E3";
-    }
-    return "#FFF";
+    return "#000";
   };
 
   const renderIcon = () => {
+    const color = getBorderColor();
     if (iconFamily === "Ionicons") {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      return <Ionicons name={iconName} size={24} color={getBorderColor()} />;
+      // @ts-ignore
+      return <Ionicons name={iconName} size={24} color={color} />;
     } else if (iconFamily === "Entypo") {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-expect-error
-      return <Entypo name={iconName} size={24} color={getBorderColor()} />;
+      // @ts-ignore
+      return <Entypo name={iconName} size={24} color={color} />;
     }
     return null;
   };
@@ -81,7 +72,6 @@ const InputField: React.FC<MaterialInputProps> = ({
           MaterialInputStyle.inputContainer,
           {
             borderColor: getBorderColor(),
-            backgroundColor: getBackgroundColor(),
           },
         ]}
       >
@@ -89,28 +79,30 @@ const InputField: React.FC<MaterialInputProps> = ({
         <TextInput
           style={MaterialInputStyle.input}
           placeholder={placeholder}
-          value={text}
-          onChangeText={(newText) => {
-            setText(newText);
-            onTextChange(newText);
+          value={field.value}
+          onChangeText={field.onChange}
+          onFocus={() => {
+            setIsFocused(true);
           }}
-          onFocus={() => setIsFocused(true)}
+          onBlur={() => {
+            setIsFocused(false);
+            field.onBlur();
+          }}
           {...props}
         />
-        {text !== "" && (
+        {field.value !== "" && (
           <TouchableOpacity
             onPress={() => {
-              setText("");
-              onTextChange("");
+              field.onChange("");
             }}
           >
-            <Entypo name="erase" size={24} color="black" />
+            <Entypo name="erase" size={24} color={getBorderColor()} />
           </TouchableOpacity>
         )}
       </View>
-      {isRequired && text === "" && (
+      {fieldState.error && (
         <Text style={MaterialInputStyle.helperText}>
-          Por favor ingrese {label.toLowerCase()}
+          {fieldState.error.message}
         </Text>
       )}
     </View>

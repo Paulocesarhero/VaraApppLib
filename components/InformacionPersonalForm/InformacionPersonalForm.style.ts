@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../../src/Constants/Colors";
+import { COLORS } from "../../src/Constants/Colors";
 
 export const InformacionPersonalFormStyle = StyleSheet.create({
   container: {
@@ -23,5 +23,12 @@ export const InformacionPersonalFormStyle = StyleSheet.create({
     marginRight: 10,
     fontSize: 16,
     fontWeight: "bold",
-  },
+  }, title: {
+    fontSize: 20,
+    borderColor: "#000",
+    borderRadius: 15,
+    padding: 6,
+    margin: 5,
+    textAlign: "center",
+  }
 });

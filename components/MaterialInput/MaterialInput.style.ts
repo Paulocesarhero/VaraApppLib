@@ -20,14 +20,15 @@ export const MaterialInputStyle = StyleSheet.create({
     paddingVertical: 5,
   },
   input: {
+    height: 50,
     flex: 1,
-    fontSize: 16,
+    fontSize: 15,
     marginLeft: 10,
-    color: "#4A0404",
+    color: "#000",
   },
   helperText: {
     fontSize: 14,
-    color: "#000000",
+    color: "#8B0000",
     marginTop: 5,
   },
 });
