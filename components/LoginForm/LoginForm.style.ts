@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../src/Constants/Colors";
 
 export const LoginFormStyle = StyleSheet.create({
   container: {
@@ -13,6 +12,6 @@ export const LoginFormStyle = StyleSheet.create({
   label: {
     fontSize: 20,
     fontWeight: "bold",
-    color: COLORS.white,
+    color: "#ffffff",
   },
 });

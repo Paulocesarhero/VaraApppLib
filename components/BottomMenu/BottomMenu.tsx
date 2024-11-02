@@ -3,7 +3,6 @@ import { BottomMenuStyle } from "./BottomMenu.style";
 import { Image } from "expo-image";
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { COLORS } from "../../src/Constants/Colors";
 import { BottomMenuProps, MenuItemProps } from "./BottomMenuProps";
 
 const BottomMenu: React.FC<BottomMenuProps> = ({
@@ -30,7 +29,7 @@ const BottomMenu: React.FC<BottomMenuProps> = ({
   };
 
   const getStyle = (menu: string): StyleProp<ViewStyle> => {
-    return activeMenu === menu ? { backgroundColor: COLORS.background } : {};
+    return activeMenu === menu ? { backgroundColor: "#f5f5f5" } : {};
   };
 
   const MenuItem: React.FC<MenuItemProps> = ({

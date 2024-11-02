@@ -2,7 +2,6 @@ import {Text, View} from "react-native";
 import React from "react";
 import {LoginFormStyle} from "./LoginForm.style";
 import RoundedButton from "../RoundedButton/RoundedButton";
-import {COLORS} from "../../src/Constants/Colors";
 import PasswordInput from "../PasswordInput/PasswordInput";
 import EmailInput from "../EmailInput/EmailInput";
 import {LoginFormProps} from "./types";
@@ -47,7 +46,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
       />
       <RoundedButton
         style={{ marginVertical: 30 }}
-        color={COLORS.primary}
+        color={ "#3498db"}
         text={loading ? "Loading..." : buttonText}
         onPress={onLoginPress}
         disabled={loading}

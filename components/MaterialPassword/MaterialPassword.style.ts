@@ -1,5 +1,4 @@
 import {StyleSheet} from "react-native";
-import {COLORS} from "../../src/Constants/Colors";
 
 export const MaterialPasswordStyle = StyleSheet.create({
     container: {
@@ -9,7 +8,7 @@ export const MaterialPasswordStyle = StyleSheet.create({
     label: {
         fontSize: 16,
         fontWeight: "bold",
-        color: COLORS.black,
+        color: "#000000",
         marginBottom: 5,
     },
     inputContainer: {
@@ -29,7 +28,7 @@ export const MaterialPasswordStyle = StyleSheet.create({
     },
     helperText: {
         fontSize: 14,
-        color: COLORS.black,
+        color: "#000000",
         marginTop: 5,
     },
     errorText: {

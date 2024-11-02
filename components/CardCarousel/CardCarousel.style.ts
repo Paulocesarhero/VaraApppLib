@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../src/Constants/Colors";
 
 export const CardCarouselStyle = StyleSheet.create({
   container: {
@@ -12,7 +11,7 @@ export const CardCarouselStyle = StyleSheet.create({
   textHeading: {
     fontSize: 28,
     fontWeight: "bold",
-    color: COLORS.gradientEnd,
+    color: "#54AD94",
     textAlign: "center",
     letterSpacing: 1,
     textTransform: "uppercase",
@@ -22,7 +21,7 @@ export const CardCarouselStyle = StyleSheet.create({
   textDescription: {
     fontSize: 20,
     fontWeight: "bold",
-    color: COLORS.gradientStart,
+    color: "#024D76",
     textAlign: "center",
     letterSpacing: 1,
     borderBottomWidth: 2,

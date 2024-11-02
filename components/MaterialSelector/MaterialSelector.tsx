@@ -8,7 +8,6 @@ import {
   FlatList,
 } from "react-native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
-import { COLORS } from "../../src/Constants/Colors";
 import {Estado, EstadoSelectorProps} from "./types";
 import {MaterialSelectorStyle} from "./MaterialSelector.style";
 
@@ -46,9 +45,9 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
         ]}
         onPress={() => setIsModalVisible(true)}
       >
-        <Entypo name="map" size={24} color={COLORS.black} />
+        <Entypo name="map" size={24} color={"#000000"} />
         <Text style={MaterialSelectorStyle.selectedText}>{selectedEstado}</Text>
-        <Entypo name="chevron-down" size={24} color={COLORS.black} />
+        <Entypo name="chevron-down" size={24} color={"#000000"} />
       </TouchableOpacity>
 
       {!selectedEstado && (
@@ -78,7 +77,7 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
               style={MaterialSelectorStyle.closeButton}
               onPress={() => setIsModalVisible(false)}
             >
-              <Ionicons name="close-circle" size={30} color={COLORS.black} />
+              <Ionicons name="close-circle" size={30} color={"#000000"} />
             </TouchableOpacity>
           </View>
         </View>

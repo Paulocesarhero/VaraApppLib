@@ -1,5 +1,4 @@
 import {StyleSheet} from "react-native";
-import {COLORS} from "../../src/Constants/Colors";
 
 export const MaterialSelectorStyle = StyleSheet.create({
     container: {
@@ -28,7 +27,7 @@ export const MaterialSelectorStyle = StyleSheet.create({
     },
     helperText: {
         fontSize: 14,
-        color: COLORS.black,
+        color: "#000",
         marginTop: 5,
     },
     modalContainer: {
@@ -52,7 +51,7 @@ export const MaterialSelectorStyle = StyleSheet.create({
     },
     optionText: {
         fontSize: 14,
-        color: COLORS.black,
+        color: "#000000",
     },
     closeButton: {
         alignItems: "center",
