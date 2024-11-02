@@ -6,7 +6,8 @@
   "files": [
     "components/**/*",
     "!**/storybook/**/*",
-    ".npmignore"
+    ".npmignore",
+    "!node_modules/"
   ],
   "scripts": {
     "start": "expo start",
