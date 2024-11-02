@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Text, TextInput, TouchableOpacity, useColorScheme, View} from "react-native";
 import {Entypo, Ionicons} from "@expo/vector-icons";
 import {MaterialInputStyle} from "./MaterialInput.style";
 import {MaterialInputProps} from "./types";
@@ -43,6 +43,9 @@ const InputField: React.FC<MaterialInputProps> = ({
     },
   });
 
+  const colorScheme = useColorScheme();
+  const colorModoOscuro = colorScheme === 'dark' ? '#919090' : '#A9A9A9';
+
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const getBorderColor = (): string => {
@@ -80,6 +83,7 @@ const InputField: React.FC<MaterialInputProps> = ({
           style={MaterialInputStyle.input}
           placeholder={placeholder}
           value={field.value}
+          placeholderTextColor={colorModoOscuro}
           onChangeText={field.onChange}
           onFocus={() => {
             setIsFocused(true);
