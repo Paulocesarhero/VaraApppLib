@@ -1,21 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import {
-  Alert,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Text,
   TouchableWithoutFeedback,
 } from "react-native";
 import { InformacionPersonalFormStyle } from "./InformacionPersonalForm.style";
 import RoundedButton from "../RoundedButton/RoundedButton";
 import { Estado } from "../MaterialSelector/types";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import MaterialPassword from "../MaterialPassword/MaterialPassword";
 import InputField from "../MaterialInput/MaterialInput";
+import MaterialSelector from "../MaterialSelector/MaterialSelector";
 
-const InformacionPersonalForm: React.FC = () => {
+const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
+  onSubmitData,
+  loading,
+  setLoading,
+}) => {
   const estadosList: Estado[] = [
     {
       id: "Aguascalientes",
@@ -82,11 +85,20 @@ const InformacionPersonalForm: React.FC = () => {
     { id: "Yucatan", label: "Yucatán", apiValue: "Yucatán" },
     { id: "Zacatecas", label: "Zacatecas", apiValue: "Zacatecas" },
   ];
-  const [loading, setLoading] = useState(false);
 
   interface FormValues {
     Contraseña: string;
     CorreoElectronico: string;
+    Estado: string;
+    Nombre: string;
+    ApellidoPaterno: string;
+    ApellidoMaterno: string;
+    Institucion: string;
+    TelefonoMovil: string;
+    TelefonoFijo: string;
+    Ciudad: string;
+    Calle: string;
+    CodigoPostal: string;
   }
 
   const { handleSubmit, control } = useForm<FormValues>({
@@ -94,18 +106,27 @@ const InformacionPersonalForm: React.FC = () => {
     defaultValues: {
       Contraseña: "",
       CorreoElectronico: "",
+      Estado: "",
+      Nombre: "",
+      ApellidoPaterno: "",
+      ApellidoMaterno: "",
+      Institucion: "",
+      TelefonoMovil: "",
+      TelefonoFijo: "",
+      Ciudad: "",
+      Calle: "",
+      CodigoPostal: "",
     },
   });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    Alert.alert("Fomulario valido", `Datos: ${JSON.stringify(data, null, 2)}`);
+    onSubmitData(data);
   };
 
   const scrollViewRef = useRef<ScrollView>(null);
 
   return (
     <KeyboardAvoidingView
-      style={InformacionPersonalFormStyle.container}
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
@@ -115,21 +136,27 @@ const InformacionPersonalForm: React.FC = () => {
           contentContainerStyle={InformacionPersonalFormStyle.scrollViewContent}
           keyboardShouldPersistTaps="handled"
         >
-          <Text style={InformacionPersonalFormStyle.title}>
-            Información personal
-          </Text>
+          <RoundedButton
+            onPress={handleSubmit(onSubmit)}
+            color={"#000"}
+            text={"Enviar"}
+            style={{ marginVertical: 10 }}
+            loading={loading}
+          />
           <MaterialPassword
             label="Contraseña"
             placeholder="Ingrese su contraseña"
             isRequired={true}
             control={control}
             name="Contraseña"
+            autoComplete={"password"}
           />
           <InputField
             nameInput={"CorreoElectronico"}
             iconName="mail"
             iconFamily="Ionicons"
             label="Email"
+            autoComplete={"email"}
             placeholder="cientifico@gmail.com"
             maxLength={50}
             autoCorrect={false}
@@ -204,6 +231,8 @@ const InformacionPersonalForm: React.FC = () => {
             iconFamily="Ionicons"
             label="Teléfono móvil"
             placeholder=""
+            keyboardType={"phone-pad"}
+            autoComplete={"tel"}
             maxLength={10}
             autoCorrect={false}
             control={control}
@@ -211,7 +240,8 @@ const InformacionPersonalForm: React.FC = () => {
             validateRules={{
               pattern: {
                 value: /^[0-9]{10}$/,
-                message: "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
+                message:
+                  "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
               },
               maxLength: {
                 value: 10,
@@ -227,8 +257,10 @@ const InformacionPersonalForm: React.FC = () => {
             nameInput={"TelefonoFijo"}
             iconName="call"
             iconFamily="Ionicons"
-            label="Teléfono móvil"
+            label="Teléfono fijo"
             placeholder=""
+            keyboardType={"phone-pad"}
+            autoComplete={"tel"}
             maxLength={10}
             autoCorrect={false}
             control={control}
@@ -236,7 +268,8 @@ const InformacionPersonalForm: React.FC = () => {
             validateRules={{
               pattern: {
                 value: /^[0-9]{10}$/,
-                message: "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
+                message:
+                  "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
               },
               maxLength: {
                 value: 10,
@@ -248,14 +281,55 @@ const InformacionPersonalForm: React.FC = () => {
               },
             }}
           />
-
-          <RoundedButton
-            onPress={handleSubmit(onSubmit)}
-            color={"#000"}
-            text={"Enviar"}
+          <Controller
+            control={control}
+            name="Estado"
+            render={({ field: { onChange, onBlur, value } }) => (
+              <MaterialSelector
+                label={"Estado"}
+                estados={estadosList}
+                onEstadoChange={(estado: string) => {
+                  onChange(estado); // Actualiza el valor del estado en el formulario
+                }}
+              />
+            )}
           />
-
-
+          <InputField
+            nameInput={"Ciudad"}
+            iconName="address"
+            iconFamily="Entypo"
+            label="Ciudad"
+            placeholder=" "
+            maxLength={50}
+            autoCorrect={false}
+            control={control}
+            isRequired={false}
+          />
+          <InputField
+            nameInput={"Calle"}
+            iconName="address"
+            iconFamily="Entypo"
+            label="Calle"
+            placeholder=" "
+            maxLength={50}
+            autoCorrect={false}
+            autoComplete={"address-line1"}
+            control={control}
+            isRequired={false}
+          />
+          <InputField
+            nameInput={"CodigoPostal"}
+            iconName="address"
+            iconFamily="Entypo"
+            label="Código postal"
+            placeholder=" "
+            autoComplete={"postal-code"}
+            maxLength={5}
+            keyboardType={"numeric"}
+            autoCorrect={false}
+            control={control}
+            isRequired={false}
+          />
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
