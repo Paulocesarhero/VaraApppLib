@@ -1,6 +1,11 @@
 # VaraAppLib
 Aquí se guardan todos los componentes de react native que se compartiran entre proyectos
 estos al mismo tiempo seran subido a un repositorio de npm
+
+**Instalar las dependecias** 
+```
+yarn install
+```
 ## storybook
 En este proyecto ahora puedes ejecutar yarn storybook para iniciar Storybook en el dispositivo, o yarn start para iniciar tu aplicación con Expo. Esto funciona mediante variables de entorno y constantes de Expo.
 
