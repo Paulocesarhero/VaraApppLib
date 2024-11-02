@@ -13,6 +13,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import MaterialPassword from "../MaterialPassword/MaterialPassword";
 import InputField from "../MaterialInput/MaterialInput";
 import MaterialSelector from "../MaterialSelector/MaterialSelector";
+import {InformacionPersonalFormProps} from "./types";
 
 const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
   onSubmitData,
