@@ -1,6 +1,5 @@
 import React from "react";
 import MaterialInput from "./MaterialInput";
-import { MaterialInputProps } from "./types";
 import { action } from "@storybook/addon-actions";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Alert, View } from "react-native";
@@ -36,6 +35,7 @@ export const Basic = () => {
   return (
     <View>
       <MaterialInput
+        placeholder={"Este es el placeholder"}
         label={"Nombre"}
         control={control}
         nameInput={"input"}
@@ -82,13 +82,13 @@ export const IsRequiered = () => {
   );
 };
 
-export const ValidateCustom = () => {
+export const Interactive = (args: any) => {
   interface FormValues {
     input: string;
   }
 
   const { handleSubmit, control } = useForm<FormValues>({
-    mode: "onChange",
+    mode: "onSubmit",
     defaultValues: {
       input: "",
     },
@@ -99,15 +99,10 @@ export const ValidateCustom = () => {
   return (
     <View>
       <MaterialInput
-        placeholder={"Este es el placeholder"}
-        label={"Nombre"}
-        control={control}
+        label={args.label}
         nameInput={"input"}
-        isRequired={true}
-        validateRules={{
-          minLength: { value: 3, message: "Debe tener al menos 3 caracteres" },
-          maxLength: { value: 20, message: "No puede exceder 20 caracteres" },
-        }}
+        control={control}
+        {...args}
       />
       <RoundedButton
         color={"#000"}
@@ -117,15 +112,11 @@ export const ValidateCustom = () => {
     </View>
   );
 };
-
-export const Interactive = (
-  args: React.JSX.IntrinsicAttributes & MaterialInputProps,
-) => <MaterialInput {...args} />;
 Interactive.args = {
   placeholder: "Texto interactivo",
   label: "Label interactivo",
-  isRequired: true,
   iconFamily: "Entypo",
   iconName: "map",
-  onTextChange: action("onTextChange"), // Simula el cambio de texto y lo registra en Storybook
+  onTextChange: action("onTextChange"),
+  isRequired: false,
 };
