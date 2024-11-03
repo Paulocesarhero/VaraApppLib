@@ -87,6 +87,11 @@
     "storybook": "^8.3.5",
     "typescript": "~5.3.3"
   },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-native": "0.74.5",
+    "react-hook-form": "^7.53.1"
+  },
   "resolutions": {
     "react-docgen-typescript": "2.2.2"
   },
