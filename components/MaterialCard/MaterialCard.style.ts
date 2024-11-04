@@ -1,7 +1,7 @@
 export const MaterialCardStyles = {
     container:{
-        alignItems:"center",
-        flexDirection: 'row',
+        alignItems:"center" as const,
+        flexDirection: 'row' as const,
         borderRadius: 5,
         borderColor: 'grey',
         borderWidth: 2,
@@ -20,7 +20,7 @@ export const MaterialCardStyles = {
     containerImage:{
         paddingHorizontal: 5,
         paddingVertical: 5,
-        alignSelf: 'center',
+        alignSelf: 'center' as const,
     }
 
 }
