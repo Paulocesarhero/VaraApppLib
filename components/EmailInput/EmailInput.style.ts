@@ -8,5 +8,6 @@ export const emailInputStyle = StyleSheet.create({
     borderRadius: 12,
     textAlign: "center",
     fontSize: 20,
+    overflow: "scroll",
   },
 });
