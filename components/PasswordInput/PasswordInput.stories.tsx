@@ -22,16 +22,7 @@ export const Basic = () => (
     />
 );
 
-export const PasswordVisible = () => {
-    const [isPasswordVisible, setPasswordVisibility] = React.useState(true);
-    return (
-        <PasswordInput
-            placeholder="Password"
-            secureTextEntry={!isPasswordVisible}
-            onChangeText={action("onChangeText")}
-        />
-    );
-};
+
 
 export const Interactive = (args: PasswordInputProps) => <PasswordInput {...args} />;
 Interactive.args = {
