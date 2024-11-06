@@ -55,4 +55,17 @@ export interface EstadoSelectorProps {
      * @param {string} estado - El valor `apiValue` del estado seleccionado.
      */
     onEstadoChange: (estado: string) => void;
+
+    /**
+     * El nombre del ícono que se muestra dentro del campo de entrada.
+     * Es opcional y, por defecto, se establece en `"person"`.
+     */
+    iconName?: string;
+
+    /**
+     * La familia de íconos a utilizar en el campo de entrada.
+     * Puede ser `"Ionicons"` o `"Entypo"`. Es opcional y, por defecto, se establece en `"Ionicons"`.
+     */
+    iconFamily?: "Ionicons" | "Entypo";
+
 }

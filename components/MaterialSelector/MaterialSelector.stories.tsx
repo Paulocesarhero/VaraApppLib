@@ -55,4 +55,6 @@ Interactive.args = {
   estados: estados,
   IsRequired: true,
   onEstadoChange: action("onEstadoChange"),
+  iconName: "map",
+  iconFamily: "Entypo",
 };

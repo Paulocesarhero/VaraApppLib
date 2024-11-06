@@ -12,7 +12,7 @@ import {Estado, EstadoSelectorProps} from "./types";
 import {MaterialSelectorStyle} from "./MaterialSelector.style";
 
 /**
- * Componente de selección de estado.
+ * Componente de selección muestra al usuario unos valores y dentro de .
  *
  * @param {EstadoSelectorProps} props - Las propiedades del componente.
  * @param {string} props.label - La etiqueta que se muestra sobre el selector.
@@ -23,6 +23,8 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
   label,
   estados,
   onEstadoChange,
+    iconName = "map",
+    iconFamily = "Entypo",
 }: EstadoSelectorProps) => {
   const [selectedEstado, setSelectedEstado] = useState<string | null>(
     estados[0]?.label || null,
@@ -35,7 +37,19 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
     setIsModalVisible(false);
   };
 
-  return (
+    const renderIcon = () => {
+        if (iconFamily === "Ionicons") {
+            // @ts-ignore
+            return <Ionicons name={iconName} size={24} color={"#000"} />;
+        } else if (iconFamily === "Entypo") {
+            // @ts-ignore
+            return <Entypo name={iconName} size={24} color={"#000"} />;
+        }
+        return null;
+    };
+
+
+    return (
     <View style={MaterialSelectorStyle.container}>
       <Text style={MaterialSelectorStyle.label}>{label}</Text>
       <TouchableOpacity
@@ -45,7 +59,7 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
         ]}
         onPress={() => setIsModalVisible(true)}
       >
-        <Entypo name="map" size={24} color={"#000000"} />
+          {renderIcon()}
         <Text style={MaterialSelectorStyle.selectedText}>{selectedEstado}</Text>
         <Entypo name="chevron-down" size={24} color={"#000000"} />
       </TouchableOpacity>
