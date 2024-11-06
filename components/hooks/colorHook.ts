@@ -1,4 +1,4 @@
-import {useColorScheme} from "react-native";
+import { useColorScheme } from "react-native";
 /**
  * Hook personalizado para obtener el color del placeholder según el esquema de color actual (claro u oscuro).
  * Usa el esquema de color del sistema para determinar el color.
@@ -15,6 +15,6 @@ import {useColorScheme} from "react-native";
  * <TextInput placeholderTextColor={placeholderColor} />;
  */
 export const usePlaceholderColor = () => {
-    const colorScheme = useColorScheme();
-    return colorScheme === "dark" ? "#919090" : "#A9A9A9";
+  const colorScheme = useColorScheme();
+  return colorScheme === "dark" ? "#919090" : "#A9A9A9";
 };

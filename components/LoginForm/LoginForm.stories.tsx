@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import { action } from "@storybook/addon-actions";
-import { View } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default {
   title: "Components/LoginForm",
@@ -19,12 +17,12 @@ export default {
 
 // Ejemplo de historia básica
 export const Basic = () => (
-    <LoginForm
-      email=""
-      onEmailChange={action("onEmailChange")}
-      onPasswordChange={action("onPasswordChange")}
-      onLoginPress={action("email")}
-    />
+  <LoginForm
+    email=""
+    onEmailChange={action("onEmailChange")}
+    onPasswordChange={action("onPasswordChange")}
+    onLoginPress={action("email")}
+  />
 );
 
 // Ejemplo de historia básica
@@ -34,33 +32,32 @@ export const Basic2 = () => {
   const [password, setPassword] = useState("");
 
   return (
-      <LoginForm
-        email={email} // Estado del email
-        password={password} // Estado de la contraseña
-        onEmailChange={(newEmail) => {
-          setEmail(newEmail); // Actualiza el email en el estado
-          action("onEmailChange")(newEmail); // Captura la acción
-        }}
-        onPasswordChange={(newPassword) => {
-          setPassword(newPassword); // Actualiza la contraseña en el estado
-          action("onPasswordChange")(newPassword); // Captura la acción
-        }}
-        onLoginPress={() => {
-          action("onLoginPress")({ email, password });
-        }}
-      />
+    <LoginForm
+      email={email} // Estado del email
+      password={password} // Estado de la contraseña
+      onEmailChange={(newEmail) => {
+        setEmail(newEmail); // Actualiza el email en el estado
+        action("onEmailChange")(newEmail); // Captura la acción
+      }}
+      onPasswordChange={(newPassword) => {
+        setPassword(newPassword); // Actualiza la contraseña en el estado
+        action("onPasswordChange")(newPassword); // Captura la acción
+      }}
+      onLoginPress={() => {
+        action("onLoginPress")({ email, password });
+      }}
+    />
   );
 };
 
 // Historia que muestra el estado de carga
 export const LoadingState = () => (
-    <LoginForm
-      email="test@example.com"
-      password="password123"
-      onEmailChange={action("onEmailChange")}
-      onPasswordChange={action("onPasswordChange")}
-      onLoginPress={action("onLoginPress")}
-      loading={true}
-    />
+  <LoginForm
+    email="test@example.com"
+    password="password123"
+    onEmailChange={action("onEmailChange")}
+    onPasswordChange={action("onPasswordChange")}
+    onLoginPress={action("onLoginPress")}
+    loading={true}
+  />
 );
-

@@ -1,7 +1,7 @@
 import React from "react";
-import {ActivityIndicator, Pressable, Text, View} from "react-native";
-import {RoundedButtonProps} from "./types";
-import {Ionicons} from "@expo/vector-icons";
+import { ActivityIndicator, Pressable, Text, View } from "react-native";
+import { RoundedButtonProps } from "./types";
+import { Ionicons } from "@expo/vector-icons";
 
 /**
  * Un componente de botón redondeado personalizable para aplicaciones en React Native.

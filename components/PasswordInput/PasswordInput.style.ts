@@ -11,7 +11,7 @@ export const PasswordInputStyle = StyleSheet.create({
     textAlign: "center",
     height: 50,
     fontSize: 20,
-    padding:10,
+    padding: 10,
     paddingHorizontal: 40,
   },
 

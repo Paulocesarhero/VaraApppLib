@@ -64,5 +64,5 @@ export interface EstadoSelectorProps {
    * La familia de íconos a utilizar en el campo de entrada.
    * Puede ser `"Ionicons"` o `"Entypo"`. Es opcional y, por defecto, se establece en `"Ionicons"`.
    */
-  iconFamily?: 'Ionicons' | 'Entypo';
+  iconFamily?: "Ionicons" | "Entypo";
 }

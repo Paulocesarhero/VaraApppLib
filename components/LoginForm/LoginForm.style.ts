@@ -10,14 +10,13 @@ export const LoginFormStyle = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     color: "#ffffff",
-  }, image: {
+  },
+  image: {
     alignSelf: "center",
-    width: '50%',
-    height: '40%',
-
+    width: "50%",
+    height: "40%",
   },
   form: {
     paddingHorizontal: 20,
-  }
-
+  },
 });

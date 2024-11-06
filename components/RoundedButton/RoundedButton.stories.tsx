@@ -1,6 +1,6 @@
 import RoundedButton from "./RoundedButton";
-import {action} from "@storybook/addon-actions";
-import {RoundedButtonProps} from "./types";
+import { action } from "@storybook/addon-actions";
+import { RoundedButtonProps } from "./types";
 
 export default {
   title: "Components/RoundedButton",
@@ -50,7 +50,9 @@ export const icon = () => {
   );
 };
 
-export const Interactive = (args: RoundedButtonProps) => <RoundedButton {...args} />;
+export const Interactive = (args: RoundedButtonProps) => (
+  <RoundedButton {...args} />
+);
 Interactive.args = {
   text: "Texto interactivo",
   color: "#4CAF50",

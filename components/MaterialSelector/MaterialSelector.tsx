@@ -1,8 +1,8 @@
-import React, { FC, useState } from 'react';
-import { FlatList, Modal, Text, TouchableOpacity, View } from 'react-native';
-import { Entypo, Ionicons } from '@expo/vector-icons';
-import { Estado, EstadoSelectorProps } from './types';
-import { MaterialSelectorStyle } from './MaterialSelector.style';
+import React, { FC, useState } from "react";
+import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { Estado, EstadoSelectorProps } from "./types";
+import { MaterialSelectorStyle } from "./MaterialSelector.style";
 
 /**
  * Componente de selección muestra al usuario unos valores y dentro de .
@@ -15,11 +15,11 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
   label,
   estados,
   onEstadoChange,
-  iconName = 'map',
-  iconFamily = 'Entypo',
+  iconName = "map",
+  iconFamily = "Entypo",
 }: EstadoSelectorProps) => {
   const [selectedEstado, setSelectedEstado] = useState<string | null>(
-    estados[0]?.label || null,
+    estados[0]?.label || null
   );
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -30,12 +30,12 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
   };
 
   const renderIcon = () => {
-    if (iconFamily === 'Ionicons') {
+    if (iconFamily === "Ionicons") {
       // @ts-ignore
-      return <Ionicons name={iconName} size={24} color={'#000'} />;
-    } else if (iconFamily === 'Entypo') {
+      return <Ionicons name={iconName} size={24} color={"#000"} />;
+    } else if (iconFamily === "Entypo") {
       // @ts-ignore
-      return <Entypo name={iconName} size={24} color={'#000'} />;
+      return <Entypo name={iconName} size={24} color={"#000"} />;
     }
     return null;
   };
@@ -46,13 +46,13 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
       <TouchableOpacity
         style={[
           MaterialSelectorStyle.selectorContainer,
-          { borderColor: '#000' },
+          { borderColor: "#000" },
         ]}
         onPress={() => setIsModalVisible(true)}
       >
         {renderIcon()}
         <Text style={MaterialSelectorStyle.selectedText}>{selectedEstado}</Text>
-        <Entypo name="chevron-down" size={24} color={'#000000'} />
+        <Entypo name="chevron-down" size={24} color={"#000000"} />
       </TouchableOpacity>
 
       {!selectedEstado && (
@@ -82,7 +82,7 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
               style={MaterialSelectorStyle.closeButton}
               onPress={() => setIsModalVisible(false)}
             >
-              <Ionicons name="close-circle" size={30} color={'#000000'} />
+              <Ionicons name="close-circle" size={30} color={"#000000"} />
             </TouchableOpacity>
           </View>
         </View>

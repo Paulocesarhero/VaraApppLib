@@ -2,16 +2,16 @@ import { TextInput, View } from "react-native";
 import React from "react";
 import { emailInputStyle } from "./EmailInput.style";
 import { EmailInputProps } from "./EmailInputProps";
-import {usePlaceholderColor} from "../hooks/colorHook";
+import { usePlaceholderColor } from "../hooks/colorHook";
 
 const EmailInput: React.FC<EmailInputProps> = ({
   onEmailTextChange,
   emailCustomStyle,
-    email,
+  email,
 }) => {
-    const colorPlaceholder = usePlaceholderColor(); // Usa el color definido en el hook
+  const colorPlaceholder = usePlaceholderColor(); // Usa el color definido en el hook
 
-    return (
+  return (
     <View>
       <TextInput
         onChangeText={onEmailTextChange}

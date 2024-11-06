@@ -3,7 +3,7 @@ import { Pressable, TextInput, View } from "react-native";
 import { PasswordInputStyle } from "./PasswordInput.style";
 import { PasswordInputProps } from "./PasswordInputProps";
 import { NoVisibleEye, VisibleEye } from "../../src/icons/icons";
-import {usePlaceholderColor} from "../hooks/colorHook";
+import { usePlaceholderColor } from "../hooks/colorHook";
 /**
  * Componente de entrada de contraseña que permite mostrar y ocultar el texto ingresado.
  * Incluye un ícono interactivo para alternar la visibilidad de la contraseña.

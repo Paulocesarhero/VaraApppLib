@@ -13,7 +13,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import MaterialPassword from "../MaterialPassword/MaterialPassword";
 import InputField from "../MaterialInput/MaterialInput";
 import MaterialSelector from "../MaterialSelector/MaterialSelector";
-import {FormValues, InformacionPersonalFormProps} from "./types";
+import { FormValues, InformacionPersonalFormProps } from "./types";
 /**
  * @component
  * Componente de formulario para capturar información personal del usuario.
@@ -105,8 +105,6 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
     { id: "Yucatan", label: "Yucatán", apiValue: "Yucatán" },
     { id: "Zacatecas", label: "Zacatecas", apiValue: "Zacatecas" },
   ];
-
-
 
   const { handleSubmit, control } = useForm<FormValues>({
     mode: "onSubmit",

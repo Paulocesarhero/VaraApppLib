@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from "react-native";
 
 export const MaterialSelectorStyle = StyleSheet.create({
   container: {
@@ -7,40 +7,40 @@ export const MaterialSelectorStyle = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#000',
+    fontWeight: "bold",
+    color: "#000",
     marginBottom: 5,
   },
   selectorContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     borderWidth: 2,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
   },
   selectedText: {
     fontSize: 16,
-    color: '#000',
+    color: "#000",
   },
   helperText: {
     fontSize: 14,
-    color: '#000',
+    color: "#000",
     marginTop: 5,
   },
   modalContainer: {
     flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalContent: {
-    backgroundColor: '#FFF',
+    backgroundColor: "#FFF",
     margin: 20,
     borderRadius: 10,
     padding: 20,
-    shadowColor: '#00000',
+    shadowColor: "#00000",
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 4,
@@ -51,10 +51,10 @@ export const MaterialSelectorStyle = StyleSheet.create({
   },
   optionText: {
     fontSize: 14,
-    color: '#000000',
+    color: "#000000",
   },
   closeButton: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 20,
   },
 });
