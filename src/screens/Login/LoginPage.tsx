@@ -12,7 +12,8 @@ import { COLORS } from "../../Constants/Colors";
 import { Image } from "expo-image";
 import LoginForm from "../../../components/LoginForm/LoginForm";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import {LoginPageProps} from "./types";
+import { LoginPageProps } from "./types";
+
 /**
  * Página de inicio de sesión de la aplicación.
  *
@@ -38,8 +39,8 @@ import {LoginPageProps} from "./types";
  */
 
 const LoginPage: React.FC<LoginPageProps> = ({
-    handleRegistroCientifico,
-    ...props
+  handleRegistroCientifico,
+  ...props
 }: LoginPageProps) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -57,9 +58,7 @@ const LoginPage: React.FC<LoginPageProps> = ({
               source={require("../../assets/logo.imageset/logo.png")}
               style={LoginPageStyle.image}
             />
-            <LoginForm
-                {...props}
-            />
+            <LoginForm {...props} />
             <View style={LoginPageStyle.containerForgotPassword}>
               <Pressable>
                 <Text

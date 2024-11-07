@@ -9,4 +9,5 @@ export interface MenuItemProps {
   onPress: () => void;
   style: StyleProp<ViewStyle>;
   label: string;
+  imageSource: string;
 }

@@ -1,0 +1,17 @@
+# Ignora la carpeta de Storybook y archivos de configuración relacionados
+storybook/
+**/storybook/
+**/*.stories.*
+
+# Ignora archivos de configuración de pruebas y desarrollo
+tests/
+coverage/
+.eslintignore
+.eslintrc.js
+.prettierrc
+babel.config.js
+jest.config.js
+node_modules/
+.git/
+.idea/
+.DS_Store

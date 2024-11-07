@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../src/Constants/Colors";
 
 export const inputWithtitleAndExampleStyle = StyleSheet.create({
   container: {
@@ -8,7 +7,7 @@ export const inputWithtitleAndExampleStyle = StyleSheet.create({
     width: "100%",
     justifyContent: "space-around",
     borderTopWidth: 1,
-    borderColor: COLORS.gray,
+    borderColor: "#7f8c8d",
   },
   title: {
     flex: 1,

@@ -31,8 +31,6 @@ export const Basic = () => (
   />
 );
 
-
-
 export const WithoutOptions = () => (
   <MaterialSelector
     label="Estado"
@@ -55,4 +53,6 @@ Interactive.args = {
   estados: estados,
   IsRequired: true,
   onEstadoChange: action("onEstadoChange"),
+  iconName: "map",
+  iconFamily: "Entypo",
 };

@@ -1,5 +1,4 @@
 import { StyleSheet } from "react-native";
-import { COLORS } from "../../src/Constants/Colors";
 
 export const CustomizableHeaderStyles = StyleSheet.create({
   container: {
@@ -9,7 +8,7 @@ export const CustomizableHeaderStyles = StyleSheet.create({
     justifyContent: "space-around",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: COLORS.gradientStart,
+    backgroundColor: "#024D76",
   },
   subComponent: {
     flex: 1,

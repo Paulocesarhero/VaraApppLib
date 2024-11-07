@@ -1,32 +1,25 @@
 import React, { FC, useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Modal,
-  FlatList,
-} from "react-native";
+import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
-import { COLORS } from "../../src/Constants/Colors";
-import {Estado, EstadoSelectorProps} from "./types";
-import {MaterialSelectorStyle} from "./MaterialSelector.style";
+import { Estado, EstadoSelectorProps } from "./types";
+import { MaterialSelectorStyle } from "./MaterialSelector.style";
 
 /**
- * Componente de selección de estado.
+ * Componente de selección muestra al usuario unos valores y dentro de .
  *
  * @param {EstadoSelectorProps} props - Las propiedades del componente.
  * @param {string} props.label - La etiqueta que se muestra sobre el selector.
- * @param {boolean} [props.IsRequired=true] - Indica si el campo es obligatorio.
  * @param {function} props.onEstadoChange - Función de callback que se llama con el valor `apiValue` del estado seleccionado.
  */
 const EstadoSelector: FC<EstadoSelectorProps> = ({
   label,
   estados,
   onEstadoChange,
+  iconName = "map",
+  iconFamily = "Entypo",
 }: EstadoSelectorProps) => {
   const [selectedEstado, setSelectedEstado] = useState<string | null>(
-    estados[0]?.label || null,
+    estados[0]?.label || null
   );
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
@@ -34,6 +27,17 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
     onEstadoChange(estado.apiValue);
     setSelectedEstado(estado.label);
     setIsModalVisible(false);
+  };
+
+  const renderIcon = () => {
+    if (iconFamily === "Ionicons") {
+      // @ts-ignore
+      return <Ionicons name={iconName} size={24} color={"#000"} />;
+    } else if (iconFamily === "Entypo") {
+      // @ts-ignore
+      return <Entypo name={iconName} size={24} color={"#000"} />;
+    }
+    return null;
   };
 
   return (
@@ -46,9 +50,9 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
         ]}
         onPress={() => setIsModalVisible(true)}
       >
-        <Entypo name="map" size={24} color={COLORS.black} />
+        {renderIcon()}
         <Text style={MaterialSelectorStyle.selectedText}>{selectedEstado}</Text>
-        <Entypo name="chevron-down" size={24} color={COLORS.black} />
+        <Entypo name="chevron-down" size={24} color={"#000000"} />
       </TouchableOpacity>
 
       {!selectedEstado && (
@@ -78,7 +82,7 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
               style={MaterialSelectorStyle.closeButton}
               onPress={() => setIsModalVisible(false)}
             >
-              <Ionicons name="close-circle" size={30} color={COLORS.black} />
+              <Ionicons name="close-circle" size={30} color={"#000000"} />
             </TouchableOpacity>
           </View>
         </View>
@@ -86,6 +90,5 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
     </View>
   );
 };
-
 
 export default EstadoSelector;
