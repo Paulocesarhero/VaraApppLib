@@ -11,14 +11,14 @@ import { MaterialCardStyles } from "./MaterialCard.style";
  * @example
  * <MaterialCard
  *   label={"Información"}
- *   icon={<AntDesign name="infocirlceo" size={24} color="black" />}
+ *   leftComponent={<AntDesign name="infocirlceo" size={24} color="black" />}
  *   viewStyle={{backgroundColor: '#FFF'}}
  *   onPress={() => console.log("Press") }
  * />
  */
 
 const MaterialCard: React.FC<MaterialCardProps> = ({
-  icon,
+  leftComponent,
   label,
   viewStyle,
   ...props
@@ -26,7 +26,7 @@ const MaterialCard: React.FC<MaterialCardProps> = ({
   return (
     <Pressable {...props}>
       <View style={[MaterialCardStyles.container, viewStyle]}>
-        <View style={MaterialCardStyles.containerImage}>{icon}</View>
+        <View style={MaterialCardStyles.containerImage}>{leftComponent}</View>
         <Text style={MaterialCardStyles.containerLabelText}>{label}</Text>
       </View>
     </Pressable>

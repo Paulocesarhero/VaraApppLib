@@ -15,10 +15,10 @@ export interface MaterialCardProps extends PressableProps {
   label: string;
 
   /**
-   * Un ReactNode, este almacena el ícono, este es personalizable, se requiere la familia y el nombre del ícono deseado.
+   * Un ReactNode, este almacena cualquier componete por lo que se vuelve personalizable, este irá en el lado izquierdo dentro del MaterialCard .
    * Es opcional
    */
-  icon?: ReactNode;
+  leftComponent?: ReactNode;
 
   /**
    * Es donde se colocan todos los props de los estilos que llevará el viewStyle.

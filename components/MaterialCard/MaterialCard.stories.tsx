@@ -19,7 +19,7 @@ export const Basic = () => {
   return (
     <MaterialCard
       label={"Información"}
-      icon={<AntDesign name="infocirlceo" size={24} color="black" />}
+      leftComponent={<AntDesign name="infocirlceo" size={24} color="black" />}
       viewStyle={{ backgroundColor: "#FFF" }}
       onPress={() => console.log("Press")}
     />
