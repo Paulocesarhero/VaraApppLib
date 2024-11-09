@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ViewStyle } from "react-native";
+import { View } from "react-native";
 import { CustomizableHeaderStyles } from "./CustomizableHeader.style";
 import { CustomizableHeaderProps } from "./types";
 
