@@ -1,17 +1,40 @@
-import React from 'react';
-import { TouchableOpacity, View, Text } from 'react-native';
-import { CustomCheckBoxProps } from './types';
-import {CustomCheckBoxStyles} from './CustomCheckBox.style';
+import React from "react";
+import { TouchableOpacity, View, Text } from "react-native";
+import { CustomCheckBoxProps } from "./types";
+import { CustomCheckBoxStyles } from "./CustomCheckBox.style";
 
-const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({ label, isChecked, onToggle }) => {
-    return (
-        <TouchableOpacity style={CustomCheckBoxStyles.container} onPress={onToggle}>
-            <View style={[CustomCheckBoxStyles.box, isChecked && CustomCheckBoxStyles.checkedBox]}>
-                {isChecked && <View style={CustomCheckBoxStyles.innerCheck} />}
-            </View>
-            <Text style={CustomCheckBoxStyles.label}>{label}</Text>
-        </TouchableOpacity>
-    );
+/**
+ * Componente de tipo checkBox que cuenta con el checkBox y su label.
+ * Permite al usuario dar click sobre la casilla.
+ *
+ * @component
+ * @param {CustomCheckBoxProps} props - Las propiedades del componente.
+ * @example
+ * <CustomCheckBox
+ *       label="Acepta los términos y condiciones"
+ *       isChecked={isChecked}
+ *       onToggle={handleToggle}
+ * />
+ */
+
+const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({
+  label,
+  isChecked,
+  onToggle,
+}) => {
+  return (
+    <TouchableOpacity style={CustomCheckBoxStyles.container} onPress={onToggle}>
+      <View
+        style={[
+          CustomCheckBoxStyles.box,
+          isChecked && CustomCheckBoxStyles.checkedBox,
+        ]}
+      >
+        {isChecked && <View style={CustomCheckBoxStyles.innerCheck} />}
+      </View>
+      <Text style={CustomCheckBoxStyles.label}>{label}</Text>
+    </TouchableOpacity>
+  );
 };
 
 export default CustomCheckBox;
