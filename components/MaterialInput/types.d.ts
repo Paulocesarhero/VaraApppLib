@@ -1,5 +1,5 @@
-import {TextInputProps} from "react-native";
-import {Control} from "react-hook-form";
+import { TextInputProps } from "react-native";
+import { Control } from "react-hook-form";
 
 /**
  * Propiedades para el componente MaterialInput.
@@ -75,5 +75,4 @@ export interface MaterialInputProps extends TextInputProps {
    * @property {string} pattern.message - Mensaje de error si el valor no coincide con el patrón.
    */
   validateRules?: object;
-
 }

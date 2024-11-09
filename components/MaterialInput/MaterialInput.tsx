@@ -1,9 +1,15 @@
-import React, {useState} from "react";
-import {Text, TextInput, TouchableOpacity, useColorScheme, View} from "react-native";
-import {Entypo, Ionicons} from "@expo/vector-icons";
-import {MaterialInputStyle} from "./MaterialInput.style";
-import {MaterialInputProps} from "./types";
-import {useController} from "react-hook-form";
+import React from "react";
+import {
+  Text,
+  TextInput,
+  TouchableOpacity,
+  useColorScheme,
+  View,
+} from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { MaterialInputStyle } from "./MaterialInput.style";
+import { MaterialInputProps } from "./types";
+import { useController } from "react-hook-form";
 
 /**
  * Componente de campo de entrada que muestra un texto y un ícono.
@@ -44,9 +50,7 @@ const InputField: React.FC<MaterialInputProps> = ({
   });
 
   const colorScheme = useColorScheme();
-  const colorModoOscuro = colorScheme === 'dark' ? '#919090' : '#A9A9A9';
-
-  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const colorModoOscuro = colorScheme === "dark" ? "#919090" : "#A9A9A9";
 
   const getBorderColor = (): string => {
     if (fieldState.error) {
@@ -85,13 +89,6 @@ const InputField: React.FC<MaterialInputProps> = ({
           value={field.value}
           placeholderTextColor={colorModoOscuro}
           onChangeText={field.onChange}
-          onFocus={() => {
-            setIsFocused(true);
-          }}
-          onBlur={() => {
-            setIsFocused(false);
-            field.onBlur();
-          }}
           {...props}
         />
         {field.value !== "" && (

@@ -1,12 +1,13 @@
 {
   "name": "varaapplib",
-  "version": "1.0.4",
+  "version": "1.0.9",
   "description": "Aquí se guardan todos los componentes de react native que se compartiran entre proyectos estos al mismo tiempo seran subido a un repositorio de npm",
   "main": "node_modules/expo/AppEntry.js",
   "files": [
     "components/**/*",
     "!**/storybook/**/*",
-    ".npmignore"
+    ".npmignore",
+    "!node_modules/"
   ],
   "scripts": {
     "start": "expo start",
@@ -14,6 +15,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "eslint .",
+    "format": "prettier --write components",
     "storybook:web": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "storybook-generate": "sb-rn-get-stories --config-path .ondevice",
@@ -81,13 +83,23 @@
     "babel-plugin-react-docgen-typescript": "^1.5.1",
     "babel-plugin-react-native-web": "^0.19.10",
     "cross-env": "^7.0.3",
+    "eslint-config-expo": "^7.1.2",
     "eslint": "^8.57.0",
-    "eslint-config-expo": "^7.0.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-react-native": "^4.1.0",
     "prettier": "^3.3.3",
     "storybook": "^8.3.5",
     "typescript": "~5.3.3"
+  },
+  "peerDependencies": {
+    "expo-image": "~1.12.13",
+    "expo-linear-gradient": "~13.0.2",
+    "react": ">=18.0.0",
+    "react-hook-form": "^7.53.1",
+    "react-native": "0.74.5",
+    "react-native-localization": "^2.3.2",
+    "@react-native-community/datetimepicker": "8.0.1"
   },
   "resolutions": {
     "react-docgen-typescript": "2.2.2"

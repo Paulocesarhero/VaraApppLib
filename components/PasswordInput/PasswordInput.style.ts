@@ -11,10 +11,12 @@ export const PasswordInputStyle = StyleSheet.create({
     textAlign: "center",
     height: 50,
     fontSize: 20,
+    padding: 10,
+    paddingHorizontal: 40,
   },
 
   iconButton: {
-    marginVertical: 10,
-    alignItems: "flex-start",
+    position: "absolute",
+    padding: 10,
   },
 });
