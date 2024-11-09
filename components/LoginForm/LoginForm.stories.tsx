@@ -15,18 +15,7 @@ export default {
   },
 };
 
-// Ejemplo de historia básica
-export const Basic = () => (
-  <LoginForm
-    email=""
-    onEmailChange={action("onEmailChange")}
-    onPasswordChange={action("onPasswordChange")}
-    onLoginPress={action("email")}
-  />
-);
-
-// Ejemplo de historia básica
-export const Basic2 = () => {
+export const Basic = () => {
   // Estado local para manejar el email y la contraseña
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
