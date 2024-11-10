@@ -287,6 +287,8 @@ export const AvisoForm: React.FC<
               <MaterialSelector
                 label={"Sustrato"}
                 estados={sustratosList}
+                iconName={"earth"}
+                iconFamily={"Ionicons"}
                 onEstadoChange={(estado: string) => {
                   onChange(estado);
                   console.log(estado);
@@ -336,6 +338,8 @@ export const AvisoForm: React.FC<
               <MaterialSelector
                 label={"Lugar donde se vio el mamífero"}
                 estados={lugarDondeSeVioList}
+                iconName={"eye"}
+                iconFamily={"Entypo"}
                 onEstadoChange={(estado: string) => {
                   onChange(estado);
                   console.log(estado);
@@ -352,6 +356,8 @@ export const AvisoForm: React.FC<
                 <MaterialSelector
                   label={"Tipo de Animal"}
                   estados={especieList}
+                  iconName={"fish"}
+                  iconFamily={"Ionicons"}
                   onEstadoChange={(estado: string) => {
                     onChange(estado);
                     console.log(estado);
@@ -377,6 +383,8 @@ export const AvisoForm: React.FC<
               <MaterialSelector
                 label={"Estado del animal"}
                 estados={condicionesList}
+                iconName={"heart"}
+                iconFamily={"Entypo"}
                 onEstadoChange={(estado: string) => {
                   onChange(estado); // Actualiza el valor del estado en el formulario
                   console.log(estado);
@@ -431,6 +439,28 @@ export const AvisoForm: React.FC<
             placeholder="Otros detalles"
             control={control}
             isRequired={false}
+          />
+
+          <InputField
+            nameInput={"Latitud"}
+            iconName="compass"
+            iconFamily="Ionicons"
+            label="Latitud"
+            placeholder={latitud ? latitud.toString() : "Latitud no disponible"}
+            control={control}
+            isRequired={true}
+          />
+
+          <InputField
+            nameInput={"Longitud"}
+            iconName="compass"
+            iconFamily="Ionicons"
+            label="Longitud"
+            placeholder={
+              longitud ? longitud.toString() : "Longitud no disponible"
+            }
+            control={control}
+            isRequired={true}
           />
         </ScrollView>
       </TouchableWithoutFeedback>
