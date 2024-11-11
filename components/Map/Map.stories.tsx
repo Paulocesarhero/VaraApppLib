@@ -1,10 +1,10 @@
-import { View } from "react-native";
-import React from "react";
-import MapScreen from "./Map";
+import { Text, View } from "react-native";
+import React, { useState } from "react";
+import Map from "./Map";
 
 export default {
   title: "Components/Map",
-  component: MapScreen,
+  component: Map,
   parameters: {
     docs: {
       description: {
@@ -17,9 +17,27 @@ export default {
 };
 
 export const Basic = () => {
+  const [markerPosition, setMarkerPosition] = useState({
+    longitude: -122.4324,
+    latitude: 37.78825,
+  });
+
+  // Actualiza la posición del marcador en el estado
+  const handleMarkerPositionChange = (longitude: number, latitude: number) => {
+    setMarkerPosition({ longitude, latitude });
+  };
+
   return (
     <View style={{ flex: 1 }}>
-      <MapScreen></MapScreen>
+      <Map
+        markerLatitude={markerPosition.latitude}
+        markerLongitude={markerPosition.longitude}
+        onMarkerPositionChange={handleMarkerPositionChange}
+      />
+      <Text>
+        Longitud: {markerPosition.longitude.toFixed(6)}, Latitud:{" "}
+        {markerPosition.latitude.toFixed(6)}
+      </Text>
     </View>
   );
 };
