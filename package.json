@@ -88,6 +88,7 @@
     "typescript": "~5.3.3"
   },
   "peerDependencies": {
+    "react-native-maps": "^1.19.0",
     "expo-camera": "^15.0.16",
     "expo-image": "~1.12.13",
     "expo-linear-gradient": "~13.0.2",
