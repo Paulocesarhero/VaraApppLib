@@ -22,7 +22,6 @@ export const Basic = () => {
     latitude: 37.78825,
   });
 
-  // Actualiza la posición del marcador en el estado
   const handleMarkerPositionChange = (longitude: number, latitude: number) => {
     setMarkerPosition({ longitude, latitude });
   };
