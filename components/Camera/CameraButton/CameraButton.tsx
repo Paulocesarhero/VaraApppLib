@@ -6,8 +6,16 @@ import { CameraButtonStyle } from "./CameraButton.style";
 import PhotoPreview from "../PhotoPreview";
 import CustomCameraView from "../CustomCameraView/CustomCameraView";
 import { AntDesign } from "@expo/vector-icons";
+/**
 
-// Botón de la cámara
+* Componente de botón de cámara que permite tomar fotos, solicitar permisos de cámara y
+* mostrar una vista previa de la foto tomada. Maneja los permisos de cámara y proporciona opciones
+* para retomar la foto si es necesario.
+*
+* @component
+* @example
+* <CameraButton sizeButton={30} styleCamerPreview={{ borderRadius: 10 }} />
+*/
 const CameraButton: React.FC<CameraButtonProps> = ({
   sizeButton = 25,
   styleCamerPreview = {},

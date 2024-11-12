@@ -4,6 +4,12 @@ import { View } from "react-native";
 import CameraControls from "../CameraControls/CameraControls";
 import { CustomCameraViewProps } from "./types";
 import { CustomCameraViewStyle } from "./CustomCameraView.style";
+/**
+ * Componente de vista personalizada de cámara que muestra una interfaz de cámara completa con controles de toma de fotos,
+ * cambio de dirección de cámara, zoom y flash. Utiliza Expo Camera y permite capturar imágenes con la cámara del dispositivo.
+ *
+ * @component
+ */
 
 const CustomCameraView: React.FC<CustomCameraViewProps> = ({
   onClose,

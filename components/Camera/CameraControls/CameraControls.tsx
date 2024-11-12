@@ -2,8 +2,15 @@ import React from "react";
 import { Pressable, Text, View } from "react-native";
 import { CustomCameraProps } from "./types";
 import { CameraControlsStyle } from "./CameraControls.style";
-import { Entypo, Ionicons, Feather } from "@expo/vector-icons";
+import { Entypo, Feather, Ionicons } from "@expo/vector-icons";
 
+/**
+ * Componente `CameraControls` para controlar las funcionalidades de la cámara,
+ * incluyendo el flash, el zoom y la cámara frontal/trasera.
+ *
+ * @param {CustomCameraProps} props - Propiedades del componente.
+ * @returns {React.FC} Un componente funcional de React para controles de cámara.
+ */
 const CameraControls: React.FC<CustomCameraProps> = ({
   onToggleFacing,
   onClose,

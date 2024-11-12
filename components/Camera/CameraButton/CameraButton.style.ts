@@ -24,7 +24,7 @@ export const CameraButtonStyle = StyleSheet.create({
     color: "white",
   },
   image: {
-    width: 500,
-    height: 500,
+    height: 40,
+    width: 40,
   },
 });
