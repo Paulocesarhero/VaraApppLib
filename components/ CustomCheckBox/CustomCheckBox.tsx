@@ -1,5 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View, Text } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { CustomCheckBoxProps } from "./types";
 import { CustomCheckBoxStyles } from "./CustomCheckBox.style";
 
@@ -30,7 +31,7 @@ const CustomCheckBox: React.FC<CustomCheckBoxProps> = ({
           isChecked && CustomCheckBoxStyles.checkedBox,
         ]}
       >
-        {isChecked && <View style={CustomCheckBoxStyles.innerCheck} />}
+        {isChecked && <Ionicons name="checkmark" size={16} color="#fff" />}
       </View>
       <Text style={CustomCheckBoxStyles.label}>{label}</Text>
     </TouchableOpacity>

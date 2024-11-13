@@ -52,8 +52,8 @@ const LoginForm: React.FC<LoginFormProps> = ({
         <Text style={LoginFormStyle.label}>Contraseña</Text>
         <PasswordInput
           placeholder={"Contraseña"}
-          value={password}
-          onChangeText={onPasswordChange}
+          password={password}
+          onPasswordChange={onPasswordChange}
         />
         <RoundedButton
           style={{ marginVertical: 30 }}

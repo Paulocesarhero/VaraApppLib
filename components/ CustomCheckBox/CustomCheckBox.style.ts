@@ -18,17 +18,6 @@ export const CustomCheckBoxStyles = StyleSheet.create({
     backgroundColor: "#007AFF",
     borderColor: "#007AFF",
   },
-  innerCheck: {
-    width: 10,
-    height: 10,
-    transform: [{ rotate: "39deg" }],
-    borderBottomWidth: 2,
-    borderRightWidth: 2,
-    borderColor: "#fff",
-    position: "absolute",
-    bottom: 4,
-    left: 5,
-  },
   label: {
     marginLeft: 8,
     fontSize: 16,

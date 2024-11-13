@@ -36,16 +36,19 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   const placeholderTextColor = colorScheme === "dark" ? "#919090" : "#A9A9A9";
 
   useEffect(() => {
-    const currentDate = new Date();
-    setDate(currentDate);
-    onDateChange && onDateChange(currentDate);
-  }, [onDateChange]);
+    // Imprime la fecha inicial al cargar el componente
+    console.log("Fecha inicial:", date.toISOString().split("T")[0]);
+  }, []);
 
   const handleDateChange = (event: any, selectedDate?: Date) => {
-    setShowPicker(false);
+    setShowPicker(false); // Oculta el selector de fecha
     if (selectedDate) {
       setDate(selectedDate);
-      onDateChange && onDateChange(selectedDate);
+      console.log(
+        "Fecha seleccionada:",
+        selectedDate.toISOString().split("T")[0]
+      );
+      onDateChange && onDateChange(selectedDate); // Llama la función `onDateChange` con la fecha seleccionada
     }
   };
 
@@ -55,20 +58,19 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <TouchableOpacity
-        style={styles.inputContainer}
-        onPress={() => setShowPicker(true)}
-      >
+      <View style={styles.inputContainer}>
         <Ionicons name="calendar" size={24} color="#000" />
         <Text style={[styles.dateText, { color: placeholderTextColor }]}>
           {formattedDate}
         </Text>
-        <Ionicons name="chevron-down" size={24} color="#000" />
-      </TouchableOpacity>
+        <TouchableOpacity onPress={() => setShowPicker(!showPicker)}>
+          <Ionicons name="chevron-down" size={24} color="#000" />
+        </TouchableOpacity>
+      </View>
 
       {showPicker && (
         <DateTimePicker
-          value={date}
+          value={date || new Date()}
           mode="date"
           display={Platform.OS === "ios" ? "inline" : "default"}
           onChange={handleDateChange}

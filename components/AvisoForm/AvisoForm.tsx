@@ -10,6 +10,7 @@ import {
   ScrollView,
   TouchableWithoutFeedback,
   View,
+  Text,
 } from "react-native";
 import RoundedButton from "../RoundedButton/RoundedButton";
 import InputField from "../MaterialInput/MaterialInput";
@@ -18,7 +19,8 @@ import { Estado } from "../MaterialSelector/types";
 import CustomCheckBox from "../ CustomCheckBox/CustomCheckBox";
 import DateSelector from "../DateSelector/DateSelector";
 import { AvisoFormProps, AvisoValues } from "./types";
-import { action } from "@storybook/addon-actions";
+import Map from "../Map/Map";
+import { AvisoFormStyle } from "./AvisoForm.style";
 
 /**
  * AvisoFrom es un componente que muestra almacena todos los componentes necesarios
@@ -223,19 +225,30 @@ export const AvisoForm: React.FC<
         );
         return;
       }
-      //Aquí se obtiene la ubicación
 
+      // Obtener la ubicación actual del usuario
       let location = await Location.getCurrentPositionAsync({});
-      setLatitud(location.coords.latitude);
-      setLongitud(location.coords.longitude);
+      const { latitude, longitude } = location.coords;
 
-      setValue("Latitud", location.coords.latitude);
-      setValue("Longitud", location.coords.longitude);
+      // Establecer las coordenadas obtenidas
+      setLatitud(latitude);
+      setLongitud(longitude);
 
-      console.log("Latitud:", location.coords.latitude);
-      console.log("Longitud:", location.coords.longitude);
+      // Pasar las coordenadas a los campos de formulario
+      setValue("Latitud", latitude);
+      setValue("Longitud", longitude);
+
+      console.log("Latitud:", latitude);
+      console.log("Longitud:", longitude);
     })();
-  }, []);
+  });
+
+  const handleMarkerPositionChange = (longitude: number, latitude: number) => {
+    setLatitud(latitude); // Actualiza la latitud en el estado
+    setLongitud(longitude); // Actualiza la longitud en el estado
+    setValue("Latitud", latitude); // Actualiza el campo de latitud en el formulario
+    setValue("Longitud", longitude); // Actualiza el campo de longitud en el formulario
+  };
 
   const onSubmit: SubmitHandler<AvisoValues> = (data) => {
     console.log("Form Data:", data);
@@ -378,7 +391,7 @@ export const AvisoForm: React.FC<
           />
           <Controller
             control={control}
-            name="Estado"
+            name="Condicion"
             render={({ field: { onChange, onBlur, value } }) => (
               <MaterialSelector
                 label={"Estado del animal"}
@@ -395,7 +408,7 @@ export const AvisoForm: React.FC<
           <InputField
             nameInput={"Cantidad"}
             label="Cantidad"
-            placeholder="Ejemplo: 3"
+            placeholder="1"
             keyboardType="numeric"
             control={control}
             isRequired={true}
@@ -462,6 +475,18 @@ export const AvisoForm: React.FC<
             control={control}
             isRequired={true}
           />
+          <View style={{ height: 400, marginBottom: 20 }}>
+            <Text style={AvisoFormStyle.mapTitle}>
+              Ubicación del avistamiento
+            </Text>
+            <View style={AvisoFormStyle.mapContainer}>
+              <Map
+                markerLatitude={latitud || 0}
+                markerLongitude={longitud || 0}
+                onMarkerPositionChange={handleMarkerPositionChange}
+              />
+            </View>
+          </View>
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
