@@ -19,8 +19,9 @@ import { AntDesign } from "@expo/vector-icons";
 const CameraButton: React.FC<CameraButtonProps> = ({
   sizeButton = 25,
   styleCamerPreview = {},
+  photoUri,
+  setPhotoUri,
 }) => {
-  const [photoUri, setPhotoUri] = useState<string | null>(null);
   const [photoBase64, setPhotoBase64] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
   const [isCameraVisible, setIsCameraVisible] = useState(true);
