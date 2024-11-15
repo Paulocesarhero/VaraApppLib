@@ -1,5 +1,7 @@
 import CameraButton from "./CameraButton/CameraButton";
 import { View } from "react-native";
+import { useState } from "react";
+import { action } from "@storybook/addon-actions";
 
 export default {
   title: "Components/Camera",
@@ -13,6 +15,8 @@ export default {
   },
 };
 export const Basic = () => {
+  const [photo, setPhoto] = useState<string | null>(null); // Inicializa con null y define el tipo
+
   return (
     <View style={{ flex: 1 }}>
       <CameraButton
@@ -22,13 +26,19 @@ export const Basic = () => {
           borderWidth: 1,
           borderColor: "#fff",
           height: 250,
-          width: 200,
+          width: "100%",
           overflow: "hidden",
           backgroundColor: "#000",
           alignItems: "center",
           justifyContent: "center",
         }}
-      ></CameraButton>
+        photoUri={photo}
+        setPhotoUri={(uri: string | null) => {
+          action("setPhotoUri")(uri);
+          setPhoto(uri);
+          console.log(photo);
+        }}
+      />
     </View>
   );
 };
