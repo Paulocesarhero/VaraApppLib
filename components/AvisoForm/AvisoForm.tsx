@@ -21,6 +21,7 @@ import DateSelector from "../DateSelector/DateSelector";
 import { AvisoFormProps, AvisoValues } from "./types";
 import Map from "../Map/Map";
 import { AvisoFormStyle } from "./AvisoForm.style";
+import CameraButton from "../Camera/CameraButton/CameraButton";
 
 /**
  * AvisoFrom es un componente que muestra almacena todos los componentes necesarios
@@ -42,6 +43,8 @@ export const AvisoForm: React.FC<
 > = ({ onSubmitData, loading, setLoading, showEspecie = false }) => {
   const [latitud, setLatitud] = useState<number | null>(null);
   const [longitud, setLongitud] = useState<number | null>(null);
+  const [photo, setPhoto] = useState<string | null>(null);
+  const [showCamera, setShowCamera] = useState(false);
 
   const lugarDondeSeVioList: Estado[] = [
     {
@@ -475,7 +478,7 @@ export const AvisoForm: React.FC<
             control={control}
             isRequired={true}
           />
-          <View style={{ height: 400, marginBottom: 20 }}>
+          <View style={{ height: 350, marginBottom: 5, marginTop: 15 }}>
             <Text style={AvisoFormStyle.mapTitle}>
               Ubicación del avistamiento
             </Text>
@@ -484,6 +487,36 @@ export const AvisoForm: React.FC<
                 markerLatitude={latitud || 0}
                 markerLongitude={longitud || 0}
                 onMarkerPositionChange={handleMarkerPositionChange}
+              />
+            </View>
+          </View>
+
+          <View>
+            <Text
+              style={{ marginBottom: 10, fontSize: 16, fontWeight: "bold" }}
+            >
+              Adjunta una Foto
+            </Text>
+
+            <View style={{ flex: 1 }}>
+              <CameraButton
+                sizeButton={50}
+                styleCamerPreview={{
+                  borderRadius: 15,
+                  borderWidth: 1,
+                  borderColor: "#fff",
+                  height: 250,
+                  width: "100%",
+                  overflow: "hidden",
+                  backgroundColor: "#000",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                photoUri={photo}
+                setPhotoUri={(uri: string | null) => {
+                  setPhoto(uri);
+                  console.log("Foto capturada:", uri);
+                }}
               />
             </View>
           </View>
