@@ -1,7 +1,7 @@
 {
-  "name": "AwesomeStorybook",
-  "slug": "AwesomeStorybook",
   "expo": {
-    "newArchEnabled": true
+    "newArchEnabled": true,
+    "name": "VaraAppLib",
+    "slug": "varaapplib"
   }
 }

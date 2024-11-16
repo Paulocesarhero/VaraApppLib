@@ -22,6 +22,7 @@ import { AvisoFormProps, AvisoValues } from "./types";
 import Map from "../Map/Map";
 import { AvisoFormStyle } from "./AvisoForm.style";
 import CameraButton from "../Camera/CameraButton/CameraButton";
+import { Camera } from "expo-camera";
 
 /**
  * AvisoFrom es un componente que muestra almacena todos los componentes necesarios
@@ -160,11 +161,38 @@ export const AvisoForm: React.FC<
         return;
       }
 
-      // Obtener la ubicación actual del usuario
+      const { status: cameraStatus } =
+        await Camera.requestCameraPermissionsAsync();
+      if (cameraStatus !== "granted") {
+        Alert.alert(
+          "Permisos de cámara denegados",
+          "Es necesario otorgar permisos de cámara para continuar. Puedes habilitarlos en la configuración de la aplicación.",
+          [
+            { text: "Cancelar", style: "cancel" },
+            {
+              text: "Ir a Configuración",
+              onPress: async () => {
+                const supported = await Linking.canOpenURL("app-settings:");
+                if (supported) {
+                  await Linking.openSettings();
+                } else {
+                  Alert.alert(
+                    "Error",
+                    "No se puede abrir la configuración en este dispositivo."
+                  );
+                }
+              },
+            },
+          ]
+        );
+        return;
+      }
+
+      // Obtiene la ubicación actual del usuario
       let location = await Location.getCurrentPositionAsync({});
       const { latitude, longitude } = location.coords;
 
-      // Establecer las coordenadas obtenidas
+      // Establece las coordenadas obtenidas
       setLatitud(latitude);
       setLongitud(longitude);
 
@@ -178,8 +206,8 @@ export const AvisoForm: React.FC<
   }, []);
 
   const handleMarkerPositionChange = (longitude: number, latitude: number) => {
-    setLatitud(latitude); // Actualiza la latitud en el estado
-    setLongitud(longitude); // Actualiza la longitud en el estado
+    setLatitud(latitude); // Actualiza la latitud en el useState
+    setLongitud(longitude); // Actualiza la longitud en el useState
     setValue("Latitud", latitude); // Actualiza el campo de latitud en el formulario
     setValue("Longitud", longitude); // Actualiza el campo de longitud en el formulario
   };
@@ -257,8 +285,8 @@ export const AvisoForm: React.FC<
               render={({ field: { value, onChange } }) => (
                 <CustomCheckBox
                   label="Fácil Acceso?"
-                  isChecked={value} // Set checked status
-                  onToggle={() => onChange(!value)} // Toggle value on press
+                  isChecked={value}
+                  onToggle={() => onChange(!value)}
                 />
               )}
             />

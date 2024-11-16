@@ -1,5 +1,12 @@
 import React, { FC, useState } from "react";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  Linking,
+  Alert,
+} from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { PhotoPickerProps } from "./types";
 import { PhotoPickerStyle } from "./PhotoPicker.style";
@@ -21,7 +28,31 @@ const PhotoPicker: FC<PhotoPickerProps> = ({
   const handlePickImage = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
-      alert("Se necesitan permisos para acceder al carrete.");
+      Alert.alert(
+        "Se necesitan permisos para acceder al carrete.",
+        "Habilita los permisos en configuración",
+        [
+          {
+            text: "Cancelar",
+            style: "cancel",
+          },
+          {
+            text: "Ir a Configuración",
+            onPress: async () => {
+              // Abre la configuración de la aplicación
+              const supported = await Linking.canOpenURL("app-settings:");
+              if (supported) {
+                await Linking.openSettings();
+              } else {
+                Alert.alert(
+                  "Error",
+                  "No se puede abrir la configuración en este dispositivo."
+                );
+              }
+            },
+          },
+        ]
+      );
       return;
     }
 
