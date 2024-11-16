@@ -123,87 +123,18 @@ export const AvisoForm: React.FC<
     },
   ];
 
-  const estadosList: Estado[] = [
-    {
-      id: "Aguascalientes",
-      label: "Aguascalientes",
-      apiValue: "Aguascalientes",
-    },
-    {
-      id: "BajaCalifornia",
-      label: "Baja California",
-      apiValue: "BajaCalifornia",
-    },
-    {
-      id: "BajaCaliforniaSur",
-      label: "Baja California Sur",
-      apiValue: "BajaCaliforniaSur",
-    },
-    { id: "Campeche", label: "Campeche", apiValue: "Campeche" },
-    { id: "Chiapas", label: "Chiapas", apiValue: "Chiapas" },
-    { id: "Chihuahua", label: "Chihuahua", apiValue: "Chihuahua" },
-    {
-      id: "CiudadDeMexico",
-      label: "Ciudad de México",
-      apiValue: "CiudadDeMexico",
-    },
-    {
-      id: "CoahuilaDeZaragoza",
-      label: "Coahuila de Zaragoza",
-      apiValue: "CoahuilaDeZaragoza",
-    },
-    { id: "Colima", label: "Colima", apiValue: "Colima" },
-    { id: "Durango", label: "Durango", apiValue: "Durango" },
-    { id: "Guanajuato", label: "Guanajuato", apiValue: "Guanajuato" },
-    { id: "Guerrero", label: "Guerrero", apiValue: "Guerrero" },
-    { id: "Hidalgo", label: "Hidalgo", apiValue: "Hidalgo" },
-    { id: "Jalisco", label: "Jalisco", apiValue: "Jalisco" },
-    { id: "Mexico", label: "México", apiValue: "México" },
-    {
-      id: "MichoacanDeOcampo",
-      label: "Michoacán de Ocampo",
-      apiValue: "MichoacanDeOcampo",
-    },
-    { id: "Morelos", label: "Morelos", apiValue: "Morelos" },
-    { id: "Nayarit", label: "Nayarit", apiValue: "Nayarit" },
-    { id: "NuevoLeon", label: "Nuevo León", apiValue: "NuevoLeon" },
-    { id: "Oaxaca", label: "Oaxaca", apiValue: "Oaxaca" },
-    { id: "Puebla", label: "Puebla", apiValue: "Puebla" },
-    { id: "Queretaro", label: "Querétaro", apiValue: "Querétaro" },
-    { id: "QuintanaRoo", label: "Quintana Roo", apiValue: "QuintanaRoo" },
-    {
-      id: "SanLuisPotosi",
-      label: "San Luis Potosí",
-      apiValue: "SanLuisPotosi",
-    },
-    { id: "Sinaloa", label: "Sinaloa", apiValue: "Sinaloa" },
-    { id: "Sonora", label: "Sonora", apiValue: "Sonora" },
-    { id: "Tabasco", label: "Tabasco", apiValue: "Tabasco" },
-    { id: "Tamaulipas", label: "Tamaulipas", apiValue: "Tamaulipas" },
-    { id: "Tlaxcala", label: "Tlaxcala", apiValue: "Tlaxcala" },
-    {
-      id: "Veracruz",
-      label: "Veracruz de Ignacio de la Llave",
-      apiValue: "Veracruz",
-    },
-    { id: "Yucatan", label: "Yucatán", apiValue: "Yucatán" },
-    { id: "Zacatecas", label: "Zacatecas", apiValue: "Zacatecas" },
-  ];
-
   const { handleSubmit, control, setValue } = useForm<AvisoValues>({
     defaultValues: {
       FacilAcceso: false,
       Acantilado: false,
       LugarDondeSeVio: 0,
-      FechaAvistamiento: new Date().toISOString().split("T")[0],
-      Especie: "",
+      Sustrato: 0,
+      FechaDeAvistamiento: new Date().toISOString().split("T")[0],
+      TipoDeAnimal: "",
       Observaciones: "",
-      Condicion: "",
-      Pais: "Mexico",
-      Estado: "",
-      Ciudad: "",
-      Localidad: "",
-      InformacionAdicional: "",
+      CondicionDeAnimal: 0,
+      InformacionDeLocalizacion: "",
+      Fotografias: null,
     },
   });
 
@@ -222,7 +153,7 @@ export const AvisoForm: React.FC<
             },
             {
               text: "Ir a Configuración",
-              onPress: () => Linking.openSettings(), // Abre la configuración de la aplicación
+              onPress: () => Linking.openSettings(),
             },
           ]
         );
@@ -241,10 +172,10 @@ export const AvisoForm: React.FC<
       setValue("Latitud", latitude);
       setValue("Longitud", longitude);
 
-      console.log("Latitud:", latitude);
-      console.log("Longitud:", longitude);
+      console.log("Latitud1:", latitude);
+      console.log("Longitud1:", longitude);
     })();
-  });
+  }, []);
 
   const handleMarkerPositionChange = (longitude: number, latitude: number) => {
     setLatitud(latitude); // Actualiza la latitud en el estado
@@ -281,7 +212,7 @@ export const AvisoForm: React.FC<
 
           <Controller
             control={control}
-            name="FechaAvistamiento"
+            name="FechaDeAvistamiento"
             render={({ field: { value } }) => (
               <DateSelector
                 label="Fecha de Avistamiento"
@@ -289,7 +220,7 @@ export const AvisoForm: React.FC<
                   const formattedDate = selectedDate
                     .toISOString()
                     .split("T")[0]; // Formateo para que sea como el API: YYYY-MM-DD
-                  setValue("FechaAvistamiento", formattedDate);
+                  setValue("FechaDeAvistamiento", formattedDate);
                   console.log(formattedDate);
                 }}
               />
@@ -367,7 +298,7 @@ export const AvisoForm: React.FC<
           {showEspecie && (
             <Controller
               control={control}
-              name="Especie"
+              name="TipoDeAnimal"
               render={({ field: { onChange, onBlur, value } }) => (
                 <MaterialSelector
                   label={"Tipo de Animal"}
@@ -394,7 +325,7 @@ export const AvisoForm: React.FC<
           />
           <Controller
             control={control}
-            name="Condicion"
+            name="CondicionDeAnimal"
             render={({ field: { onChange, onBlur, value } }) => (
               <MaterialSelector
                 label={"Estado del animal"}
@@ -409,46 +340,15 @@ export const AvisoForm: React.FC<
             )}
           />
           <InputField
-            nameInput={"Cantidad"}
+            nameInput={"CantidadDeAnimales"}
             label="Cantidad"
             placeholder="1"
             keyboardType="numeric"
             control={control}
             isRequired={true}
           />
-          <Controller
-            control={control}
-            name="Estado"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <MaterialSelector
-                label={"Estado"}
-                estados={estadosList}
-                onEstadoChange={(estado: string) => {
-                  onChange(estado); // Actualiza el valor del estado en el formulario
-                }}
-              />
-            )}
-          />
           <InputField
-            nameInput={"Ciudad"}
-            iconName="address"
-            iconFamily="Entypo"
-            label="Ciudad"
-            placeholder="Ejemplo: Xalapa"
-            control={control}
-            isRequired={false}
-          />
-          <InputField
-            nameInput={"Localidad"}
-            iconName="address"
-            iconFamily="Entypo"
-            label="Localidad"
-            placeholder="Ejemplo: Centro"
-            control={control}
-            isRequired={false}
-          />
-          <InputField
-            nameInput={"InformacionAdicional"}
+            nameInput={"InformacionDeLocalizacion"}
             iconName="text"
             iconFamily="Entypo"
             label="Información Adicional"
@@ -497,28 +397,33 @@ export const AvisoForm: React.FC<
             >
               Adjunta una Foto
             </Text>
-
-            <View style={{ flex: 1 }}>
-              <CameraButton
-                sizeButton={50}
-                styleCamerPreview={{
-                  borderRadius: 15,
-                  borderWidth: 1,
-                  borderColor: "#fff",
-                  height: 250,
-                  width: "100%",
-                  overflow: "hidden",
-                  backgroundColor: "#000",
-                  alignItems: "center",
-                  justifyContent: "center",
-                }}
-                photoUri={photo}
-                setPhotoUri={(uri: string | null) => {
-                  setPhoto(uri);
-                  console.log("Foto capturada:", uri);
-                }}
-              />
-            </View>
+            <Controller
+              control={control}
+              name="Fotografias"
+              render={({ field: { onChange, value } }) => (
+                <View>
+                  <CameraButton
+                    sizeButton={50}
+                    styleCamerPreview={{
+                      borderRadius: 15,
+                      borderWidth: 1,
+                      borderColor: "#fff",
+                      height: 250,
+                      width: "100%",
+                      overflow: "hidden",
+                      backgroundColor: "#000",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                    photoUri={value} // Pasa el valor actual del formulario
+                    setPhotoUri={(uri: string | null) => {
+                      onChange(uri); // Actualiza el valor del formulario
+                      console.log("Foto capturada:", uri);
+                    }}
+                  />
+                </View>
+              )}
+            />
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>

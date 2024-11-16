@@ -1,4 +1,7 @@
 {
   "name": "AwesomeStorybook",
-  "slug": "AwesomeStorybook"
+  "slug": "AwesomeStorybook",
+  "expo": {
+    "newArchEnabled": true
+  }
 }

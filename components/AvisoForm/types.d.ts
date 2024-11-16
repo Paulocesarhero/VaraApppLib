@@ -61,7 +61,7 @@ export interface AvisoValues {
    * Cada uno tiene un valor entero dictado por el modelo de VaraWeb.
    *
    */
-  Sustrato: string;
+  Sustrato: number;
 
   /**
    * Indica el último lugar donde se vio el animal, puede ser Playa o Agua.
@@ -74,13 +74,13 @@ export interface AvisoValues {
    * Fecha en la que se realizó el avistamiento de formato YYYY-MM-DD.
    *
    */
-  FechaAvistamiento: string;
+  FechaDeAvistamiento: string;
 
   /**
    * Nombre de la especie puede ser Odontoceto, Misticeto, Pinnipedo o Sirenio.
    * Es opcional
    */
-  Especie?: string;
+  TipoDeAnimal?: string;
 
   /**
    * Observaciones adicionales sobre el avistamiento.
@@ -93,44 +93,20 @@ export interface AvisoValues {
    * Cada uno tiene un valor entero dictado por el modelo de VaraWeb.
    *
    */
-  Condicion: string;
+  CondicionDeAnimal: number;
 
   /**
    * Cantidad de animales observados.
    *
    */
-  Cantidad: number;
-
-  /**
-   * País donde se realizó el avistamiento (Por defecto es México).
-   *
-   */
-  Pais: string;
-
-  /**
-   * Estado donde se realizó el avistamiento.
-   *
-   */
-  Estado: string;
-
-  /**
-   * Ciudad donde se realizó el avistamiento.
-   *
-   */
-  Ciudad: string;
-
-  /**
-   * Localidad donde se realizó el avistamiento.
-   *
-   */
-  Localidad: string;
+  CantidadDeAnimales: number;
 
   /**
    * Información adicional relevante para el avistamiento.
    *
    * @type {string}
    */
-  InformacionAdicional: string;
+  InformacionDeLocalizacion: string;
 
   /**
    * Latitud de la ubicación del avistamiento.
@@ -144,4 +120,11 @@ export interface AvisoValues {
    * @type {number}
    */
   Longitud: number;
+
+  /**
+   * Fotografias del avistamiento.
+   *
+   * @type {number}
+   */
+  Fotografias: string | null;
 }
