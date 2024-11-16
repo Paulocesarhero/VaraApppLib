@@ -1,7 +1,7 @@
 export default ({ config }) => ({
   ...config,
-  name: "HelloWorld",
-  slug: "expo-template-blank-typescript",
+  name: "VaraAppLib",
+  slug: "varaapplib",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
@@ -29,4 +29,8 @@ export default ({ config }) => ({
   web: {
     favicon: "./assets/favicon.png",
   },
+  plugins: [
+    "expo-localization",
+    "expo-router",
+  ],
 });
