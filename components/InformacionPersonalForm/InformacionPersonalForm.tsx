@@ -13,12 +13,32 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import MaterialPassword from "../MaterialPassword/MaterialPassword";
 import InputField from "../MaterialInput/MaterialInput";
 import MaterialSelector from "../MaterialSelector/MaterialSelector";
+import { FormValues, InformacionPersonalFormProps } from "./types";
+/**
+ * @component
+ * Componente de formulario para capturar información personal del usuario.
+ * Utiliza react-hook-form para la gestión del estado del formulario y control de inputs.
+ *
+ * @param {InformacionPersonalFormProps} props - Las propiedades del componente.
+ * @example
+ * const handleOnSubmit = (data) => {
+ *   console.log("Datos enviados:", data);
+ * };
+ * const [loading, setLoading] = useState(false);
+ *
+ * <InformacionPersonalForm
+ *   onSubmitData={handleOnSubmit}
+ *   loading={loading}
+ *   setLoading={setLoading}
+ * />
+ *
+ */
 
 const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
   onSubmitData,
   loading,
   setLoading,
-}) => {
+}: InformacionPersonalFormProps) => {
   const estadosList: Estado[] = [
     {
       id: "Aguascalientes",
@@ -86,27 +106,12 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
     { id: "Zacatecas", label: "Zacatecas", apiValue: "Zacatecas" },
   ];
 
-  interface FormValues {
-    Contraseña: string;
-    CorreoElectronico: string;
-    Estado: string;
-    Nombre: string;
-    ApellidoPaterno: string;
-    ApellidoMaterno: string;
-    Institucion: string;
-    TelefonoMovil: string;
-    TelefonoFijo: string;
-    Ciudad: string;
-    Calle: string;
-    CodigoPostal: string;
-  }
-
   const { handleSubmit, control } = useForm<FormValues>({
     mode: "onSubmit",
     defaultValues: {
       Contraseña: "",
       CorreoElectronico: "",
-      Estado: "",
+      Estado: "Aguascalientes",
       Nombre: "",
       ApellidoPaterno: "",
       ApellidoMaterno: "",

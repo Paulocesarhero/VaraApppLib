@@ -1,9 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
-import {Entypo, Ionicons} from "@expo/vector-icons";
-import {useController} from "react-hook-form";
-import {MaterialPasswordStyle} from "./MaterialPassword.style";
-import {PasswordInputProps} from "./types";
+import React, { useEffect, useState } from "react";
+import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Entypo, Ionicons } from "@expo/vector-icons";
+import { useController } from "react-hook-form";
+import { MaterialPasswordStyle } from "./MaterialPassword.style";
+import { PasswordInputProps } from "./types";
 
 /**
  * Componente de entrada de contraseña que permite mostrar/ocultar la contraseña,
@@ -114,9 +114,7 @@ const MaterialPassword: React.FC<PasswordInputProps> = ({
               name="erase"
               style={{ marginRight: 2 }}
               size={24}
-              color={
-                getBorderColor()
-              }
+              color={getBorderColor()}
             />
           </TouchableOpacity>
         )}
@@ -126,9 +124,7 @@ const MaterialPassword: React.FC<PasswordInputProps> = ({
           <Ionicons
             name={isPasswordVisible ? "eye-off" : "eye"}
             size={24}
-            color={
-             getBorderColor()
-            }
+            color={getBorderColor()}
           />
         </TouchableOpacity>
       </View>

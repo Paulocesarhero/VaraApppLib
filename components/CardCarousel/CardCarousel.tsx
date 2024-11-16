@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, Image } from "react-native";
-import { CardCarouselProps } from "./CardCarouselProps";
+import { CardCarouselProps } from "./types";
 import { CardCarouselStyle } from "./CardCarousel.style";
 
 const CardCarousel: React.FC<CardCarouselProps> = ({
