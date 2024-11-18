@@ -33,7 +33,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   onEmailChange,
   onPasswordChange,
   onLoginPress,
-  buttonText = "Log in",
+  buttonText = "Iniciar Sesión",
   loading = false,
 }: LoginFormProps) => {
   return (

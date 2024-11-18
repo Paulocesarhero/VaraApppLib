@@ -2,8 +2,8 @@ import { StyleSheet } from "react-native";
 
 export const PasswordInputStyle = StyleSheet.create({
   container: {
-    flexDirection: "row", // Coloca el icono y el texto en una fila
-    alignItems: "center", // Centra verticalmente el contenido
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
     height: 50,
     borderRadius: 12,
@@ -11,6 +11,7 @@ export const PasswordInputStyle = StyleSheet.create({
     paddingHorizontal: 20,
   },
   input: {
+    flex: 1,
     overflow: "hidden",
     textAlign: "center",
     height: 50,
