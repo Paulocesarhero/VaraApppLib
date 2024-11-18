@@ -1,13 +1,22 @@
 import { StyleSheet } from "react-native";
 
 export const emailInputStyle = StyleSheet.create({
-  input: {
-    backgroundColor: "#fff",
+  container: {
+    flexDirection: "row",
+    alignItems: "center",
     borderWidth: 1,
-    height: 50,
     borderRadius: 12,
-    textAlign: "center",
+    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+    height: 50,
+  },
+  input: {
+    flex: 1,
     fontSize: 20,
-    overflow: "scroll",
+    paddingHorizontal: 10,
+    textAlign: "center",
+  },
+  icon: {
+    marginRight: 10,
   },
 });

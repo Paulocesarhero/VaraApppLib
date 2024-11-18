@@ -3,6 +3,7 @@ import React from "react";
 import { emailInputStyle } from "./EmailInput.style";
 import { EmailInputProps } from "./EmailInputProps";
 import { usePlaceholderColor } from "../hooks/colorHook";
+import { Entypo } from "@expo/vector-icons";
 
 const EmailInput: React.FC<EmailInputProps> = ({
   onEmailTextChange,
@@ -12,7 +13,13 @@ const EmailInput: React.FC<EmailInputProps> = ({
   const colorPlaceholder = usePlaceholderColor(); // Usa el color definido en el hook
 
   return (
-    <View>
+    <View style={emailInputStyle.container}>
+      <Entypo
+        name="mail"
+        size={20}
+        color="black"
+        style={emailInputStyle.icon}
+      />
       <TextInput
         onChangeText={onEmailTextChange}
         value={email}
@@ -22,7 +29,7 @@ const EmailInput: React.FC<EmailInputProps> = ({
         autoComplete={"email"}
         keyboardType={"email-address"}
         textContentType={"emailAddress"}
-      ></TextInput>
+      />
     </View>
   );
 };
