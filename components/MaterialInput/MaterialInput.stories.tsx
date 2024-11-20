@@ -67,8 +67,9 @@ export const IsRequiered = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     Alert.alert("Datos", `Datos: ${data.input}`);
   };
+  const theme = useTheme();
   return (
-    <View>
+    <View style={[{ flex: 1 }, theme.background]}>
       <MaterialInput
         placeholder={"Este es el placeholder"}
         label={"Nombre"}
@@ -77,7 +78,8 @@ export const IsRequiered = () => {
         isRequired={true}
       />
       <RoundedButton
-        color={"#000"}
+        colorBackground={theme.text.color}
+        colorText={theme.background.backgroundColor}
         text={"Validar"}
         onPress={handleSubmit(onSubmit)}
       />
@@ -99,8 +101,9 @@ export const Interactive = (args: any) => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     Alert.alert("Datos", `Datos: ${data.input}`);
   };
+  const theme = useTheme();
   return (
-    <View>
+    <View style={[{ flex: 1 }, theme.background]}>
       <MaterialInput
         label={args.label}
         nameInput={"input"}
@@ -108,9 +111,10 @@ export const Interactive = (args: any) => {
         {...args}
       />
       <RoundedButton
-        color={"#000"}
-        text={"Validar"}
+        colorBackground={theme.text.color}
+        colorText={theme.background.backgroundColor}
         onPress={handleSubmit(onSubmit)}
+        text="submit"
       />
     </View>
   );
