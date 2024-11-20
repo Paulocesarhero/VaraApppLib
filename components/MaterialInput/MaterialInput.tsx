@@ -10,6 +10,7 @@ import { Entypo, Ionicons } from "@expo/vector-icons";
 import { MaterialInputStyle } from "./MaterialInput.style";
 import { MaterialInputProps } from "./types";
 import { useController } from "react-hook-form";
+import useTheme from "../hooks/useTheme";
 
 /**
  * Componente de campo de entrada que muestra un texto y un ícono.
@@ -40,6 +41,7 @@ const InputField: React.FC<MaterialInputProps> = ({
   validateRules = {},
   ...props
 }: MaterialInputProps) => {
+  const theme = useTheme();
   const { field, fieldState } = useController({
     name: nameInput,
     control,
@@ -49,14 +51,11 @@ const InputField: React.FC<MaterialInputProps> = ({
     },
   });
 
-  const colorScheme = useColorScheme();
-  const colorModoOscuro = colorScheme === "dark" ? "#919090" : "#A9A9A9";
-
   const getBorderColor = (): string => {
     if (fieldState.error) {
       return "#8B0000";
     }
-    return "#000";
+    return theme.text.color;
   };
 
   const renderIcon = () => {
@@ -72,8 +71,8 @@ const InputField: React.FC<MaterialInputProps> = ({
   };
 
   return (
-    <View style={MaterialInputStyle.container}>
-      <Text style={MaterialInputStyle.label}>{label}</Text>
+    <View style={[MaterialInputStyle.container, theme.background]}>
+      <Text style={[MaterialInputStyle.label, theme.text]}>{label}</Text>
       <View
         style={[
           MaterialInputStyle.inputContainer,
@@ -84,10 +83,10 @@ const InputField: React.FC<MaterialInputProps> = ({
       >
         {renderIcon()}
         <TextInput
-          style={MaterialInputStyle.input}
+          style={[MaterialInputStyle.input, theme.text]}
           placeholder={placeholder}
           value={field.value}
-          placeholderTextColor={colorModoOscuro}
+          placeholderTextColor={theme.textPlaceholder.color}
           onChangeText={field.onChange}
           {...props}
         />

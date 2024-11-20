@@ -4,6 +4,7 @@ import { action } from "@storybook/addon-actions";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Alert, View } from "react-native";
 import RoundedButton from "../RoundedButton/RoundedButton";
+import useTheme from "../hooks/useTheme";
 
 export default {
   title: "Components/MaterialInput",
@@ -32,17 +33,19 @@ export const Basic = () => {
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     Alert.alert("Datos", `Datos: ${data.input}`);
   };
+  const theme = useTheme();
   return (
-    <View>
+    <View style={[{ flex: 1 }, theme.background]}>
       <MaterialInput
         placeholder={"Este es el placeholder"}
         label={"Nombre"}
         control={control}
         nameInput={"input"}
-        isRequired={false}
+        isRequired={true}
       />
       <RoundedButton
-        color={"#000"}
+        colorBackground={theme.text.color}
+        colorText={theme.background.backgroundColor}
         text={"Validar"}
         onPress={handleSubmit(onSubmit)}
       />

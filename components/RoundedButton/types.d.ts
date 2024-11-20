@@ -1,3 +1,5 @@
+import { ViewStyle } from "react-native";
+
 /**
  * Propiedades para el componente RoundedButton.
  *
@@ -8,7 +10,7 @@ export interface RoundedButtonProps {
    * Color de fondo del botón.
    * @type {string}
    */
-  color: string;
+  colorBackground: string;
 
   /**
    * Texto que se mostrará dentro del botón.
@@ -73,4 +75,10 @@ export interface RoundedButtonProps {
    * @type {() => void}
    */
   onPress: () => void;
+
+  /**
+   * Color del texto del botón.
+   * @type {string}
+   */
+  colorText: string;
 }
