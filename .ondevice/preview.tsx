@@ -9,6 +9,7 @@ const preview: Preview = {
       default: "plain",
       values: [
         { name: "plain", value: "white" },
+        { name: "black", value: "black" },
         { name: "warm", value: "hotpink" },
         { name: "cool", value: "deepskyblue" },
       ],
