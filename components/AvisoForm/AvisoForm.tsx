@@ -8,9 +8,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Text,
   TouchableWithoutFeedback,
   View,
-  Text,
 } from "react-native";
 import RoundedButton from "../RoundedButton/RoundedButton";
 import InputField from "../MaterialInput/MaterialInput";
@@ -23,6 +23,8 @@ import Map from "../Map/Map";
 import { AvisoFormStyle } from "./AvisoForm.style";
 import CameraButton from "../Camera/CameraButton/CameraButton";
 import { Camera } from "expo-camera";
+import PhotoPicker from "../PhotoPicker/PhotoPicker";
+import PhotoPreview from "../Camera/PhotoPreview";
 
 /**
  * AvisoFrom es un componente que muestra almacena todos los componentes necesarios
@@ -420,18 +422,34 @@ export const AvisoForm: React.FC<
           </View>
 
           <View>
-            <Text
-              style={{ marginBottom: 10, fontSize: 16, fontWeight: "bold" }}
-            >
-              Adjunta una Foto
-            </Text>
             <Controller
               control={control}
               name="Fotografias"
               render={({ field: { onChange, value } }) => (
-                <View>
-                  <CameraButton
-                    sizeButton={50}
+                <View style={{}}>
+                  <View>
+                    <Text style={{ textAlign: "center" }}>Toma una foto</Text>
+                    <CameraButton
+                      sizeButton={50}
+                      photoUri={value}
+                      setPhotoUri={(uri: string | null) => {
+                        onChange(uri);
+                        setPhoto(uri);
+                      }}
+                    />
+                  </View>
+
+                  <PhotoPicker
+                    label="Selecciona una foto"
+                    onPhotoSelect={(uri: string | null) => {
+                      onChange(uri);
+                      setPhoto(uri);
+                    }}
+                  />
+                  <Text style={{ textAlign: "center" }}>
+                    Vista previa de la foto
+                  </Text>
+                  <PhotoPreview
                     styleCamerPreview={{
                       borderRadius: 15,
                       borderWidth: 1,
@@ -443,12 +461,8 @@ export const AvisoForm: React.FC<
                       alignItems: "center",
                       justifyContent: "center",
                     }}
-                    photoUri={value} // Pasa el valor actual del formulario
-                    setPhotoUri={(uri: string | null) => {
-                      onChange(uri); // Actualiza el valor del formulario
-                      console.log("Foto capturada:", uri);
-                    }}
-                  />
+                    photoUri={photo}
+                  ></PhotoPreview>
                 </View>
               )}
             />
