@@ -15,23 +15,13 @@ export default {
   },
 };
 export const Basic = () => {
-  const [photo, setPhoto] = useState<string | null>(null); // Inicializa con null y define el tipo
+  const [photo, setPhoto] = useState<string | null>(null);
+  const [isCameraVisible, setIsCameraVisible] = useState(false);
 
   return (
     <View style={{ flex: 1 }}>
       <CameraButton
         sizeButton={50}
-        styleCamerPreview={{
-          borderRadius: 15,
-          borderWidth: 1,
-          borderColor: "#fff",
-          height: 250,
-          width: "100%",
-          overflow: "hidden",
-          backgroundColor: "#000",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
         photoUri={photo}
         setPhotoUri={(uri: string | null) => {
           action("setPhotoUri")(uri);
