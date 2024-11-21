@@ -11,7 +11,7 @@ import { MaterialSelectorStyle } from "./MaterialSelector.style";
  * @param {string} props.label - La etiqueta que se muestra sobre el selector.
  * @param {function} props.onEstadoChange - Función de callback que se llama con el valor `apiValue` del estado seleccionado.
  */
-const EstadoSelector: FC<EstadoSelectorProps> = ({
+const MaterialSelector: FC<EstadoSelectorProps> = ({
   label,
   estados,
   onEstadoChange,
@@ -91,4 +91,4 @@ const EstadoSelector: FC<EstadoSelectorProps> = ({
   );
 };
 
-export default EstadoSelector;
+export default MaterialSelector;
