@@ -3,22 +3,21 @@ import { Alert, Linking, Pressable, View } from "react-native";
 import { CameraButtonProps } from "./types";
 import { useCameraPermissions } from "expo-camera";
 import { CameraButtonStyle } from "./CameraButton.style";
-import PhotoPreview from "../PhotoPreview";
 import CustomCameraView from "../CustomCameraView/CustomCameraView";
 import { AntDesign } from "@expo/vector-icons";
+
 /**
 
-* Componente de botón de cámara que permite tomar fotos, solicitar permisos de cámara y
-* mostrar una vista previa de la foto tomada. Maneja los permisos de cámara y proporciona opciones
-* para retomar la foto si es necesario.
-*
-* @component
-* @example
-* <CameraButton sizeButton={30} styleCamerPreview={{ borderRadius: 10 }} />
-*/
+ * Componente de botón de cámara que permite tomar fotos, solicitar permisos de cámara y
+ * mostrar una vista previa de la foto tomada. Maneja los permisos de cámara y proporciona opciones
+ * para retomar la foto si es necesario.
+ *
+ * @component
+ * @example
+ * <CameraButton sizeButton={30} styleCamerPreview={{ borderRadius: 10 }} />
+ */
 const CameraButton: React.FC<CameraButtonProps> = ({
   sizeButton = 25,
-  styleCamerPreview = {},
   photoUri,
   setPhotoUri,
 }) => {
@@ -74,37 +73,29 @@ const CameraButton: React.FC<CameraButtonProps> = ({
     );
   }
 
-  return (
-    <View style={CameraButtonStyle.container}>
-      {photoUri ? (
-        <>
-          <PhotoPreview
-            photoUri={photoUri}
-            sizeButtonPhotoPreview={sizeButton}
-            styleCamerPreview={styleCamerPreview}
-            onRetake={() => {
-              openCamera();
-              setPhotoUri(null);
-            }}
-          />
-        </>
-      ) : isCameraVisible ? (
+  if (isCameraVisible && !photoUri) {
+    return (
+      <View style={{ flex: 1 }}>
         <CustomCameraView
           CameraViewStyle={CameraButtonStyle.camera}
           onClose={closeCamera}
           setPhotoBase64={setPhotoBase64}
           setPhotoUri={setPhotoUri}
         />
-      ) : (
-        <Pressable
-          onPress={() => {
-            openCamera();
-            setPhotoUri(null);
-          }}
-        >
-          <AntDesign name="camerao" size={sizeButton} />
-        </Pressable>
-      )}
+      </View>
+    );
+  }
+
+  return (
+    <View style={CameraButtonStyle.container}>
+      <Pressable
+        onPress={() => {
+          openCamera();
+          setPhotoUri(null);
+        }}
+      >
+        <AntDesign name="camerao" size={sizeButton} />
+      </Pressable>
     </View>
   );
 };

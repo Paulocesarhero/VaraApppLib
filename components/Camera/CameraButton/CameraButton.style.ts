@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const CameraButtonStyle = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    alignItems: "center",
   },
   message: {
     textAlign: "center",
@@ -15,8 +15,6 @@ export const CameraButtonStyle = StyleSheet.create({
 
   button: {
     flex: 1,
-    alignSelf: "flex-end",
-    alignItems: "center",
   },
   text: {
     fontSize: 24,

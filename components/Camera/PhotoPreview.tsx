@@ -10,20 +10,15 @@ import { Image } from "expo-image";
  * @component
  */
 const PhotoPreview: React.FC<{
-  photoUri: string;
-  sizeButtonPhotoPreview?: number;
+  photoUri: string | null;
   styleCamerPreview?: any;
-  onRetake: () => void;
-}> = ({ photoUri, sizeButtonPhotoPreview, styleCamerPreview, onRetake }) => (
+}> = ({ photoUri, styleCamerPreview }) => (
   <View>
     <Image
       source={{ uri: photoUri }}
       style={[CameraButtonStyle.image, styleCamerPreview]}
       contentFit={"scale-down"}
     />
-    <Pressable onPress={onRetake}>
-      <AntDesign name="camera" size={sizeButtonPhotoPreview} color="black" />
-    </Pressable>
   </View>
 );
 export default PhotoPreview;

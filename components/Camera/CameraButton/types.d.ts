@@ -15,13 +15,6 @@ export interface CameraButtonProps {
   sizeButton?: number;
 
   /**
-   * Estilos personalizados para la vista previa de la cámara.
-   *
-   * @type {StyleProp<ImageStyle>}
-   * @default {}
-   */
-  styleCamerPreview?: StyleProp<ImageStyle>;
-  /**
    * URI de la foto capturada.
    *
    * Si no se ha capturado ninguna foto, el valor será `null`.
