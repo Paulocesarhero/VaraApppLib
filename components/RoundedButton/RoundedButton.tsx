@@ -25,7 +25,8 @@ import { Ionicons } from "@expo/vector-icons";
  */
 
 const RoundedButton: React.FC<RoundedButtonProps> = ({
-  color,
+  colorBackground,
+  colorText,
   text,
   style,
   loading = false,
@@ -42,7 +43,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
       <Pressable
         style={({ pressed }) => [
           {
-            backgroundColor: disabled ? "#ccc" : color,
+            backgroundColor: disabled ? "#ccc" : colorBackground,
             opacity: pressed ? 0.8 : 1,
             borderRadius: borderRadius,
             padding: 10,
@@ -68,7 +69,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
                 style={{ marginRight: 8 }}
               />
             )}
-            <Text style={{ fontSize: textSize, color: "#fff" }}>{text}</Text>
+            <Text style={{ fontSize: textSize, color: colorText }}>{text}</Text>
           </>
         )}
       </Pressable>

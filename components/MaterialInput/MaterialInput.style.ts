@@ -8,7 +8,6 @@ export const MaterialInputStyle = StyleSheet.create({
   label: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#000000",
     marginBottom: 5,
   },
   inputContainer: {
@@ -24,7 +23,6 @@ export const MaterialInputStyle = StyleSheet.create({
     flex: 1,
     fontSize: 15,
     marginLeft: 10,
-    color: "#000",
   },
   helperText: {
     fontSize: 14,
