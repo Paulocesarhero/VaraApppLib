@@ -80,12 +80,6 @@ const PhotoPicker: FC<PhotoPickerProps> = ({
       >
         <Text style={PhotoPickerStyle.buttonText}>Seleccionar</Text>
       </TouchableOpacity>
-      {selectedPhoto && (
-        <Image
-          source={{ uri: selectedPhoto }}
-          style={PhotoPickerStyle.imagePreview}
-        />
-      )}
     </View>
   );
 };
