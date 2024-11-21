@@ -10,7 +10,7 @@ export const CameraButtonStyle = StyleSheet.create({
     paddingBottom: 10,
   },
   camera: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
   },
 
   button: {

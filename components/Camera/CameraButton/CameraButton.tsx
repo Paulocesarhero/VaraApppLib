@@ -23,7 +23,7 @@ const CameraButton: React.FC<CameraButtonProps> = ({
 }) => {
   const [photoBase64, setPhotoBase64] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
-  const [isCameraVisible, setIsCameraVisible] = useState(true);
+  const [isCameraVisible, setIsCameraVisible] = useState(false);
   const [permissionDenied, setPermissionDenied] = useState(false);
 
   const closeCamera = () => {

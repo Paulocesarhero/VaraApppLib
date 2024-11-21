@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { CameraType, CameraView, FlashMode } from "expo-camera";
-import { View } from "react-native";
+import { View, Modal } from "react-native";
 import CameraControls from "../CameraControls/CameraControls";
 import { CustomCameraViewProps } from "./types";
 import { CustomCameraViewStyle } from "./CustomCameraView.style";
@@ -45,30 +45,32 @@ const CustomCameraView: React.FC<CustomCameraViewProps> = ({
     setZoom((prevZoom) => Math.max(prevZoom - 0.001, 0)); // Mínimo 0
 
   return (
-    <View style={[CustomCameraViewStyle.container]}>
-      <CameraView
-        style={CustomCameraViewStyle.camera}
-        facing={facing}
-        ref={cameraRef}
-        flash={isFlashActive}
-        zoom={zoom}
-        autofocus={"on"}
-        responsiveOrientationWhenOrientationLocked={true}
-      >
-        <CameraControls
-          setZoom={setZoom}
-          isFlashActive={isFlashActive}
+    <Modal>
+      <View style={[CustomCameraViewStyle.container]}>
+        <CameraView
+          style={CustomCameraViewStyle.camera}
           facing={facing}
-          onFlashPress={toggleFlash}
-          onToggleFacing={toggleCameraFacing}
-          onClose={onClose}
-          onTakePicture={takePicture}
-          onIncreaseZoom={increaseZoom}
+          ref={cameraRef}
+          flash={isFlashActive}
           zoom={zoom}
-          onDecreaseZoom={decreaseZoom}
-        />
-      </CameraView>
-    </View>
+          autofocus={"on"}
+          responsiveOrientationWhenOrientationLocked={true}
+        >
+          <CameraControls
+            setZoom={setZoom}
+            isFlashActive={isFlashActive}
+            facing={facing}
+            onFlashPress={toggleFlash}
+            onToggleFacing={toggleCameraFacing}
+            onClose={onClose}
+            onTakePicture={takePicture}
+            onIncreaseZoom={increaseZoom}
+            zoom={zoom}
+            onDecreaseZoom={decreaseZoom}
+          />
+        </CameraView>
+      </View>
+    </Modal>
   );
 };
 

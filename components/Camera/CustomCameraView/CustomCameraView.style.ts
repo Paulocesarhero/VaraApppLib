@@ -2,7 +2,8 @@ import { StyleSheet } from "react-native";
 
 export const CustomCameraViewStyle = StyleSheet.create({
   container: {
-    flex: 1,
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "black",
   },
   camera: {
     flex: 1,
