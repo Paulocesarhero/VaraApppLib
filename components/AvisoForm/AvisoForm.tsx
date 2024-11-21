@@ -16,7 +16,7 @@ import RoundedButton from "../RoundedButton/RoundedButton";
 import InputField from "../MaterialInput/MaterialInput";
 import MaterialSelector from "../MaterialSelector/MaterialSelector";
 import { Estado } from "../MaterialSelector/types";
-import CustomCheckBox from "../ CustomCheckBox/CustomCheckBox";
+import CustomCheckBox from "../CustomCheckBox/CustomCheckBox";
 import DateSelector from "../DateSelector/DateSelector";
 import { AvisoFormProps, AvisoValues } from "./types";
 import Map from "../Map/Map";
