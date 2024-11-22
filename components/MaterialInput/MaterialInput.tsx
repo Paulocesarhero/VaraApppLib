@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   TextInput,
@@ -70,6 +70,7 @@ const InputField: React.FC<MaterialInputProps> = ({
     }
     return null;
   };
+  const [isFocused, setIsFocused] = useState(false);
 
   return (
     <View style={MaterialInputStyle.container}>
@@ -79,11 +80,17 @@ const InputField: React.FC<MaterialInputProps> = ({
           MaterialInputStyle.inputContainer,
           {
             borderColor: getBorderColor(),
+            boxShadow:
+              isFocused && !fieldState.error
+                ? `5px 5px 5px #6185FF`
+                : `5px 5px 5px ${getBorderColor()}`,
           },
         ]}
       >
         {renderIcon()}
         <TextInput
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
           style={MaterialInputStyle.input}
           placeholder={placeholder}
           value={field.value}

@@ -31,6 +31,7 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
   loading = false,
   disabled = false,
   iconName,
+  boxShadow = true,
   iconColor = "#fff",
   textSize = 16,
   borderRadius = 20,
@@ -49,6 +50,9 @@ const RoundedButton: React.FC<RoundedButtonProps> = ({
             flexDirection: "row",
             alignItems: "center",
             justifyContent: "center",
+          },
+          boxShadow && {
+            boxShadow: "5px 5px 5px #91FF99",
           },
         ]}
         onPress={onPress}

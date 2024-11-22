@@ -60,4 +60,5 @@ Interactive.args = {
   disabled: false,
   loading: false,
   iconName: "map",
+  boxShadow: true,
 };
