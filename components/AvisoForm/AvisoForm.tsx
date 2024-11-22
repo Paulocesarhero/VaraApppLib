@@ -388,29 +388,68 @@ export const AvisoForm: React.FC<
             isRequired={false}
           />
 
-          <InputField
-            nameInput={"Latitud"}
-            iconName="compass"
-            iconFamily="Ionicons"
-            label="Latitud"
-            keyboardType={"numeric"}
-            placeholder={latitud ? latitud.toString() : "Latitud no disponible"}
+          <Controller
             control={control}
-            isRequired={true}
+            name="Latitud"
+            rules={{
+              required: "La latitud es obligatoria",
+              pattern: {
+                value: /^-?\d+(\.\d+)?$/,
+                message:
+                  "La latitud debe ser un número válido (positivo, negativo o decimal)",
+              },
+            }}
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <>
+                <InputField
+                  nameInput={"Latitud"}
+                  iconName="compass"
+                  iconFamily="Ionicons"
+                  label="Latitud"
+                  placeholder={
+                    latitud ? latitud.toString() : "Latitud no disponible"
+                  }
+                  control={control}
+                  isRequired={true}
+                />
+              </>
+            )}
           />
 
-          <InputField
-            nameInput={"Longitud"}
-            iconName="compass"
-            iconFamily="Ionicons"
-            label="Longitud"
-            keyboardType={"numeric"}
-            placeholder={
-              longitud ? longitud.toString() : "Longitud no disponible"
-            }
+          <Controller
             control={control}
-            isRequired={true}
+            name="Longitud"
+            rules={{
+              required: "La longitud es obligatoria",
+              pattern: {
+                value: /^-?\d+(\.\d+)?$/,
+                message:
+                  "La longitud debe ser un número válido (positivo, negativo o decimal)",
+              },
+            }}
+            render={({
+              field: { onChange, onBlur, value },
+              fieldState: { error },
+            }) => (
+              <>
+                <InputField
+                  nameInput={"Longitud"}
+                  iconName="compass"
+                  iconFamily="Ionicons"
+                  label="Longitud"
+                  placeholder={
+                    longitud ? longitud.toString() : "Longitud no disponible"
+                  }
+                  control={control}
+                  isRequired={true}
+                />
+              </>
+            )}
           />
+
           <View style={{ height: 350, marginBottom: 5, marginTop: 15 }}>
             <Text style={AvisoFormStyle.mapTitle}>
               Ubicación del avistamiento
