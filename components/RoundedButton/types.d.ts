@@ -73,4 +73,10 @@ export interface RoundedButtonProps {
    * @type {() => void}
    */
   onPress: () => void;
+
+  /**
+   * Si el boton tiene box shadow o no.
+   * @type {boolean}
+   */
+  boxShadow?: boolean;
 }

@@ -5,7 +5,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "files": [
     "components/**/*",
-    "!**/storybook/**/*",
+    "!components/**/*.stories.*",
     ".npmignore",
     "!node_modules/"
   ],
