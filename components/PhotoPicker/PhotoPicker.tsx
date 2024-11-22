@@ -10,6 +10,7 @@ import {
 import * as ImagePicker from "expo-image-picker";
 import { PhotoPickerProps } from "./types";
 import { PhotoPickerStyle } from "./PhotoPicker.style";
+import { Entypo } from "@expo/vector-icons";
 
 /**
  * Un botón que permite seleccionar una imagen del carrete.
@@ -78,7 +79,7 @@ const PhotoPicker: FC<PhotoPickerProps> = ({
         style={[PhotoPickerStyle.button, buttonStyle]}
         onPress={handlePickImage}
       >
-        <Text style={PhotoPickerStyle.buttonText}>Seleccionar</Text>
+        <Entypo name="images" size={24} color="white" />
       </TouchableOpacity>
     </View>
   );

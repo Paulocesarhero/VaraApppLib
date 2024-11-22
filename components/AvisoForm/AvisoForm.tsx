@@ -25,6 +25,7 @@ import CameraButton from "../Camera/CameraButton/CameraButton";
 import { Camera } from "expo-camera";
 import PhotoPicker from "../PhotoPicker/PhotoPicker";
 import PhotoPreview from "../Camera/PhotoPreview";
+import { Entypo } from "@expo/vector-icons";
 
 /**
  * AvisoFrom es un componente que muestra almacena todos los componentes necesarios
@@ -426,9 +427,17 @@ export const AvisoForm: React.FC<
               control={control}
               name="Fotografias"
               render={({ field: { onChange, value } }) => (
-                <View style={{}}>
+                <View>
                   <View>
-                    <Text style={{ textAlign: "center" }}>Toma una foto</Text>
+                    <Text
+                      style={{
+                        textAlign: "center",
+                        fontWeight: "bold",
+                        fontSize: 16,
+                      }}
+                    >
+                      Toma una foto
+                    </Text>
                     <CameraButton
                       sizeButton={50}
                       photoUri={value}
@@ -446,23 +455,36 @@ export const AvisoForm: React.FC<
                       setPhoto(uri);
                     }}
                   />
-                  <Text style={{ textAlign: "center" }}>
-                    Vista previa de la foto
-                  </Text>
-                  <PhotoPreview
-                    styleCamerPreview={{
-                      borderRadius: 15,
-                      borderWidth: 1,
-                      borderColor: "#fff",
-                      height: 250,
-                      width: "100%",
-                      overflow: "hidden",
-                      backgroundColor: "#000",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                    photoUri={photo}
-                  ></PhotoPreview>
+
+                  {photo && (
+                    <View>
+                      <Text
+                        style={{
+                          textAlign: "center",
+                          fontWeight: "bold",
+                          fontSize: 16,
+                          marginBottom: 10,
+                          marginTop: 25,
+                        }}
+                      >
+                        Vista previa de la foto:
+                      </Text>
+                      <PhotoPreview
+                        styleCamerPreview={{
+                          borderRadius: 15,
+                          borderWidth: 1,
+                          borderColor: "#fff",
+                          height: 250,
+                          width: "100%",
+                          overflow: "hidden",
+                          backgroundColor: "#000",
+                          alignItems: "center",
+                          justifyContent: "center",
+                        }}
+                        photoUri={photo}
+                      ></PhotoPreview>
+                    </View>
+                  )}
                 </View>
               )}
             />
