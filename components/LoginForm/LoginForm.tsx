@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Keyboard, Text, TouchableWithoutFeedback, View } from "react-native";
 import React from "react";
 import { LoginFormStyle } from "./LoginForm.style";
 import RoundedButton from "../RoundedButton/RoundedButton";
@@ -37,34 +37,36 @@ const LoginForm: React.FC<LoginFormProps> = ({
   loading = false,
 }: LoginFormProps) => {
   return (
-    <LinearGradient
-      style={LoginFormStyle.container}
-      colors={["#024D76", "#3b5998", "#54AD94"]}
-    >
-      <Image
-        source={require("./logo.png")}
-        style={LoginFormStyle.image}
-        contentFit={"contain"}
-      />
-      <View style={LoginFormStyle.form}>
-        <Text style={LoginFormStyle.label}>Correo electrónico</Text>
-        <EmailInput value={email} onEmailTextChange={onEmailChange} />
-        <Text style={LoginFormStyle.label}>Contraseña</Text>
-        <PasswordInput
-          placeholder={"Contraseña"}
-          password={password}
-          onPasswordChange={onPasswordChange}
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <LinearGradient
+        style={LoginFormStyle.container}
+        colors={["#024D76", "#3b5998", "#54AD94"]}
+      >
+        <Image
+          source={require("./logo.png")}
+          style={LoginFormStyle.image}
+          contentFit={"contain"}
         />
-        <RoundedButton
-          style={{ marginVertical: 30 }}
-          color={"#090909"}
-          textSize={25}
-          text={loading ? "Loading..." : buttonText}
-          onPress={onLoginPress}
-          disabled={loading}
-        />
-      </View>
-    </LinearGradient>
+        <View style={LoginFormStyle.form}>
+          <Text style={LoginFormStyle.label}>Correo electrónico</Text>
+          <EmailInput value={email} onEmailTextChange={onEmailChange} />
+          <Text style={LoginFormStyle.label}>Contraseña</Text>
+          <PasswordInput
+            placeholder={"Contraseña"}
+            password={password}
+            onPasswordChange={onPasswordChange}
+          />
+          <RoundedButton
+            style={{ marginVertical: 30 }}
+            color={"#090909"}
+            textSize={25}
+            text={loading ? "Loading..." : buttonText}
+            onPress={onLoginPress}
+            disabled={loading}
+          />
+        </View>
+      </LinearGradient>
+    </TouchableWithoutFeedback>
   );
 };
 
