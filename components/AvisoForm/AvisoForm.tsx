@@ -444,25 +444,15 @@ export const AvisoForm: React.FC<
                       setPhotoUri={(uri: string | null) => {
                         onChange(uri);
                         setPhoto(uri);
-                        if (uri) {
-                          console.log("Imagen capturada desde la cámara:", uri);
-                        }
                       }}
                     />
                   </View>
 
                   <PhotoPicker
                     label="Selecciona una foto"
-                    icon={<Entypo name="images" size={24} color="black" />}
                     onPhotoSelect={(uri: string | null) => {
                       onChange(uri);
                       setPhoto(uri);
-                      if (uri) {
-                        console.log(
-                          "Imagen seleccionada desde el carrete:",
-                          uri
-                        );
-                      }
                     }}
                   />
 

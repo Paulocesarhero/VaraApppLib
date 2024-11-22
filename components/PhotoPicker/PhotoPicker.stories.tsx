@@ -19,7 +19,6 @@ export default {
 export const Basic = () => (
   <PhotoPicker
     label="Selecciona una foto"
-    icon={<Entypo name="images" size={24} color="black" />}
     onPhotoSelect={(uri) => console.log("Foto seleccionada:", uri)}
   />
 );

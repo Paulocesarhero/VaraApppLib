@@ -27,8 +27,6 @@ export interface PhotoPickerProps {
    * Estilo personalizado para la etiqueta.
    */
   labelStyle?: object;
-
-  icon: React.ReactNode;
 }
 
 export enum MediaTypeOptions {
