@@ -393,6 +393,7 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Latitud"
+            keyboardType={"numeric"}
             placeholder={latitud ? latitud.toString() : "Latitud no disponible"}
             control={control}
             isRequired={true}
@@ -403,6 +404,7 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Longitud"
+            keyboardType={"numeric"}
             placeholder={
               longitud ? longitud.toString() : "Longitud no disponible"
             }
