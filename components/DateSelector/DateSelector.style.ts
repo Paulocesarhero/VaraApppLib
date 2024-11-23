@@ -4,11 +4,12 @@ export const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
     paddingHorizontal: 10,
+    backgroundColor: "#ffffff",
   },
   label: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#000000",
+    color: "#000",
     marginBottom: 5,
   },
   inputContainer: {
@@ -18,6 +19,8 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
+    backgroundColor: "#ffffff",
+    borderColor: "#000",
   },
   dateText: {
     flex: 1,

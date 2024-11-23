@@ -127,7 +127,7 @@ export const AvisoForm: React.FC<
     },
   ];
 
-  const { handleSubmit, control, setValue } = useForm<AvisoValues>({
+  const { handleSubmit, control, setValue, getValues } = useForm<AvisoValues>({
     defaultValues: {
       FacilAcceso: false,
       Acantilado: false,
@@ -139,6 +139,8 @@ export const AvisoForm: React.FC<
       CondicionDeAnimal: 0,
       InformacionDeLocalizacion: "",
       Fotografias: null,
+      Latitud: 0,
+      Longitud: 0,
     },
   });
 
@@ -209,10 +211,12 @@ export const AvisoForm: React.FC<
   }, []);
 
   const handleMarkerPositionChange = (longitude: number, latitude: number) => {
-    setLatitud(latitude); // Actualiza la latitud en el useState
-    setLongitud(longitude); // Actualiza la longitud en el useState
-    setValue("Latitud", latitude); // Actualiza el campo de latitud en el formulario
-    setValue("Longitud", longitude); // Actualiza el campo de longitud en el formulario
+    // Actualiza el campo en el useState
+    setLatitud(latitude);
+    setLongitud(longitude);
+    // Actualiza el campo en el formulario
+    setValue("Latitud", latitude);
+    setValue("Longitud", longitude);
   };
 
   const onSubmit: SubmitHandler<AvisoValues> = (data) => {
@@ -287,7 +291,7 @@ export const AvisoForm: React.FC<
               name="FacilAcceso"
               render={({ field: { value, onChange } }) => (
                 <CustomCheckBox
-                  label="Fácil Acceso?"
+                  label="¿Fácil Acceso?"
                   isChecked={value}
                   onToggle={() => onChange(!value)}
                 />
@@ -301,7 +305,7 @@ export const AvisoForm: React.FC<
               name="Acantilado"
               render={({ field: { value, onChange } }) => (
                 <CustomCheckBox
-                  label="Acantilado"
+                  label="¿Acantilado?"
                   isChecked={value}
                   onToggle={() => onChange(!value)}
                 />
@@ -387,15 +391,30 @@ export const AvisoForm: React.FC<
             control={control}
             isRequired={false}
           />
-
           <InputField
             nameInput={"Latitud"}
             iconName="compass"
             iconFamily="Ionicons"
             label="Latitud"
             placeholder={latitud ? latitud.toString() : "Latitud no disponible"}
+            keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
+            onBlur={() => {
+              const currentValue = getValues("Latitud"); // Puede ser número o null
+              const valueAsString =
+                currentValue !== null ? currentValue.toString() : ""; // Convertir a string o usar vacío
+              const isValidLatitude = /^-?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/.test(
+                valueAsString
+              );
+              if (!isValidLatitude) {
+                setValue("Latitud", latitud); // Restaura la latitud original
+                Alert.alert(
+                  "Latitud inválida.",
+                  "Debe estar en el rango de -90 a 90 con hasta 6 decimales, se ha restaurado el valor obtenido de tu ubicación."
+                );
+              }
+            }}
           />
 
           <InputField
@@ -403,12 +422,28 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Longitud"
-            placeholder={
-              longitud ? longitud.toString() : "Longitud no disponible"
-            }
+            placeholder={longitud ? longitud.toString() : "Longitud no disponible"}
+            keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
+            onBlur={() => {
+              const currentValue = getValues("Longitud"); // Puede ser número o null
+              const valueAsString =
+                currentValue !== null ? currentValue.toString() : ""; // Convertir a string o usar vacío
+              const isValidLongitude =
+                /^-?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/.test(
+                  valueAsString
+                );
+              if (!isValidLongitude) {
+                setValue("Longitud", longitud); // Restaura la longitud original
+                Alert.alert(
+                  "Longitud inválida",
+                  "Debe estar en el rango de -180 a 180 con hasta 6 decimales, se ha restaurado el valor obtenido de tu ubicación."
+                );
+              }
+            }}
           />
+
           <View style={{ height: 350, marginBottom: 5, marginTop: 15 }}>
             <Text style={AvisoFormStyle.mapTitle}>
               Ubicación del avistamiento
