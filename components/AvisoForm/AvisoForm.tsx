@@ -139,6 +139,8 @@ export const AvisoForm: React.FC<
       CondicionDeAnimal: 0,
       InformacionDeLocalizacion: "",
       Fotografias: null,
+      Latitud: 0,
+      Longitud: 0,
     },
   });
 
@@ -408,21 +410,10 @@ export const AvisoForm: React.FC<
               if (!isValidLatitude) {
                 setValue("Latitud", latitud); // Restaura la latitud original
                 Alert.alert(
-                  "Latitud inválida, debe estar en el rango de -90 a 90 con hasta 6 decimales.",
-                  "Se ha restaurado el valor obtenido de tu ubicación."
+                  "Latitud inválida.",
+                  "Debe estar en el rango de -90 a 90 con hasta 6 decimales, se ha restaurado el valor obtenido de tu ubicación."
                 );
               }
-            }}
-            validateRules={{
-              pattern: {
-                value: /^(-?(90(\.0+)?|[1-8]?\d(\.\d+)?))$/,
-                message:
-                  "La latitud debe estar en el rango de -90 a 90 con hasta 6 decimales.",
-              },
-              minLength: {
-                value: 1,
-                message: "La latitud debe tener al menos 1 dígito.",
-              },
             }}
           />
 
@@ -431,9 +422,7 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Longitud"
-            placeholder={
-              longitud ? longitud.toString() : "Longitud no disponible"
-            }
+            placeholder={longitud ? longitud.toString() : "Longitud no disponible"}
             keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
@@ -448,21 +437,10 @@ export const AvisoForm: React.FC<
               if (!isValidLongitude) {
                 setValue("Longitud", longitud); // Restaura la longitud original
                 Alert.alert(
-                  "Longitud inválida, debe estar en el rango de -180 a 180 con hasta 6 decimales.",
-                  "Se ha restaurado el valor obtenido de tu ubicación."
+                  "Longitud inválida",
+                  "Debe estar en el rango de -180 a 180 con hasta 6 decimales, se ha restaurado el valor obtenido de tu ubicación."
                 );
               }
-            }}
-            validateRules={{
-              pattern: {
-                value: /^(-?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/,
-                message:
-                  "La longitud debe estar en el rango de -180 a 180 con hasta 6 decimales.",
-              },
-              minLength: {
-                value: 1,
-                message: "La longitud debe tener al menos 1 dígito.",
-              },
             }}
           />
 

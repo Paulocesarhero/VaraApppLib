@@ -112,14 +112,14 @@ export interface AvisoValues {
    * Latitud de la ubicación del avistamiento.
    *
    */
-  Latitud: number | null;
+  Latitud: number | null | string;
 
   /**
    * Longitud de la ubicación del avistamiento.
    *
    * @type {number}
    */
-  Longitud: number | null;
+  Longitud: number | null | string;
 
   /**
    * Fotografias del avistamiento.
