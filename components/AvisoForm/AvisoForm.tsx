@@ -287,7 +287,7 @@ export const AvisoForm: React.FC<
               name="FacilAcceso"
               render={({ field: { value, onChange } }) => (
                 <CustomCheckBox
-                  label="Fácil Acceso?"
+                  label="¿Fácil Acceso?"
                   isChecked={value}
                   onToggle={() => onChange(!value)}
                 />
@@ -301,7 +301,7 @@ export const AvisoForm: React.FC<
               name="Acantilado"
               render={({ field: { value, onChange } }) => (
                 <CustomCheckBox
-                  label="Acantilado"
+                  label="¿Acantilado?"
                   isChecked={value}
                   onToggle={() => onChange(!value)}
                 />
@@ -387,67 +387,50 @@ export const AvisoForm: React.FC<
             control={control}
             isRequired={false}
           />
-
-          <Controller
+          <InputField
+            nameInput={"Latitud"}
+            iconName="compass"
+            iconFamily="Ionicons"
+            label="Latitud"
+            placeholder={latitud ? latitud.toString() : "Latitud no disponible"}
+            keyboardType={"numbers-and-punctuation"}
             control={control}
-            name="Latitud"
-            rules={{
-              required: "La latitud es obligatoria",
+            isRequired={true}
+            validateRules={{
               pattern: {
-                value: /^-?\d+(\.\d+)?$/,
+                value: /^(-?(90(\.0+)?|[1-8]?\d(\.\d+)?))$/,
                 message:
-                  "La latitud debe ser un número válido (positivo, negativo o decimal)",
+                  "La latitud debe estar en el rango de -90 a 90 con hasta 6 decimales.",
+              },
+              minLength: {
+                value: 1,
+                message: "La latitud debe tener al menos 1 dígito.",
               },
             }}
-            render={({
-              field: { onChange, onBlur, value },
-              fieldState: { error },
-            }) => (
-              <>
-                <InputField
-                  nameInput={"Latitud"}
-                  iconName="compass"
-                  iconFamily="Ionicons"
-                  label="Latitud"
-                  placeholder={
-                    latitud ? latitud.toString() : "Latitud no disponible"
-                  }
-                  control={control}
-                  isRequired={true}
-                />
-              </>
-            )}
           />
 
-          <Controller
+          <InputField
+            nameInput={"Longitud"}
+            iconName="compass"
+            iconFamily="Ionicons"
+            label="Longitud"
+            placeholder={
+              longitud ? longitud.toString() : "Longitud no disponible"
+            }
+            keyboardType={"numbers-and-punctuation"}
             control={control}
-            name="Longitud"
-            rules={{
-              required: "La longitud es obligatoria",
+            isRequired={true}
+            validateRules={{
               pattern: {
-                value: /^-?\d+(\.\d+)?$/,
+                value: /^(-?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/,
                 message:
-                  "La longitud debe ser un número válido (positivo, negativo o decimal)",
+                  "La longitud debe estar en el rango de -180 a 180 con hasta 6 decimales.",
+              },
+              minLength: {
+                value: 1,
+                message: "La longitud debe tener al menos 1 dígito.",
               },
             }}
-            render={({
-              field: { onChange, onBlur, value },
-              fieldState: { error },
-            }) => (
-              <>
-                <InputField
-                  nameInput={"Longitud"}
-                  iconName="compass"
-                  iconFamily="Ionicons"
-                  label="Longitud"
-                  placeholder={
-                    longitud ? longitud.toString() : "Longitud no disponible"
-                  }
-                  control={control}
-                  isRequired={true}
-                />
-              </>
-            )}
           />
 
           <View style={{ height: 350, marginBottom: 5, marginTop: 15 }}>
