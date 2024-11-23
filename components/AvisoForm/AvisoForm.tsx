@@ -127,7 +127,7 @@ export const AvisoForm: React.FC<
     },
   ];
 
-  const { handleSubmit, control, setValue } = useForm<AvisoValues>({
+  const { handleSubmit, control, setValue, getValues } = useForm<AvisoValues>({
     defaultValues: {
       FacilAcceso: false,
       Acantilado: false,
@@ -209,10 +209,12 @@ export const AvisoForm: React.FC<
   }, []);
 
   const handleMarkerPositionChange = (longitude: number, latitude: number) => {
-    setLatitud(latitude); // Actualiza la latitud en el useState
-    setLongitud(longitude); // Actualiza la longitud en el useState
-    setValue("Latitud", latitude); // Actualiza el campo de latitud en el formulario
-    setValue("Longitud", longitude); // Actualiza el campo de longitud en el formulario
+    // Actualiza el campo en el useState
+    setLatitud(latitude);
+    setLongitud(longitude);
+    // Actualiza el campo en el formulario
+    setValue("Latitud", latitude);
+    setValue("Longitud", longitude);
   };
 
   const onSubmit: SubmitHandler<AvisoValues> = (data) => {
@@ -396,6 +398,21 @@ export const AvisoForm: React.FC<
             keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
+            onBlur={() => {
+              const currentValue = getValues("Latitud"); // Puede ser número o null
+              const valueAsString =
+                currentValue !== null ? currentValue.toString() : ""; // Convertir a string o usar vacío
+              const isValidLatitude = /^-?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/.test(
+                valueAsString
+              );
+              if (!isValidLatitude) {
+                setValue("Latitud", latitud); // Restaura la latitud original
+                Alert.alert(
+                  "Latitud inválida, debe estar en el rango de -90 a 90 con hasta 6 decimales.",
+                  "Se ha restaurado el valor obtenido de tu ubicación."
+                );
+              }
+            }}
             validateRules={{
               pattern: {
                 value: /^(-?(90(\.0+)?|[1-8]?\d(\.\d+)?))$/,
@@ -420,6 +437,22 @@ export const AvisoForm: React.FC<
             keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
+            onBlur={() => {
+              const currentValue = getValues("Longitud"); // Puede ser número o null
+              const valueAsString =
+                currentValue !== null ? currentValue.toString() : ""; // Convertir a string o usar vacío
+              const isValidLongitude =
+                /^-?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/.test(
+                  valueAsString
+                );
+              if (!isValidLongitude) {
+                setValue("Longitud", longitud); // Restaura la longitud original
+                Alert.alert(
+                  "Longitud inválida, debe estar en el rango de -180 a 180 con hasta 6 decimales.",
+                  "Se ha restaurado el valor obtenido de tu ubicación."
+                );
+              }
+            }}
             validateRules={{
               pattern: {
                 value: /^(-?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?))$/,
