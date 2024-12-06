@@ -1,5 +1,3 @@
-import { ImageStyle, StyleProp } from "react-native";
-
 /**
  * Propiedades para el componente `CameraButton`.
  *
