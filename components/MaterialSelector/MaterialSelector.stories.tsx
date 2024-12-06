@@ -18,9 +18,9 @@ export default {
 
 // Datos de ejemplo
 const estados: Estado[] = [
-  { id: "1", label: "Activo", apiValue: "active" },
-  { id: "2", label: "Inactivo", apiValue: "inactive" },
-  { id: "3", label: "Pendiente", apiValue: "pending" },
+  { id: "1", label: "Activo", apiValue: "0" },
+  { id: "2", label: "Inactivo", apiValue: "1" },
+  { id: "3", label: "Pendiente", apiValue: "2" },
 ];
 
 export const Basic = () => (
@@ -28,6 +28,7 @@ export const Basic = () => (
     label="Estado"
     estados={estados}
     onEstadoChange={(estado) => console.log("Estado seleccionado:", estado)}
+    value={1}
   />
 );
 
@@ -36,11 +37,13 @@ export const WithoutOptions = () => (
     label="Estado"
     estados={[]}
     onEstadoChange={(estado) => console.log("Estado seleccionado:", estado)}
+    value={0}
   />
 );
 
 export const PreSelectedOption = () => (
   <MaterialSelector
+    value={2}
     label="Estado"
     estados={estados}
     onEstadoChange={(estado) => console.log("Estado seleccionado:", estado)}

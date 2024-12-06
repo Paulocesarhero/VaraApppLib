@@ -24,6 +24,22 @@ export interface AvisoFormProps {
    * @param {boolean} loading - Estado de carga.
    */
   setLoading: (loading: boolean) => void;
+
+  /**
+   * Datos completos del aviso.
+   * Contiene toda la información necesaria del aviso como un objeto del tipo `AvisoValues`.
+   *
+   * @type {AvisoValues}
+   */
+  data: AvisoValues;
+  /**
+   * Función que se ejecuta cuando los valores del aviso cambian.
+   * Proporciona un objeto parcial de `AvisoValues` con los valores actualizados.
+   *
+   * @param {Partial<AvisoValues>} values - Objeto con los valores modificados del aviso.
+   * @returns {void}
+   */
+  onValuesChange: (values: Partial<AvisoValues>) => void;
 }
 
 /**
@@ -71,10 +87,10 @@ export interface AvisoValues {
   LugarDondeSeVio: number;
 
   /**
-   * Fecha en la que se realizó el avistamiento de formato YYYY-MM-DD.
+   * Fecha en la que se realizó el avistamiento.
    *
    */
-  FechaDeAvistamiento: string;
+  FechaDeAvistamiento: Date | string;
 
   /**
    * Nombre de la especie puede ser Odontoceto, Misticeto, Pinnipedo o Sirenio.
@@ -99,7 +115,7 @@ export interface AvisoValues {
    * Cantidad de animales observados.
    *
    */
-  CantidadDeAnimales: number;
+  CantidadDeAnimales: string;
 
   /**
    * Información adicional relevante para el avistamiento.
@@ -112,19 +128,19 @@ export interface AvisoValues {
    * Latitud de la ubicación del avistamiento.
    *
    */
-  Latitud: number | null | string;
+  Latitud: string;
 
   /**
    * Longitud de la ubicación del avistamiento.
    *
    * @type {number}
    */
-  Longitud: number | null | string;
+  Longitud: string;
 
   /**
-   * Fotografias del avistamiento.
+   * Fotografia del avistamiento.
    *
    * @type {number}
    */
-  Fotografias: string | null;
+  Fotografia: string | null;
 }

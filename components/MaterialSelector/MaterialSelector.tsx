@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { FlatList, Modal, Text, TouchableOpacity, View } from "react-native";
 import { Entypo, Ionicons } from "@expo/vector-icons";
 import { Estado, EstadoSelectorProps } from "./types";
@@ -17,10 +17,12 @@ const MaterialSelector: FC<EstadoSelectorProps> = ({
   onEstadoChange,
   iconName = "map",
   iconFamily = "Entypo",
+  value,
 }: EstadoSelectorProps) => {
   const [selectedEstado, setSelectedEstado] = useState<string | null>(
-    estados[0]?.label || null
+    value || estados[0]?.label || null
   );
+
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false);
 
   const handleSelectEstado = (estado: Estado) => {
@@ -28,6 +30,17 @@ const MaterialSelector: FC<EstadoSelectorProps> = ({
     setSelectedEstado(estado.label);
     setIsModalVisible(false);
   };
+
+  useEffect(() => {
+    if (value) {
+      const estadoEncontrado = estados.find(
+        (estado) => estado.apiValue == value
+      );
+      if (estadoEncontrado) {
+        setSelectedEstado(estadoEncontrado.label);
+      }
+    }
+  }, [value, estados]);
 
   const renderIcon = () => {
     if (iconFamily === "Ionicons") {

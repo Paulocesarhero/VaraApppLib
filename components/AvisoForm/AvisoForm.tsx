@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import * as Location from "expo-location";
 import * as Linking from "expo-linking";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import {
   Alert,
   Keyboard,
@@ -44,12 +44,14 @@ import { Entypo } from "@expo/vector-icons";
 
 export const AvisoForm: React.FC<
   AvisoFormProps & { showEspecie?: boolean }
-> = ({ onSubmitData, loading, setLoading, showEspecie = false }) => {
-  const [latitud, setLatitud] = useState<number | null>(null);
-  const [longitud, setLongitud] = useState<number | null>(null);
-  const [photo, setPhoto] = useState<string | null>(null);
-  const [showCamera, setShowCamera] = useState(false);
-
+> = ({
+  onSubmitData,
+  loading,
+  setLoading,
+  showEspecie = false,
+  onValuesChange,
+  data,
+}) => {
   const lugarDondeSeVioList: Estado[] = [
     {
       id: "Playa",
@@ -127,22 +129,15 @@ export const AvisoForm: React.FC<
     },
   ];
 
-  const { handleSubmit, control, setValue, getValues } = useForm<AvisoValues>({
-    defaultValues: {
-      FacilAcceso: false,
-      Acantilado: false,
-      LugarDondeSeVio: 0,
-      Sustrato: 0,
-      FechaDeAvistamiento: new Date().toISOString().split("T")[0],
-      TipoDeAnimal: "",
-      Observaciones: "",
-      CondicionDeAnimal: 0,
-      InformacionDeLocalizacion: "",
-      Fotografias: null,
-      Latitud: 0,
-      Longitud: 0,
-    },
-  });
+  const { handleSubmit, control, setValue, getValues, watch } =
+    useForm<AvisoValues>({
+      defaultValues: data,
+    });
+  const watchedValues = watch();
+
+  useEffect(() => {
+    onValuesChange(watchedValues);
+  }, [watchedValues]);
 
   useEffect(() => {
     (async () => {
@@ -193,30 +188,19 @@ export const AvisoForm: React.FC<
         return;
       }
 
-      // Obtiene la ubicación actual del usuario
-      let location = await Location.getCurrentPositionAsync({});
-      const { latitude, longitude } = location.coords;
+      if (getValues("Latitud") == "" && getValues("Longitud") == "") {
+        let location = await Location.getCurrentPositionAsync({});
+        const { latitude, longitude } = location.coords;
 
-      // Establece las coordenadas obtenidas
-      setLatitud(latitude);
-      setLongitud(longitude);
-
-      // Pasar las coordenadas a los campos de formulario
-      setValue("Latitud", latitude);
-      setValue("Longitud", longitude);
-
-      console.log("Latitud1:", latitude);
-      console.log("Longitud1:", longitude);
+        setValue("Latitud", latitude.toString());
+        setValue("Longitud", longitude.toString());
+      }
     })();
-  }, []);
+  }, [getValues, setValue]);
 
   const handleMarkerPositionChange = (longitude: number, latitude: number) => {
-    // Actualiza el campo en el useState
-    setLatitud(latitude);
-    setLongitud(longitude);
-    // Actualiza el campo en el formulario
-    setValue("Latitud", latitude);
-    setValue("Longitud", longitude);
+    setValue("Latitud", latitude.toString());
+    setValue("Longitud", longitude.toString());
   };
 
   const onSubmit: SubmitHandler<AvisoValues> = (data) => {
@@ -244,19 +228,44 @@ export const AvisoForm: React.FC<
             style={{ marginVertical: 10 }}
             loading={loading}
           />
+          <InputField
+            nameInput={"CantidadDeAnimales"}
+            label="Cantidad"
+            placeholder="Ejemplo: 1"
+            keyboardType="numeric"
+            control={control}
+            validateRules={{
+              pattern: {
+                value: /^[0-9]*$/,
+                message: "Solo se permiten números enteros",
+              },
+            }}
+            onChangeText={(text) => {
+              const filteredText = text.replace(/[^0-9]/g, "");
+              setValue("CantidadDeAnimales", filteredText, {
+                shouldValidate: true,
+                shouldDirty: true,
+              });
+            }}
+            isRequired={true}
+          />
 
           <Controller
             control={control}
             name="FechaDeAvistamiento"
-            render={({ field: { value } }) => (
+            render={({ field: { value, onChange } }) => (
               <DateSelector
+                value={value ? new Date(value) : new Date()}
                 label="Fecha de Avistamiento"
                 onDateChange={(selectedDate: Date) => {
                   const formattedDate = selectedDate
                     .toISOString()
-                    .split("T")[0]; // Formateo para que sea como el API: YYYY-MM-DD
-                  setValue("FechaDeAvistamiento", formattedDate);
-                  console.log(formattedDate);
+                    .split("T")[0];
+                  setValue("FechaDeAvistamiento", formattedDate, {
+                    shouldDirty: true,
+                    shouldValidate: true,
+                  });
+                  onChange(formattedDate);
                 }}
               />
             )}
@@ -267,13 +276,13 @@ export const AvisoForm: React.FC<
             name="Sustrato"
             render={({ field: { onChange, onBlur, value } }) => (
               <MaterialSelector
+                value={value}
                 label={"Sustrato"}
                 estados={sustratosList}
                 iconName={"earth"}
                 iconFamily={"Ionicons"}
                 onEstadoChange={(estado: string) => {
                   onChange(estado);
-                  console.log(estado);
                 }}
               />
             )}
@@ -318,13 +327,13 @@ export const AvisoForm: React.FC<
             name="LugarDondeSeVio"
             render={({ field: { onChange, onBlur, value } }) => (
               <MaterialSelector
+                value={value}
                 label={"Lugar donde se vio el mamífero"}
                 estados={lugarDondeSeVioList}
                 iconName={"eye"}
                 iconFamily={"Entypo"}
                 onEstadoChange={(estado: string) => {
                   onChange(estado);
-                  console.log(estado);
                 }}
               />
             )}
@@ -337,12 +346,12 @@ export const AvisoForm: React.FC<
               render={({ field: { onChange, onBlur, value } }) => (
                 <MaterialSelector
                   label={"Tipo de Animal"}
+                  value={value}
                   estados={especieList}
                   iconName={"fish"}
                   iconFamily={"Ionicons"}
                   onEstadoChange={(estado: string) => {
                     onChange(estado);
-                    console.log(estado);
                   }}
                 />
               )}
@@ -354,7 +363,7 @@ export const AvisoForm: React.FC<
             iconName="text"
             iconFamily="Entypo"
             label="Observaciones"
-            placeholder="Observaciones"
+            placeholder="Ejemplo: El animal tiene pigmentación roja"
             control={control}
             isRequired={false}
           />
@@ -364,24 +373,17 @@ export const AvisoForm: React.FC<
             render={({ field: { onChange, onBlur, value } }) => (
               <MaterialSelector
                 label={"Estado del animal"}
+                value={value}
                 estados={condicionesList}
                 iconName={"heart"}
                 iconFamily={"Entypo"}
                 onEstadoChange={(estado: string) => {
                   onChange(estado); // Actualiza el valor del estado en el formulario
-                  console.log(estado);
                 }}
               />
             )}
           />
-          <InputField
-            nameInput={"CantidadDeAnimales"}
-            label="Cantidad"
-            placeholder="1"
-            keyboardType="numeric"
-            control={control}
-            isRequired={true}
-          />
+
           <InputField
             nameInput={"InformacionDeLocalizacion"}
             iconName="text"
@@ -396,24 +398,42 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Latitud"
-            placeholder={latitud ? latitud.toString() : "Latitud no disponible"}
             keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
-            onBlur={() => {
-              const currentValue = getValues("Latitud"); // Puede ser número o null
-              const valueAsString =
-                currentValue !== null ? currentValue.toString() : ""; // Convertir a string o usar vacío
-              const isValidLatitude = /^-?(90(\.0+)?|[1-8]?\d(\.\d+)?)$/.test(
-                valueAsString
-              );
-              if (!isValidLatitude) {
-                setValue("Latitud", latitud); // Restaura la latitud original
-                Alert.alert(
-                  "Latitud inválida.",
-                  "Debe estar en el rango de -90 a 90 con hasta 6 decimales, se ha restaurado el valor obtenido de tu ubicación."
-                );
+            validateRules={{
+              pattern: {
+                value: /^-?[0-9]*\.?[0-9]*$/,
+                message:
+                  "Solo se permiten números, un guión al principio y un punto decimal",
+              },
+            }}
+            onChangeText={(text) => {
+              // Primero, verifica si el guión está solo al principio
+              if (text.indexOf("-") > 0) {
+                // Si el guión no está al principio, lo eliminamos
+                text = text.replace(/-/g, "");
               }
+
+              // Filtrar caracteres no numéricos y punto decimal
+              const filteredText = text
+                .split("")
+                .filter((char) => {
+                  // Permitir un guión solo al principio
+                  if (char === "-" && text.indexOf(char) === 0) return true;
+                  // Permitir números y un punto decimal
+                  return /[0-9.]/.test(char);
+                })
+                .join("");
+
+              // Asegurar solo un punto decimal
+              const parts = filteredText.split(".");
+              const cleanedText =
+                parts.length > 2
+                  ? `${parts[0]}.${parts.slice(1).join("").replace(/\./g, "")}`
+                  : filteredText;
+
+              setValue("Latitud", cleanedText);
             }}
           />
 
@@ -422,25 +442,35 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Longitud"
-            placeholder={longitud ? longitud.toString() : "Longitud no disponible"}
             keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
-            onBlur={() => {
-              const currentValue = getValues("Longitud"); // Puede ser número o null
-              const valueAsString =
-                currentValue !== null ? currentValue.toString() : ""; // Convertir a string o usar vacío
-              const isValidLongitude =
-                /^-?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$/.test(
-                  valueAsString
-                );
-              if (!isValidLongitude) {
-                setValue("Longitud", longitud); // Restaura la longitud original
-                Alert.alert(
-                  "Longitud inválida",
-                  "Debe estar en el rango de -180 a 180 con hasta 6 decimales, se ha restaurado el valor obtenido de tu ubicación."
-                );
+            onChangeText={(text) => {
+              // Primero, verifica si el guión está solo al principio
+              if (text.indexOf("-") > 0) {
+                // Si el guión no está al principio, lo eliminamos
+                text = text.replace(/-/g, "");
               }
+
+              // Filtrar caracteres no numéricos y punto decimal
+              const filteredText = text
+                .split("")
+                .filter((char) => {
+                  // Permitir un guión solo al principio
+                  if (char === "-" && text.indexOf(char) === 0) return true;
+                  // Permitir números y un punto decimal
+                  return /[0-9.]/.test(char);
+                })
+                .join("");
+
+              // Asegurar solo un punto decimal
+              const parts = filteredText.split(".");
+              const cleanedText =
+                parts.length > 2
+                  ? `${parts[0]}.${parts.slice(1).join("").replace(/\./g, "")}`
+                  : filteredText;
+
+              setValue("Longitud", cleanedText);
             }}
           />
 
@@ -450,8 +480,8 @@ export const AvisoForm: React.FC<
             </Text>
             <View style={AvisoFormStyle.mapContainer}>
               <Map
-                markerLatitude={latitud || 0}
-                markerLongitude={longitud || 0}
+                markerLatitude={+getValues("Latitud")}
+                markerLongitude={+getValues("Longitud")}
                 onMarkerPositionChange={handleMarkerPositionChange}
               />
             </View>
@@ -460,7 +490,7 @@ export const AvisoForm: React.FC<
           <View>
             <Controller
               control={control}
-              name="Fotografias"
+              name="Fotografia"
               render={({ field: { onChange, value } }) => (
                 <View>
                   <View>
@@ -478,10 +508,6 @@ export const AvisoForm: React.FC<
                       photoUri={value}
                       setPhotoUri={(uri: string | null) => {
                         onChange(uri);
-                        setPhoto(uri);
-                        if (uri) {
-                          console.log("Imagen capturada desde la cámara:", uri);
-                        }
                       }}
                     />
                   </View>
@@ -491,17 +517,10 @@ export const AvisoForm: React.FC<
                     icon={<Entypo name="images" size={24} color="black" />}
                     onPhotoSelect={(uri: string | null) => {
                       onChange(uri);
-                      setPhoto(uri);
-                      if (uri) {
-                        console.log(
-                          "Imagen seleccionada desde el carrete:",
-                          uri
-                        );
-                      }
                     }}
                   />
 
-                  {photo && (
+                  {value != null && (
                     <View>
                       <Text
                         style={{
@@ -526,7 +545,7 @@ export const AvisoForm: React.FC<
                           alignItems: "center",
                           justifyContent: "center",
                         }}
-                        photoUri={photo}
+                        photoUri={value}
                       ></PhotoPreview>
                     </View>
                   )}

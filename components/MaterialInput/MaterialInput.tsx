@@ -48,6 +48,12 @@ const InputField: React.FC<MaterialInputProps> = ({
       ...validateRules,
     },
   });
+  const handleChangeText = (text: string) => {
+    if (props.onChangeText) {
+      props.onChangeText(text);
+    }
+    field.onChange(text);
+  };
 
   const colorScheme = useColorScheme();
   const colorModoOscuro = colorScheme === "dark" ? "#919090" : "#A9A9A9";
@@ -95,7 +101,7 @@ const InputField: React.FC<MaterialInputProps> = ({
           placeholder={placeholder}
           value={field.value}
           placeholderTextColor={colorModoOscuro}
-          onChangeText={field.onChange}
+          onChangeText={handleChangeText}
           {...props}
         />
         {field.value !== "" && (

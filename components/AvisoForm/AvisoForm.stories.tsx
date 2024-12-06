@@ -1,6 +1,7 @@
 import { AvisoForm } from "./AvisoForm";
 import React from "react";
 import { action } from "@storybook/addon-actions";
+
 export default {
   title: "Components/AvisoForm",
   component: AvisoForm,
@@ -20,14 +21,23 @@ export const Basic = () => (
     loading={false}
     setLoading={action("setLoading")}
     showEspecie={false}
-  />
-);
-
-export const Experto = () => (
-  <AvisoForm
-    onSubmitData={action("onSubmitData")}
-    loading={false}
-    setLoading={action("setLoading")}
-    showEspecie={true}
+    data={{
+      Nombre: "Paulo",
+      Telefono: "2282522839",
+      Fotografia: "https://via.placeholder.com/300",
+      FechaDeAvistamiento: new Date("2024-12-30T10:00:00"),
+      Sustrato: 1,
+      FacilAcceso: true,
+      Acantilado: false,
+      LugarDondeSeVio: 0,
+      TipoDeAnimal: "Ave",
+      Observaciones: "Se ve saludable",
+      CondicionDeAnimal: 2,
+      CantidadDeAnimales: "",
+      InformacionDeLocalizacion: "Cerca de la entrada principal",
+      Latitud: "19.432608",
+      Longitud: "-99.133209",
+    }}
+    onValuesChange={action("onValuesChange")}
   />
 );

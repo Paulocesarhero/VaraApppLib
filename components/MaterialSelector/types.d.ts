@@ -19,8 +19,7 @@ export interface Estado {
   label: string;
 
   /**
-   * Valor que se enviará a la API al seleccionar este estado.
-   *
+   * Valor que se enviará a la API al seleccionar este estado. Generalmente, este valor debe ser un número entero.
    * @type {string}
    */
   apiValue: string;
@@ -65,4 +64,12 @@ export interface EstadoSelectorProps {
    * Puede ser `"Ionicons"` o `"Entypo"`. Es opcional y, por defecto, se establece en `"Ionicons"`.
    */
   iconFamily?: "Ionicons" | "Entypo";
+  /**
+   * Representa el valor asociado al input.
+   * Puede ser de cualquier tipo, dependiendo del uso del componente.
+   * El valor debe coincidir con el apivalue para que funcione correctamente
+   *
+   * @type {any}
+   */
+  value: any;
 }
