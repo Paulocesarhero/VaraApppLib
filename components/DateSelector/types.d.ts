@@ -15,4 +15,6 @@ export interface DateSelectorProps {
    * Recibe como parámetro la fecha seleccionada.
    */
   onDateChange?: (date: Date) => void;
+
+  value: Date;
 }

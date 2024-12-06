@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, Platform } from "react-native";
+import React, { useState } from "react";
+import { Platform, Text, TouchableOpacity, View } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Ionicons } from "@expo/vector-icons";
 import { DateSelectorProps } from "./types";
@@ -8,28 +8,19 @@ import { styles } from "./DateSelector.style";
 const DateSelector: React.FC<DateSelectorProps> = ({
   label = "Select Date",
   onDateChange,
+  value,
 }) => {
-  const [date, setDate] = useState(new Date());
   const [showPicker, setShowPicker] = useState(false);
-
-  useEffect(() => {
-    console.log("Fecha inicial:", date.toISOString().split("T")[0]);
-  }, []);
 
   const handleDateChange = (event: any, selectedDate?: Date) => {
     setShowPicker(false); // Oculta el selector de fecha
     if (selectedDate) {
-      setDate(selectedDate);
-      console.log(
-        "Fecha seleccionada:",
-        selectedDate.toISOString().split("T")[0]
-      );
-      onDateChange && onDateChange(selectedDate); // Llama la función `onDateChange` con la fecha seleccionada
+      onDateChange && onDateChange(selectedDate);
     }
   };
 
   // Almacena la fecha formateada de tipo: YYYY-MM-DD
-  const formattedDate = date.toISOString().split("T")[0];
+  const formattedDate = value.toISOString().split("T")[0];
 
   return (
     <View style={styles.container}>
@@ -45,7 +36,7 @@ const DateSelector: React.FC<DateSelectorProps> = ({
       {showPicker && (
         <View style={{ backgroundColor: "#fff", borderRadius: 10 }}>
           <DateTimePicker
-            value={date || new Date()}
+            value={value || new Date()}
             mode="date"
             display={Platform.OS === "ios" ? "inline" : "default"}
             onChange={handleDateChange}

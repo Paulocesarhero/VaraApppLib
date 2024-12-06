@@ -19,5 +19,6 @@ export const Basic = () => (
   <DateSelector
     label="Fecha de Avistamiento"
     onDateChange={action("Fecha Cambiada")}
+    value={new Date("2024-12-30T10:00:00")}
   />
 );
