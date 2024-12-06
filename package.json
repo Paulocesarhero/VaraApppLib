@@ -1,6 +1,6 @@
 {
   "name": "varaapplib",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "Aquí se guardan todos los componentes de react native que se compartiran entre proyectos estos al mismo tiempo seran subido a un repositorio de npm",
   "main": "node_modules/expo/AppEntry.js",
   "files": [
