@@ -16,7 +16,6 @@ export default {
 };
 export const Basic = () => {
   const [photo, setPhoto] = useState<string | null>(null);
-  const [isCameraVisible, setIsCameraVisible] = useState(false);
 
   return (
     <View style={{ flex: 1 }}>
