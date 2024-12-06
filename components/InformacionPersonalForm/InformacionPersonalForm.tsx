@@ -291,6 +291,7 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
             name="Estado"
             render={({ field: { onChange, onBlur, value } }) => (
               <MaterialSelector
+                value={value}
                 label={"Estado"}
                 estados={estadosList}
                 onEstadoChange={(estado: string) => {
