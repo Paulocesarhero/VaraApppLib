@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Image, ScrollView } from "react-native";
+import { Image, Text, View } from "react-native";
 import { CardCarouselProps } from "./types";
 import { CardCarouselStyle } from "./CardCarousel.style";
 
