@@ -1,12 +1,5 @@
 import React, { FC, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  Linking,
-  Alert,
-} from "react-native";
+import { Alert, Linking, Text, TouchableOpacity, View } from "react-native";
 import * as ImagePicker from "expo-image-picker";
 import { PhotoPickerProps } from "./types";
 import { PhotoPickerStyle } from "./PhotoPicker.style";
