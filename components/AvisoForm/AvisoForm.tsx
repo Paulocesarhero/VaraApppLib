@@ -42,16 +42,13 @@ import { Entypo } from "@expo/vector-icons";
  * />
  */
 
-export const AvisoForm: React.FC<
-  AvisoFormProps & { showEspecie?: boolean }
-> = ({
+export const AvisoForm: React.FC<AvisoFormProps> = ({
   onSubmitData,
   loading,
-  setLoading,
-  showEspecie = false,
   onValuesChange,
   data,
-}) => {
+  isDisabled = false,
+}: AvisoFormProps) => {
   const lugarDondeSeVioList: Estado[] = [
     {
       id: "Playa",
@@ -62,29 +59,6 @@ export const AvisoForm: React.FC<
       id: "Agua",
       label: "Agua",
       apiValue: "1",
-    },
-  ];
-
-  const especieList: Estado[] = [
-    {
-      id: "Odontoceto",
-      label: "Odontoceto",
-      apiValue: "0",
-    },
-    {
-      id: "Misticeto",
-      label: "Misticeto",
-      apiValue: "1",
-    },
-    {
-      id: "Pinnípedo",
-      label: "Pinnípedo",
-      apiValue: "2",
-    },
-    {
-      id: "Sirenio",
-      label: "Sirenio",
-      apiValue: "3",
     },
   ];
 
@@ -202,9 +176,15 @@ export const AvisoForm: React.FC<
     setValue("Latitud", latitude.toString());
     setValue("Longitud", longitude.toString());
   };
+  const handleMarkerPositionNoChange = (
+    longitude: number,
+    latitude: number
+  ) => {
+    setValue("Latitud", getValues("Latitud"));
+    setValue("Longitud", getValues("Longitud"));
+  };
 
   const onSubmit: SubmitHandler<AvisoValues> = (data) => {
-    console.log("Form Data:", data);
     onSubmitData(data);
   };
 
@@ -229,6 +209,7 @@ export const AvisoForm: React.FC<
             loading={loading}
           />
           <InputField
+            isDisabled={isDisabled}
             nameInput={"CantidadDeAnimales"}
             label="Cantidad"
             placeholder="Ejemplo: 1"
@@ -249,42 +230,55 @@ export const AvisoForm: React.FC<
             }}
             isRequired={true}
           />
-
-          <Controller
-            control={control}
-            name="FechaDeAvistamiento"
-            render={({ field: { value, onChange } }) => (
-              <DateSelector
-                value={value ? new Date(value) : new Date()}
-                label="Fecha de Avistamiento"
-                onDateChange={(selectedDate: Date) => {
-                  const formattedDate = selectedDate
-                    .toISOString()
-                    .split("T")[0];
-                  setValue("FechaDeAvistamiento", formattedDate, {
-                    shouldDirty: true,
-                    shouldValidate: true,
-                  });
-                  onChange(formattedDate);
-                }}
-              />
-            )}
-          />
+          {isDisabled ? (
+            <InputField
+              iconFamily={"Ionicons"}
+              iconName={"calendar"}
+              isDisabled={isDisabled}
+              nameInput={"FechaDeAvistamiento"}
+              label="Fecha de avistamiento"
+              keyboardType="numeric"
+              control={control}
+            />
+          ) : (
+            <Controller
+              control={control}
+              name="FechaDeAvistamiento"
+              render={({ field: { value, onChange } }) => (
+                <DateSelector
+                  value={value ? new Date(value) : new Date()}
+                  label="Fecha de Avistamiento"
+                  onDateChange={(selectedDate: Date) => {
+                    const formattedDate = selectedDate
+                      .toISOString()
+                      .split("T")[0];
+                    setValue("FechaDeAvistamiento", formattedDate, {
+                      shouldDirty: true,
+                      shouldValidate: true,
+                    });
+                    onChange(formattedDate);
+                  }}
+                />
+              )}
+            />
+          )}
 
           <Controller
             control={control}
             name="Sustrato"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <MaterialSelector
-                value={value}
-                label={"Sustrato"}
-                estados={sustratosList}
-                iconName={"earth"}
-                iconFamily={"Ionicons"}
-                onEstadoChange={(estado: string) => {
-                  onChange(estado);
-                }}
-              />
+            render={({ field: { onChange, value } }) => (
+              <View pointerEvents={isDisabled ? "none" : "auto"}>
+                <MaterialSelector
+                  value={value}
+                  label={"Sustrato"}
+                  estados={sustratosList}
+                  iconName={"earth"}
+                  iconFamily={"Ionicons"}
+                  onEstadoChange={(estado: string) => {
+                    onChange(estado);
+                  }}
+                />
+              </View>
             )}
           />
           <View
@@ -299,11 +293,13 @@ export const AvisoForm: React.FC<
               control={control}
               name="FacilAcceso"
               render={({ field: { value, onChange } }) => (
-                <CustomCheckBox
-                  label="¿Fácil Acceso?"
-                  isChecked={value}
-                  onToggle={() => onChange(!value)}
-                />
+                <View pointerEvents={isDisabled ? "none" : "auto"}>
+                  <CustomCheckBox
+                    label="¿Fácil Acceso?"
+                    isChecked={value}
+                    onToggle={() => onChange(!value)}
+                  />
+                </View>
               )}
             />
 
@@ -313,11 +309,13 @@ export const AvisoForm: React.FC<
               control={control}
               name="Acantilado"
               render={({ field: { value, onChange } }) => (
-                <CustomCheckBox
-                  label="¿Acantilado?"
-                  isChecked={value}
-                  onToggle={() => onChange(!value)}
-                />
+                <View pointerEvents={isDisabled ? "none" : "auto"}>
+                  <CustomCheckBox
+                    label="¿Acantilado?"
+                    isChecked={value}
+                    onToggle={() => onChange(!value)}
+                  />
+                </View>
               )}
             />
           </View>
@@ -325,40 +323,24 @@ export const AvisoForm: React.FC<
           <Controller
             control={control}
             name="LugarDondeSeVio"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <MaterialSelector
-                value={value}
-                label={"Lugar donde se vio el mamífero"}
-                estados={lugarDondeSeVioList}
-                iconName={"eye"}
-                iconFamily={"Entypo"}
-                onEstadoChange={(estado: string) => {
-                  onChange(estado);
-                }}
-              />
-            )}
-          />
-
-          {showEspecie && (
-            <Controller
-              control={control}
-              name="TipoDeAnimal"
-              render={({ field: { onChange, onBlur, value } }) => (
+            render={({ field: { onChange, value } }) => (
+              <View pointerEvents={isDisabled ? "none" : "auto"}>
                 <MaterialSelector
-                  label={"Tipo de Animal"}
                   value={value}
-                  estados={especieList}
-                  iconName={"fish"}
-                  iconFamily={"Ionicons"}
+                  label={"Lugar donde se vio el mamífero"}
+                  estados={lugarDondeSeVioList}
+                  iconName={"eye"}
+                  iconFamily={"Entypo"}
                   onEstadoChange={(estado: string) => {
                     onChange(estado);
                   }}
                 />
-              )}
-            />
-          )}
+              </View>
+            )}
+          />
 
           <InputField
+            isDisabled={isDisabled}
             nameInput={"Observaciones"}
             iconName="text"
             iconFamily="Entypo"
@@ -370,22 +352,25 @@ export const AvisoForm: React.FC<
           <Controller
             control={control}
             name="CondicionDeAnimal"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <MaterialSelector
-                label={"Estado del animal"}
-                value={value}
-                estados={condicionesList}
-                iconName={"heart"}
-                iconFamily={"Entypo"}
-                onEstadoChange={(estado: string) => {
-                  onChange(estado); // Actualiza el valor del estado en el formulario
-                }}
-              />
+            render={({ field: { onChange, value } }) => (
+              <View pointerEvents={isDisabled ? "none" : "auto"}>
+                <MaterialSelector
+                  label={"Estado del animal"}
+                  value={value}
+                  estados={condicionesList}
+                  iconName={"heart"}
+                  iconFamily={"Entypo"}
+                  onEstadoChange={(estado: string) => {
+                    onChange(estado); // Actualiza el valor del estado en el formulario
+                  }}
+                />
+              </View>
             )}
           />
 
           <InputField
             nameInput={"InformacionDeLocalizacion"}
+            isDisabled={isDisabled}
             iconName="text"
             iconFamily="Entypo"
             label="Información Adicional"
@@ -396,6 +381,7 @@ export const AvisoForm: React.FC<
           <InputField
             nameInput={"Latitud"}
             iconName="compass"
+            isDisabled={isDisabled}
             iconFamily="Ionicons"
             label="Latitud"
             keyboardType={"numbers-and-punctuation"}
@@ -442,6 +428,7 @@ export const AvisoForm: React.FC<
             iconName="compass"
             iconFamily="Ionicons"
             label="Longitud"
+            isDisabled={isDisabled}
             keyboardType={"numbers-and-punctuation"}
             control={control}
             isRequired={true}
@@ -478,16 +465,51 @@ export const AvisoForm: React.FC<
             <Text style={AvisoFormStyle.mapTitle}>
               Ubicación del avistamiento
             </Text>
-            <View style={AvisoFormStyle.mapContainer}>
+            {isDisabled ? (
               <Map
                 markerLatitude={+getValues("Latitud")}
                 markerLongitude={+getValues("Longitud")}
-                onMarkerPositionChange={handleMarkerPositionChange}
+                onMarkerPositionChange={handleMarkerPositionNoChange}
               />
-            </View>
+            ) : (
+              <View style={AvisoFormStyle.mapContainer}>
+                <Map
+                  markerLatitude={+getValues("Latitud")}
+                  markerLongitude={+getValues("Longitud")}
+                  onMarkerPositionChange={handleMarkerPositionChange}
+                />
+              </View>
+            )}
           </View>
-
-          <View>
+          {isDisabled ? (
+            <View>
+              <Text
+                style={{
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  fontSize: 16,
+                  marginBottom: 10,
+                  marginTop: 25,
+                }}
+              >
+                Vista previa de la foto:
+              </Text>
+              <PhotoPreview
+                styleCamerPreview={{
+                  borderRadius: 15,
+                  borderWidth: 1,
+                  borderColor: "#fff",
+                  height: 250,
+                  width: "100%",
+                  overflow: "hidden",
+                  backgroundColor: "#000",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                photoUri={getValues("Fotografia")}
+              ></PhotoPreview>
+            </View>
+          ) : (
             <Controller
               control={control}
               name="Fotografia"
@@ -552,7 +574,7 @@ export const AvisoForm: React.FC<
                 </View>
               )}
             />
-          </View>
+          )}
         </ScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>

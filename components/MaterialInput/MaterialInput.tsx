@@ -37,6 +37,7 @@ const InputField: React.FC<MaterialInputProps> = ({
   iconFamily = "Ionicons",
   control,
   nameInput,
+  isDisabled = false,
   validateRules = {},
   ...props
 }: MaterialInputProps) => {
@@ -100,11 +101,12 @@ const InputField: React.FC<MaterialInputProps> = ({
           style={MaterialInputStyle.input}
           placeholder={placeholder}
           value={field.value}
+          editable={!isDisabled}
           placeholderTextColor={colorModoOscuro}
           onChangeText={handleChangeText}
           {...props}
         />
-        {field.value !== "" && (
+        {field.value !== "" && !isDisabled && (
           <TouchableOpacity
             onPress={() => {
               field.onChange("");

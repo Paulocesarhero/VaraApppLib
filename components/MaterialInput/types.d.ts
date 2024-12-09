@@ -58,6 +58,8 @@ export interface MaterialInputProps extends TextInputProps {
    */
   nameInput: string;
 
+  isDisabled?: boolean;
+
   /**
    * Reglas de validación adicionales para el campo de entrada.
    * Estas reglas se combinan con la regla `isRequired` para aplicar validaciones

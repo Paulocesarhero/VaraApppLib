@@ -40,6 +40,8 @@ export interface AvisoFormProps {
    * @returns {void}
    */
   onValuesChange: (values: Partial<AvisoValues>) => void;
+
+  isDisabled?: boolean;
 }
 
 /**
