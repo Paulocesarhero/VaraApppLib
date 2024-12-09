@@ -28,10 +28,10 @@ export interface AvisoFormProps {
   /**
    * Datos completos del aviso.
    * Contiene toda la información necesaria del aviso como un objeto del tipo `AvisoValues`.
-   *
+   * Si la latitud y longitud de data están vacías, se utilizará la ubicación del dispositivo móvil.
    * @type {AvisoValues}
    */
-  data: AvisoValues;
+  data?: AvisoValues;
   /**
    * Función que se ejecuta cuando los valores del aviso cambian.
    * Proporciona un objeto parcial de `AvisoValues` con los valores actualizados.
@@ -42,6 +42,10 @@ export interface AvisoFormProps {
   onValuesChange: (values: Partial<AvisoValues>) => void;
 
   isDisabled?: boolean;
+
+  reactNodeButton?:
+    | React.ReactElement<{ onPress?: () => void }>
+    | React.ComponentType<{ onPress?: () => void }>;
 }
 
 /**
@@ -89,10 +93,10 @@ export interface AvisoValues {
   LugarDondeSeVio: number;
 
   /**
-   * Fecha en la que se realizó el avistamiento.
+   * Fecha en la que se realizó el avistamiento. solo se acepta el siguiente formato "2024-12-30"
    *
    */
-  FechaDeAvistamiento: Date | string;
+  FechaDeAvistamiento: string;
 
   /**
    * Nombre de la especie puede ser Odontoceto, Misticeto, Pinnipedo o Sirenio.

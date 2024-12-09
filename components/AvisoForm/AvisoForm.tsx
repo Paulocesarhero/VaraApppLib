@@ -48,6 +48,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
   onValuesChange,
   data,
   isDisabled = false,
+  reactNodeButton,
 }: AvisoFormProps) => {
   const lugarDondeSeVioList: Estado[] = [
     {
@@ -115,7 +116,6 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
 
   useEffect(() => {
     (async () => {
-      //Sección donde se solicita la ubicación (cuando carga el componente)
       let { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== "granted") {
         Alert.alert(
@@ -201,13 +201,24 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
           contentContainerStyle={{ padding: 16 }}
           keyboardShouldPersistTaps="handled"
         >
-          <RoundedButton
-            onPress={handleSubmit(onSubmit)}
-            color={"#000000"}
-            text={"Enviar"}
-            style={{ marginVertical: 10 }}
-            loading={loading}
-          />
+          {React.isValidElement(reactNodeButton) ? (
+            React.cloneElement(reactNodeButton, {
+              onPress: handleSubmit(onSubmit),
+            })
+          ) : typeof reactNodeButton === "function" ? (
+            React.createElement(reactNodeButton, {
+              onPress: handleSubmit(onSubmit),
+            })
+          ) : (
+            <RoundedButton
+              onPress={handleSubmit(onSubmit)}
+              color={"#000000"}
+              text={"Enviar"}
+              style={{ marginVertical: 10 }}
+              loading={loading}
+            />
+          )}
+
           <InputField
             isDisabled={isDisabled}
             nameInput={"CantidadDeAnimales"}
