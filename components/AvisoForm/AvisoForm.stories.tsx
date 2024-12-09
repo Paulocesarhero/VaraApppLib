@@ -124,7 +124,7 @@ export const Disabled = () => (
       TipoDeAnimal: "Ave",
       Observaciones: "Se ve saludable",
       CondicionDeAnimal: 2,
-      CantidadDeAnimales: "",
+      CantidadDeAnimales: "3",
       InformacionDeLocalizacion: "Cerca de la entrada principal",
       Latitud: "19.432608",
       Longitud: "-99.133209",
@@ -132,3 +132,44 @@ export const Disabled = () => (
     onValuesChange={action("onValuesChange")}
   />
 );
+
+export const DisabledSinBoton = () => {
+  const CustomButton = ({ onPress }: { onPress?: () => void }) => (
+    <Pressable
+      onPress={onPress}
+      style={{
+        position: "absolute",
+        width: 0,
+        height: 0,
+        opacity: 0,
+      }}
+    ></Pressable>
+  );
+  return (
+    <AvisoForm
+      onSubmitData={action("onSubmitData")}
+      loading={false}
+      setLoading={action("setLoading")}
+      isDisabled={true}
+      reactNodeButton={CustomButton}
+      data={{
+        Nombre: "Paulo",
+        Telefono: "2282522839",
+        Fotografia: "https://via.placeholder.com/300",
+        FechaDeAvistamiento: "2024-12-30T10:00:00",
+        Sustrato: 1,
+        FacilAcceso: true,
+        Acantilado: false,
+        LugarDondeSeVio: 0,
+        TipoDeAnimal: "Ave",
+        Observaciones: "Se ve saludable",
+        CondicionDeAnimal: 2,
+        CantidadDeAnimales: "",
+        InformacionDeLocalizacion: "Cerca de la entrada principal",
+        Latitud: "19.432608",
+        Longitud: "-99.133209",
+      }}
+      onValuesChange={action("onValuesChange")}
+    />
+  );
+};
