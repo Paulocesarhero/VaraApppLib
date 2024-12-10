@@ -23,6 +23,7 @@ export const Basic = () => {
         onSubmitData={action("onSubmitData")}
         loading={false}
         setLoading={action("setLoading")}
+        showEspecie={true}
         data={{
           Nombre: "Paulo",
           Telefono: "2282522839",
@@ -32,7 +33,7 @@ export const Basic = () => {
           FacilAcceso: true,
           Acantilado: false,
           LugarDondeSeVio: 0,
-          TipoDeAnimal: "Ave",
+          TipoDeAnimal: 0,
           Observaciones: "Se ve saludable",
           CondicionDeAnimal: 2,
           CantidadDeAnimales: "",
@@ -92,7 +93,7 @@ export const BasicPersonalizable = () => {
           FacilAcceso: true,
           Acantilado: false,
           LugarDondeSeVio: 0,
-          TipoDeAnimal: "Ave",
+          TipoDeAnimal: 0,
           Observaciones: "Se ve saludable",
           CondicionDeAnimal: 2,
           CantidadDeAnimales: "",
@@ -121,7 +122,7 @@ export const Disabled = () => (
       FacilAcceso: true,
       Acantilado: false,
       LugarDondeSeVio: 0,
-      TipoDeAnimal: "Ave",
+      TipoDeAnimal: 1,
       Observaciones: "Se ve saludable",
       CondicionDeAnimal: 2,
       CantidadDeAnimales: "3",
@@ -148,6 +149,7 @@ export const DisabledSinBoton = () => {
   return (
     <AvisoForm
       onSubmitData={action("onSubmitData")}
+      showEspecie={true}
       loading={false}
       setLoading={action("setLoading")}
       isDisabled={true}
@@ -161,7 +163,7 @@ export const DisabledSinBoton = () => {
         FacilAcceso: true,
         Acantilado: false,
         LugarDondeSeVio: 0,
-        TipoDeAnimal: "Ave",
+        TipoDeAnimal: 2,
         Observaciones: "Se ve saludable",
         CondicionDeAnimal: 2,
         CantidadDeAnimales: "",

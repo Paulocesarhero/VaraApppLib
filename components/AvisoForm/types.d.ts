@@ -41,11 +41,27 @@ export interface AvisoFormProps {
    */
   onValuesChange: (values: Partial<AvisoValues>) => void;
 
+  /**
+   * Indica si el componente está deshabilitado.
+   * @type {boolean}
+   */
   isDisabled?: boolean;
 
+  /**
+   * Componente personalizado para el botón, puede ser un ReactElement o un componente funcional/clase.
+   * Este componente debe soportar la propiedad `onPress`.
+   *
+   * @type {React.ReactElement<{ onPress?: () => void }> | React.ComponentType<{ onPress?: () => void }>}
+   */
   reactNodeButton?:
     | React.ReactElement<{ onPress?: () => void }>
     | React.ComponentType<{ onPress?: () => void }>;
+
+  /**
+   * Indica si se debe mostrar la información de la especie.
+   * @type {boolean}
+   */
+  showEspecie?: boolean;
 }
 
 /**
@@ -102,7 +118,7 @@ export interface AvisoValues {
    * Nombre de la especie puede ser Odontoceto, Misticeto, Pinnipedo o Sirenio.
    * Es opcional
    */
-  TipoDeAnimal?: string;
+  TipoDeAnimal?: number;
 
   /**
    * Observaciones adicionales sobre el avistamiento.
