@@ -19,7 +19,6 @@ export const MaterialSelectorStyle = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
-    backgroundColor: "#FFF",
     boxShadow: "5px 5px 5px #000",
   },
   selectedText: {

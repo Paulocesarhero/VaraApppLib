@@ -50,6 +50,8 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
   isDisabled = false,
   showEspecie = false,
   reactNodeButton,
+  scroolViewStyles,
+  buttonStyles,
 }: AvisoFormProps) => {
   const lugarDondeSeVioList: Estado[] = [
     {
@@ -154,7 +156,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
               text: "Ir a Configuración",
               onPress: () => Linking.openSettings(),
             },
-          ]
+          ],
         );
         return;
       }
@@ -176,12 +178,12 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
                 } else {
                   Alert.alert(
                     "Error",
-                    "No se puede abrir la configuración en este dispositivo."
+                    "No se puede abrir la configuración en este dispositivo.",
                   );
                 }
               },
             },
-          ]
+          ],
         );
         return;
       }
@@ -202,7 +204,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
   };
   const handleMarkerPositionNoChange = (
     longitude: number,
-    latitude: number
+    latitude: number,
   ) => {
     setValue("Latitud", getValues("Latitud"));
     setValue("Longitud", getValues("Longitud"));
@@ -221,7 +223,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView
-          style={{ paddingHorizontal: 10 }}
+          style={[{ paddingHorizontal: 10 }, scroolViewStyles]}
           ref={scrollViewRef}
           keyboardShouldPersistTaps="handled"
         >
@@ -238,7 +240,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
               onPress={handleSubmit(onSubmit)}
               color={"#000000"}
               text={"Enviar"}
-              style={{ marginVertical: 10, marginTop: 5 }}
+              style={[buttonStyles ,{ marginVertical: 10, marginTop: 5 }]}
               loading={loading}
             />
           )}
@@ -283,9 +285,10 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
                   value={value ? new Date(value) : new Date()}
                   label="Fecha de Avistamiento"
                   onDateChange={(selectedDate: Date) => {
-                    const formattedDate = selectedDate
-                      .toISOString()
-                      .split("T")[0];
+                    const year = selectedDate.getFullYear();
+                    const month = String(selectedDate.getMonth() + 1).padStart(2, "0"); // Los meses son base 0
+                    const day = String(selectedDate.getDate()).padStart(2, "0");
+                    const formattedDate = `${year}-${month}-${day}`;
                     setValue("FechaDeAvistamiento", formattedDate, {
                       shouldDirty: true,
                       shouldValidate: true,

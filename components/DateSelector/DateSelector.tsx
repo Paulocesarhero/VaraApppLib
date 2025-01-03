@@ -13,9 +13,9 @@ const DateSelector: React.FC<DateSelectorProps> = ({
   const [showPicker, setShowPicker] = useState(false);
 
   const handleDateChange = (event: any, selectedDate?: Date) => {
-    setShowPicker(false); // Oculta el selector de fecha
+    setShowPicker(false);
     if (selectedDate) {
-      onDateChange && onDateChange(selectedDate);
+      onDateChange?.(selectedDate);
     }
   };
 

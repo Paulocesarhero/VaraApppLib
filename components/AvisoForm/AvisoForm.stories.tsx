@@ -20,6 +20,7 @@ export const Basic = () => {
   return (
     <View style={{ flex: 1 }}>
       <AvisoForm
+        scroolViewStyles={{paddingHorizontal: 0, backgroundColor: "#dd1515"}}
         onSubmitData={action("onSubmitData")}
         loading={false}
         setLoading={action("setLoading")}

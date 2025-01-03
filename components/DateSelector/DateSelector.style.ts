@@ -4,7 +4,6 @@ export const styles = StyleSheet.create({
   container: {
     marginVertical: 10,
     paddingHorizontal: 10,
-    backgroundColor: "#ffffff",
   },
   label: {
     fontSize: 16,
@@ -19,7 +18,6 @@ export const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    backgroundColor: "#ffffff",
     borderColor: "#000",
   },
   dateText: {

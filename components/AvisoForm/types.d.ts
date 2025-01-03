@@ -48,6 +48,24 @@ export interface AvisoFormProps {
   isDisabled?: boolean;
 
   /**
+   * Estilo opcional para el componente ScrollView.
+   *
+   * Puedes proporcionar un objeto de estilo o un arreglo de estilos que cumplan con la interfaz `ViewStyle`.
+   *
+   * @type {StyleProp<ViewStyle>}
+   */
+  scroolViewStyles?:  StyleProp<ViewStyle>
+
+  /**
+   * Estilo opcional para el componente RoundedButton.
+   *
+   * Puedes proporcionar un objeto de estilo o un arreglo de estilos que cumplan con la interfaz `ViewStyle`.
+   *
+   * @type {StyleProp<ViewStyle>}
+   */
+  buttonStyles?: StyleProp<ViewStyle>
+
+  /**
    * Componente personalizado para el botón, puede ser un ReactElement o un componente funcional/clase.
    * Este componente debe soportar la propiedad `onPress`.
    *
