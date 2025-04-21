@@ -29,10 +29,10 @@ const Map: React.FC<MapProps> = ({
         provider={PROVIDER_DEFAULT}
         style={styles.map}
         initialRegion={{
-          latitude: markerLatitude,
-          longitude: markerLongitude,
-          latitudeDelta: 0.0,
-          longitudeDelta: 0.0,
+          latitude: markerLatitude ? markerLatitude : 19.18104033605843,
+          longitude: markerLongitude ? markerLongitude : -104.53782656374189,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421,
         }}
         onPress={handleMapPress}
       >

@@ -7,7 +7,6 @@ export const MaterialPasswordStyle = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "bold",
     color: "#000000",
     marginBottom: 5,
   },
@@ -15,10 +14,11 @@ export const MaterialPasswordStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     height: 50,
-    borderWidth: 2,
+    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
+    boxShadow: "5px 5px 5px #000",
   },
   input: {
     flex: 1,

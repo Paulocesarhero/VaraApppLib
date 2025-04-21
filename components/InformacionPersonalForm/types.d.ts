@@ -15,6 +15,7 @@ export interface InformacionPersonalFormProps {
    * @param loading - Un valor booleano que representa el nuevo estado de carga.
    */
   setLoading: (loading: boolean) => void;
+  reactNodeButton?: React.ReactNode;
 }
 
 /**

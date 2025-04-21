@@ -38,6 +38,7 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
   onSubmitData,
   loading,
   setLoading,
+  reactNodeButton,
 }: InformacionPersonalFormProps) => {
   const estadosList: Estado[] = [
     {
@@ -130,213 +131,232 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
 
   const scrollViewRef = useRef<ScrollView>(null);
 
+  const renderSubmitButton = () => {
+    const onPressAction = handleSubmit(onSubmit);
+
+    if (React.isValidElement(reactNodeButton)) {
+      return React.cloneElement(reactNodeButton, { onPress: onPressAction } as { onPress: () => void });
+    }
+
+    if (typeof reactNodeButton === "function") {
+      return React.createElement(reactNodeButton, { onPress: onPressAction });
+    }
+
+    return (
+      <RoundedButton
+        onPress={handleSubmit(onSubmit)}
+        color={"#000"}
+        text={"Enviar"}
+        style={{ marginVertical: 10 }}
+        loading={loading}
+      />
+    );
+  };
+
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView
-          ref={scrollViewRef}
-          contentContainerStyle={InformacionPersonalFormStyle.scrollViewContent}
-          keyboardShouldPersistTaps="handled"
-        >
-          <RoundedButton
-            onPress={handleSubmit(onSubmit)}
-            color={"#000"}
-            text={"Enviar"}
-            style={{ marginVertical: 10 }}
-            loading={loading}
-          />
-          <MaterialPassword
-            label="Contraseña"
-            placeholder="Ingrese su contraseña"
-            isRequired={true}
-            control={control}
-            name="Contraseña"
-            autoComplete={"password"}
-          />
-          <InputField
-            nameInput={"CorreoElectronico"}
-            iconName="mail"
-            iconFamily="Ionicons"
-            label="Email"
-            autoComplete={"email"}
-            placeholder="cientifico@gmail.com"
-            maxLength={50}
-            autoCorrect={false}
-            control={control}
-            validateRules={{
-              pattern: {
-                value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                message: "El formato del correo electrónico no es válido.",
-              },
-              maxLength: {
-                value: 50,
-                message:
-                  "El correo electrónico no puede exceder los 50 caracteres.",
-              },
-              minLength: {
-                value: 5,
-                message:
-                  "El correo electrónico debe tener al menos 5 caracteres.",
-              },
-            }}
-          />
-          <InputField
-            nameInput={"Nombre"}
-            iconName="people"
-            iconFamily="Ionicons"
-            label="Nombre"
-            placeholder=""
-            maxLength={50}
-            autoCorrect={false}
-            autoComplete={"name"}
-            control={control}
-            isRequired={true}
-          />
-          <InputField
-            nameInput={"ApellidoPaterno"}
-            iconName="people"
-            iconFamily="Ionicons"
-            label="Apellido paterno"
-            placeholder=""
-            maxLength={50}
-            autoCorrect={false}
-            autoComplete={"name-family"}
-            control={control}
-            isRequired={true}
-          />
-          <InputField
-            nameInput={"ApellidoMaterno"}
-            iconName="people"
-            iconFamily="Ionicons"
-            label="Apellido materno"
-            placeholder=""
-            maxLength={50}
-            autoCorrect={false}
-            autoComplete={"name-family"}
-            control={control}
-            isRequired={true}
-          />
-          <InputField
-            nameInput={"Institucion"}
-            iconName="school"
-            iconFamily="Ionicons"
-            label="Institucion"
-            placeholder="Ejemplo: Universidad Veracruzana"
-            maxLength={50}
-            autoCorrect={false}
-            control={control}
-            isRequired={true}
-          />
-          <InputField
-            nameInput={"TelefonoMovil"}
-            iconName="call"
-            iconFamily="Ionicons"
-            label="Teléfono móvil"
-            placeholder=""
-            keyboardType={"phone-pad"}
-            autoComplete={"tel"}
-            maxLength={10}
-            autoCorrect={false}
-            control={control}
-            isRequired={true}
-            validateRules={{
-              pattern: {
-                value: /^[0-9]{10}$/,
-                message:
-                  "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
-              },
-              maxLength: {
-                value: 10,
-                message: "El número no puede tener más de 10 dígitos.",
-              },
-              minLength: {
-                value: 10,
-                message: "El número debe tener exactamente 10 dígitos.",
-              },
-            }}
-          />
-          <InputField
-            nameInput={"TelefonoFijo"}
-            iconName="call"
-            iconFamily="Ionicons"
-            label="Teléfono fijo"
-            placeholder=""
-            keyboardType={"phone-pad"}
-            autoComplete={"tel"}
-            maxLength={10}
-            autoCorrect={false}
-            control={control}
-            isRequired={true}
-            validateRules={{
-              pattern: {
-                value: /^[0-9]{10}$/,
-                message:
-                  "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
-              },
-              maxLength: {
-                value: 10,
-                message: "El número no puede tener más de 10 dígitos.",
-              },
-              minLength: {
-                value: 10,
-                message: "El número debe tener exactamente 10 dígitos.",
-              },
-            }}
-          />
-          <Controller
-            control={control}
-            name="Estado"
-            render={({ field: { onChange, onBlur, value } }) => (
-              <MaterialSelector
-                value={value}
-                label={"Estado"}
-                estados={estadosList}
-                onEstadoChange={(estado: string) => {
-                  onChange(estado); // Actualiza el valor del estado en el formulario
-                }}
-              />
-            )}
-          />
-          <InputField
-            nameInput={"Ciudad"}
-            iconName="address"
-            iconFamily="Entypo"
-            label="Ciudad"
-            placeholder=" "
-            maxLength={50}
-            autoCorrect={false}
-            control={control}
-            isRequired={false}
-          />
-          <InputField
-            nameInput={"Calle"}
-            iconName="address"
-            iconFamily="Entypo"
-            label="Calle"
-            placeholder=" "
-            maxLength={50}
-            autoCorrect={false}
-            autoComplete={"address-line1"}
-            control={control}
-            isRequired={false}
-          />
-          <InputField
-            nameInput={"CodigoPostal"}
-            iconName="address"
-            iconFamily="Entypo"
-            label="Código postal"
-            placeholder=" "
-            autoComplete={"postal-code"}
-            maxLength={5}
-            keyboardType={"numeric"}
-            autoCorrect={false}
-            control={control}
-            isRequired={false}
-          />
-        </ScrollView>
+        <>
+          {renderSubmitButton()}
+          <ScrollView
+            ref={scrollViewRef}
+            contentContainerStyle={InformacionPersonalFormStyle.scrollViewContent}
+            keyboardShouldPersistTaps="handled"
+          >
+            <MaterialPassword
+              label="Contraseña"
+              placeholder="Ingrese su contraseña"
+              isRequired={true}
+              control={control}
+              name="Contraseña"
+              autoComplete={"password"}
+            />
+            <InputField
+              nameInput={"CorreoElectronico"}
+              iconName="mail"
+              iconFamily="Ionicons"
+              label="Email"
+              autoComplete={"email"}
+              placeholder="cientifico@gmail.com"
+              maxLength={50}
+              autoCorrect={false}
+              control={control}
+              validateRules={{
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "El formato del correo electrónico no es válido.",
+                },
+                maxLength: {
+                  value: 50,
+                  message:
+                    "El correo electrónico no puede exceder los 50 caracteres.",
+                },
+                minLength: {
+                  value: 5,
+                  message:
+                    "El correo electrónico debe tener al menos 5 caracteres.",
+                },
+              }}
+            />
+            <InputField
+              nameInput={"Nombre"}
+              iconName="people"
+              iconFamily="Ionicons"
+              label="Nombre"
+              placeholder="Ingrese su nombre"
+              maxLength={50}
+              autoCorrect={false}
+              autoComplete={"name"}
+              control={control}
+              isRequired={true}
+            />
+            <InputField
+              nameInput={"ApellidoPaterno"}
+              iconName="people"
+              iconFamily="Ionicons"
+              label="Apellido paterno"
+              placeholder="Ingrese su apellido paterno"
+              maxLength={50}
+              autoCorrect={false}
+              autoComplete={"name-family"}
+              control={control}
+              isRequired={true}
+            />
+            <InputField
+              nameInput={"ApellidoMaterno"}
+              iconName="people"
+              iconFamily="Ionicons"
+              label="Apellido materno"
+              placeholder="Ingrese su apellido materno"
+              maxLength={50}
+              autoCorrect={false}
+              autoComplete={"name-family"}
+              control={control}
+              isRequired={true}
+            />
+            <InputField
+              nameInput={"Institucion"}
+              iconName="school"
+              iconFamily="Ionicons"
+              label="Institucion"
+              placeholder="Ejemplo: Universidad Veracruzana"
+              maxLength={50}
+              autoCorrect={false}
+              control={control}
+              isRequired={true}
+            />
+            <InputField
+              nameInput={"TelefonoMovil"}
+              iconName="call"
+              iconFamily="Ionicons"
+              label="Teléfono móvil"
+              placeholder="Solo diez dígitos"
+              keyboardType={"phone-pad"}
+              autoComplete={"tel"}
+              maxLength={10}
+              autoCorrect={false}
+              control={control}
+              isRequired={true}
+              validateRules={{
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message:
+                    "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
+                },
+                maxLength: {
+                  value: 10,
+                  message: "El número no puede tener más de 10 dígitos.",
+                },
+                minLength: {
+                  value: 10,
+                  message: "El número debe tener exactamente 10 dígitos.",
+                },
+              }}
+            />
+            <InputField
+              nameInput={"TelefonoFijo"}
+              iconName="call"
+              iconFamily="Ionicons"
+              label="Teléfono fijo"
+              placeholder="Solo diez dígitos"
+              keyboardType={"phone-pad"}
+              autoComplete={"tel"}
+              maxLength={10}
+              autoCorrect={false}
+              control={control}
+              isRequired={true}
+              validateRules={{
+                pattern: {
+                  value: /^[0-9]{10}$/,
+                  message:
+                    "El número debe tener 10 dígitos sin espacios ni caracteres especiales.",
+                },
+                maxLength: {
+                  value: 10,
+                  message: "El número no puede tener más de 10 dígitos.",
+                },
+                minLength: {
+                  value: 10,
+                  message: "El número debe tener exactamente 10 dígitos.",
+                },
+              }}
+            />
+            <Controller
+              control={control}
+              name="Estado"
+              render={({ field: { onChange, onBlur, value } }) => (
+                <MaterialSelector
+                  value={value}
+                  label={"Estado"}
+                  estados={estadosList}
+                  onEstadoChange={(estado: string) => {
+                    onChange(estado); // Actualiza el valor del estado en el formulario
+                  }}
+                />
+              )}
+            />
+            <InputField
+              nameInput={"Ciudad"}
+              iconName="address"
+              iconFamily="Entypo"
+              label="Ciudad"
+              placeholder="Ejemplo: Xalapa"
+              maxLength={50}
+              autoCorrect={false}
+              control={control}
+              isRequired={false}
+            />
+            <InputField
+              nameInput={"Calle"}
+              iconName="address"
+              iconFamily="Entypo"
+              label="Calle"
+              placeholder="Ejemplo: Calle 20 de noviembre"
+              maxLength={50}
+              autoCorrect={false}
+              autoComplete={"address-line1"}
+              control={control}
+              isRequired={false}
+            />
+            <InputField
+              nameInput={"CodigoPostal"}
+              iconName="address"
+              iconFamily="Entypo"
+              label="Código postal"
+              placeholder="Ejemplo: 91000"
+              autoComplete={"postal-code"}
+              maxLength={5}
+              keyboardType={"numeric"}
+              autoCorrect={false}
+              control={control}
+              isRequired={false}
+            />
+          </ScrollView>
+        </>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

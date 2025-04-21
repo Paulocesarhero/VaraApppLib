@@ -7,18 +7,19 @@ export const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "bold",
     color: "#000",
     marginBottom: 5,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 2,
+    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderColor: "#000",
+    boxShadow: "5px 5px 5px #000",
+    height: 50,
+
   },
   dateText: {
     flex: 1,

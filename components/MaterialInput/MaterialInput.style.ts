@@ -7,14 +7,13 @@ export const MaterialInputStyle = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "bold",
     color: "#000000",
     marginBottom: 5,
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",
-    borderWidth: 2,
+    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,

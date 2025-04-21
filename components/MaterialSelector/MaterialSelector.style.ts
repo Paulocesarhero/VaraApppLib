@@ -7,7 +7,6 @@ export const MaterialSelectorStyle = StyleSheet.create({
   },
   label: {
     fontSize: 16,
-    fontWeight: "bold",
     color: "#000",
     marginBottom: 5,
   },
@@ -15,11 +14,12 @@ export const MaterialSelectorStyle = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    borderWidth: 2,
+    borderWidth: StyleSheet.hairlineWidth,
     borderRadius: 5,
     paddingHorizontal: 10,
     paddingVertical: 10,
     boxShadow: "5px 5px 5px #000",
+    height: 50,
   },
   selectedText: {
     fontSize: 16,
