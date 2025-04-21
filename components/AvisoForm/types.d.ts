@@ -80,6 +80,7 @@ export interface AvisoFormProps {
    * @type {boolean}
    */
   showEspecie?: boolean;
+  onValidityChange?: (isValid: boolean) => void;
 }
 
 /**

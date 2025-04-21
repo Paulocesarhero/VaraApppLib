@@ -20,8 +20,9 @@ export const Basic = () => {
   return (
     <View style={{ flex: 1 }}>
       <AvisoForm
-        scroolViewStyles={{paddingHorizontal: 0, backgroundColor: "#dd1515"}}
+        scroolViewStyles={{paddingHorizontal: 0}}
         onSubmitData={action("onSubmitData")}
+        onValidityChange={action("onValidityChange")}w
         loading={false}
         setLoading={action("setLoading")}
         showEspecie={true}
