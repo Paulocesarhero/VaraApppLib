@@ -39,6 +39,7 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
   loading,
   setLoading,
   reactNodeButton,
+  scroolViewStyles
 }: InformacionPersonalFormProps) => {
   const estadosList: Estado[] = [
     {
@@ -164,7 +165,7 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
           {renderSubmitButton()}
           <ScrollView
             ref={scrollViewRef}
-            contentContainerStyle={InformacionPersonalFormStyle.scrollViewContent}
+            contentContainerStyle={[scroolViewStyles,InformacionPersonalFormStyle.scrollViewContent]}
             keyboardShouldPersistTaps="handled"
           >
             <MaterialPassword

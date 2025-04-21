@@ -16,6 +16,7 @@ export interface InformacionPersonalFormProps {
    */
   setLoading: (loading: boolean) => void;
   reactNodeButton?: React.ReactNode;
+  scroolViewStyles?: StyleProp<ViewStyle>;
 }
 
 /**
