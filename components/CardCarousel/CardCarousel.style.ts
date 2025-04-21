@@ -29,6 +29,7 @@ export const CardCarouselStyle = StyleSheet.create({
   },
   imageStyle: {
     width: "100%",
+    height: "60%",
     marginVertical: 10,
     borderRadius: 12,
     borderWidth: 1,

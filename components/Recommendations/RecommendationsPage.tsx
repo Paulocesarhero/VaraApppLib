@@ -1,9 +1,8 @@
 import { RecommendationsPageStyle } from "./RecommendationsPage.style";
-import { View } from "react-native";
+import { View, Dimensions } from "react-native";
 import React from "react";
 import { Carousel } from "react-native-basic-carousel";
 import CardCarousel from "../CardCarousel/CardCarousel";
-
 /**
  * Componente `RecommendationsPage`.
  *
@@ -71,7 +70,8 @@ const RecommendationsPage: React.FC = () => {
             labelHeading={item.labelHeading}
           />
         )}
-        itemWidth={400}
+        itemWidth={Dimensions.get('window').width * 0.90}
+
         pagination={true}
         paginationPosition={"top"}
       />
