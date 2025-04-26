@@ -267,6 +267,10 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
                   value: /^[0-9]*$/,
                   message: "Solo se permiten números enteros",
                 },
+                min: {
+                  value: 1,
+                  message: "La cantidad debe ser mayor a cero",
+                },
               }}
               onChangeText={(text) => {
                 const filteredText = text.replace(/[^0-9]/g, "");
