@@ -232,7 +232,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
     >
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-          <>
+          <View>
           {React.isValidElement(reactNodeButton) ? (
             React.cloneElement(reactNodeButton, {
               onPress: handleSubmit(onSubmit),
@@ -645,7 +645,7 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
               />
             )}
           </ScrollView>
-          </>
+          </View>
         </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
