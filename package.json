@@ -97,7 +97,7 @@
     "typescript": "~5.8.3"
   },
   "peerDependencies": {
-    "@react-native-community/datetimepicker": "8.0.1",
+    "@react-native-community/datetimepicker": "^8.0.1",
     "expo-camera": "^15.0.16",
     "expo-image": "~1.12.13",
     "expo-linear-gradient": "~13.0.2",
