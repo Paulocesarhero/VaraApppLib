@@ -5,6 +5,7 @@ import {
   Platform,
   ScrollView,
   TouchableWithoutFeedback,
+  View,
 } from "react-native";
 import { InformacionPersonalFormStyle } from "./InformacionPersonalForm.style";
 import RoundedButton from "../RoundedButton/RoundedButton";
@@ -161,7 +162,7 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
       keyboardVerticalOffset={Platform.OS === "ios" ? 64 : 0}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <>
+        <View>
           {renderSubmitButton()}
           <ScrollView
             ref={scrollViewRef}
@@ -357,7 +358,7 @@ const InformacionPersonalForm: React.FC<InformacionPersonalFormProps> = ({
               isRequired={false}
             />
           </ScrollView>
-        </>
+        </View>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
