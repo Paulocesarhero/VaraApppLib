@@ -1,9 +1,10 @@
 import React, { useRef, useState } from "react";
 import { CameraType, CameraView, FlashMode } from "expo-camera";
-import { View, Modal } from "react-native";
+import { Modal, View } from "react-native";
 import CameraControls from "../CameraControls/CameraControls";
 import { CustomCameraViewProps } from "./types";
 import { CustomCameraViewStyle } from "./CustomCameraView.style";
+
 /**
  * Componente de vista personalizada de cámara que muestra una interfaz de cámara completa con controles de toma de fotos,
  * cambio de dirección de cámara, zoom y flash. Utiliza Expo Camera y permite capturar imágenes con la cámara del dispositivo.
@@ -40,13 +41,13 @@ const CustomCameraView: React.FC<CustomCameraViewProps> = ({
   const toggleFlash = () =>
     setIsFlashActive(isFlashActive === "off" ? "on" : "off");
   const increaseZoom = () =>
-    setZoom((prevZoom) => Math.min(prevZoom + 0.001, 1)); // Máximo 1
+    setZoom((prevZoom) => Math.min(prevZoom + 0.01, 1)); // Máximo 1
   const decreaseZoom = () =>
-    setZoom((prevZoom) => Math.max(prevZoom - 0.001, 0)); // Mínimo 0
+    setZoom((prevZoom) => Math.max(prevZoom - 0.01, 0)); // Mínimo 0
 
   return (
     <Modal>
-      <View style={[CustomCameraViewStyle.container]}>
+      <View style={CustomCameraViewStyle.container}>
         <CameraView
           style={CustomCameraViewStyle.camera}
           facing={facing}
@@ -55,6 +56,15 @@ const CustomCameraView: React.FC<CustomCameraViewProps> = ({
           zoom={zoom}
           autofocus={"on"}
           responsiveOrientationWhenOrientationLocked={true}
+        />
+        <View
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            zIndex: 1,
+          }}
         >
           <CameraControls
             setZoom={setZoom}
@@ -68,7 +78,7 @@ const CustomCameraView: React.FC<CustomCameraViewProps> = ({
             zoom={zoom}
             onDecreaseZoom={decreaseZoom}
           />
-        </CameraView>
+        </View>
       </View>
     </Modal>
   );

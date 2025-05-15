@@ -1,11 +1,11 @@
 import React from "react";
-import { View } from "react-native";
-import { Image } from "expo-image";
+import { StyleProp, View } from "react-native";
+import { Image, ImageStyle } from "expo-image";
 import { CameraButtonStyle } from "./CameraButton/CameraButton.style";
 
 const PhotoPreview: React.FC<{
-  photoUri: string | null;
-  styleCamerPreview?: any;
+  photoUri?: string;
+  styleCamerPreview?: StyleProp<ImageStyle>;
 }> = ({ photoUri, styleCamerPreview }) => {
   return (
     <View>
