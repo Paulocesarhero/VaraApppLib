@@ -27,6 +27,7 @@ import { Camera } from "expo-camera";
 import PhotoPicker from "../PhotoPicker/PhotoPicker";
 import PhotoPreview from "../Camera/PhotoPreview";
 import { Entypo } from "@expo/vector-icons";
+import AvisoPhotoControl from "../AvisoPhotoControl/AvisoPhotoControl";
 
 /**
  * AvisoFrom es un componente que muestra almacena todos los componentes necesarios
@@ -593,65 +594,14 @@ export const AvisoForm: React.FC<AvisoFormProps> = ({
                   name="Fotografia"
                   render={({ field: { onChange, value } }) => (
                     <View style={{ marginBottom: 20 }}>
-                      <View>
-                        <Text
-                          style={{
-                            textAlign: "center",
-                            fontSize: 16,
-                          }}
-                        >
-                          Toma una foto
-                        </Text>
-                        <CameraButton
-                          sizeButton={50}
-                          photoUri={value}
-                          setPhotoUri={(uri: string | null) => {
-                            onChange(uri);
-                            setTimeout(() => {
-                              scrollViewRef.current?.scrollToEnd({
-                                animated: true,
-                              });
-                            }, 100);
-                          }}
-                        />
-                      </View>
-
-                      <PhotoPicker
-                        label="Selecciona una foto"
-                        icon={<Entypo name="images" size={24} color="black" />}
-                        onPhotoSelect={(uri: string | null) => {
-                          onChange(uri);
-                        }}
+                      <AvisoPhotoControl
+                        getValues={getValues}
+                        setValue={setValue}
+                        scrollRef={scrollViewRef}
+                        isDisabled={isDisabled}
+                        photoName="Fotografia"
+                        label="Fotografía del avistamiento"
                       />
-
-                      {value != null && (
-                        <View>
-                          <Text
-                            style={{
-                              textAlign: "center",
-                              fontSize: 16,
-                              marginBottom: 10,
-                              marginTop: 25,
-                            }}
-                          >
-                            Vista previa de la foto:
-                          </Text>
-                          <PhotoPreview
-                            styleCamerPreview={{
-                              borderRadius: 15,
-                              borderWidth: 1,
-                              borderColor: "#fff",
-                              height: 250,
-                              width: "100%",
-                              overflow: "hidden",
-                              backgroundColor: "#000",
-                              alignItems: "center",
-                              justifyContent: "center",
-                            }}
-                            photoUri={value}
-                          ></PhotoPreview>
-                        </View>
-                      )}
                     </View>
                   )}
                 />
